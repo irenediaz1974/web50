@@ -1,0 +1,57 @@
+h1 {
+    color: blue;
+    text-align: center;
+}
+
+  ul {
+    list-style-type: none;
+    margin: 10px;
+    padding: 10px;
+  }
+  li {
+    float: right;
+  }
+  
+  a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 10px 20px;
+    border-radius: 15px;
+    background-color: #f8f9fa;
+    color: #333;
+    text-decoration: none;
+  }
+
+
+
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+ .navbutton {
+  border: 2px solid gray;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  width: 300px;
+}
+
+.centrado {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+input[type="submit"] {
+  margin-top: 8px;
+  padding: 10px 20px;
+  border-radius: 15px;
+  background-color: #f8f9fa;
+  color: #333;
+  border: none;
+  cursor: pointer;
+}
+
