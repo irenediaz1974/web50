@@ -1,13 +1,12 @@
-h1 {
-    color: blue;
-    text-align: center;
+body {
+  font-family:arial,sans-serif;
 }
-
-  ul {
+  
+ul {
     list-style-type: none;
     margin: 10px;
     padding: 10px;
-  }
+}
   li {
     float: right;
   }
@@ -21,9 +20,6 @@ h1 {
     color: #333;
     text-decoration: none;
   }
-
-
-
 
   form {
     display: flex;
@@ -44,8 +40,13 @@ h1 {
   justify-content: center;
   height: 100vh;
 }
+.searchtitle{
+  color: #d93025;
+  margin-left:30px;
+  margin-bottom:30px;
+}
 
-input[type="submit"] {
+.buttonsearch {
   margin-top: 8px;
   padding: 10px 20px;
   border-radius: 15px;
@@ -55,3 +56,34 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+.left {
+  display: flex;
+  justify-content: left;
+  padding-right: 16px;
+  height: 100vh;
+}
+.textinput {
+  border-radius: 1px;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  font-size: 13px;
+  height: 25px;
+  padding: 1px 8px;
+}
+
+.questions {
+  margin: 10px;
+  padding: 10px;
+  height: 30px;
+  display: table-cell;
+  vertical-align: middle;
+}
+.button {
+  background-color: #4d90fe;
+  border-radius: 2px;
+  cursor: default;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+}

@@ -1,21 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Search</title>
+        <title>Advanced Search</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div>
+        <div class="navbar">
             <ul>
-                <li><a href="index.html/" target="_blank">Search</a></li>
-                <li><a href="advanced.html/" target="_blank">Advanced Search</a></li>  
+                <li><a href="/projects/2020/x/search/index.html" target="_self">Search</a></li> 
             </ul>    
         </div>
-        <div class="centrado">
+
+        <div class="searchtitle">
+            <label style="">Búsqueda avanzada</label>
+        </div>
+        <div class="left">
             <form action="https://google.com/search" method="get">
-                <input type="text" name="q" class="navbutton" >
-                <input type="submit" value="Google Search">   
+                <table>                   
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="questions">
+                                    <span>Find pages with:...</span>
+                                    <label for="1">"all these words:"</label>
+                                </div>
+                            </td>
+                            <td>
+                                <input class="textinput" value="" autofocus="autofocus" id="1" name="as_q" type="text">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="questions">
+                                    <label for="2">Find pages with… “this exact word or phrase:”</label>   
+                                </div>    
+                            </td>
+                            <td>
+                                <input class="textinput" value="" id="2" name="as_epq" type="text">
+                            </td>      
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="questions">
+                                    <label for="3">Find pages with… “any of these words:”</label>   
+                                </div>    
+                            </td>
+                            <td>
+                                <input class="textinput" value="" id="3" name="as_oq" type="text">
+                            </td>      
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="questions">
+                                    <label for="4">Find pages with… “none of these words:”</label> 
+                                </div>  
+                            </td>
+                            <td>
+                                <input class="textinput" value="" id="4" name="as_eq" type="text">
+                            </td>      
+                        </tr>
+                    </tbody>
+                </table>
+                <input class="button" style="user-select:none;line-height:100%;height:30px;min-width:120px" value="Búsqueda avanzada" type="submit">   
             </form>
         </div>
     </body>
