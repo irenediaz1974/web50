@@ -15,8 +15,17 @@
         <div class="centrado">
             <form action="https://google.com/search" method="get">
                 <input type="text" name="q" class="navbutton" >
-                <input class="buttonsearch" type="submit" value="Google Search">   
-            </form>
+                <div>
+                    <input class="buttonsearch" type="submit" value="Google Search"> 
+                    <input class="buttonsearch" type="button" value="I’m Feeling Lucky"  onclick="feelingLucky()">     
+                </div> 
+            </form>           
         </div>
+        <script>
+            function feelingLucky() {           
+            var randomPage = "https://www.google.com"; 
+            window.location.href = randomPage;
+            }   
+        </script>           
     </body>
 </html>
