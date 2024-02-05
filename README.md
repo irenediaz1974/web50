@@ -2,7 +2,7 @@
 ## My CS50´s Web Programming Projects
 
 - [Crear Condiciones en la PC para ejecutar los proyectos:](#título-3)
-  - [Subtítulo 1.1](#subtítulo-11)
+  - [En la PC](#subtítulo-11)
 
     - Instalar submit50:
     Primero necesitas crear un entorno virtual. Aquí están los pasos generales:
