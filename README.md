@@ -2,7 +2,9 @@
 ## My CS50´s Web Programming Projects
 
 - [Crear Condiciones en la PC para ejecutar los proyectos:](#título-3)
-  - [Crear entorno](#subtítulo-11)
+  - [En la PC](#subtítulo-11)
+
+    - Instalar submit50:
     Primero necesitas crear un entorno virtual. Aquí están los pasos generales:
     1. En tu terminal, navega al directorio donde deseas crear el entorno virtual.
     2. Crea el entorno virtual con el comando python3 -m venv web50.
