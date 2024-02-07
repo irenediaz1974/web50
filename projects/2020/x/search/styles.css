@@ -1,5 +1,6 @@
 body {
   font-family:arial,sans-serif;
+  font-size: 14px;
 }
   
 ul {
@@ -12,16 +13,22 @@ ul {
   }
   
   a {
+    
+    color: rgba(0,0,0,.87);
     display: inline-block;
     margin-right: 10px;
     padding: 10px 20px;
-    border-radius: 15px;
-    background-color: #cee4fa;
-    color: #333;
     text-decoration: none;
   }
   a:hover {
     text-decoration: underline;
+  }
+
+.googlelogo {
+    text-align: center;
+    padding: 10px;
+    padding: 10px;
+    margin-top: 20px;
   }
 
   form {
@@ -31,11 +38,15 @@ ul {
 }
 
  .navbutton {
-  border: 2px solid gray;
-  border-radius: 10px;
+  border: 1px solid color(srgb rgb(235, 233, 233) green blue);
+  border-radius: 24px;
   padding: 10px;
-  margin-top: 20px;
-  width: 300px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 582px;
+  height: 20px;
+  font-size: 16px;
+
 }
 
 .centrado {
@@ -54,14 +65,22 @@ ul {
 .buttonsearch {
   display: inline-block;
   padding: 10px 20px;
-  border-radius: 15px;
-  background-color: #a2c1e0;
-  color: #333;
-  border: none;
+  border-radius: 4px;
+  background-color: white;
+  border-color: #c0c2c4;
+  border: 0px solid lightgray;
+  padding: 0 16px;
+  line-height: 27px;
+  height: 36px;
+  min-width: 54px;
+  text-align: center;
   cursor: pointer;
-  margin-top:20px;
-  margin-bottom:20px;
+  user-select:auto;
 }
+.buttonsearch:hover {
+  border: 1px solid lightgray;
+}
+
 
 .left {
   display: flex;
@@ -86,11 +105,19 @@ ul {
   vertical-align: middle;
 }
 .button {
-  background-color: #4d90fe;
   border-radius: 2px;
-  cursor: default;
-  font-size: 11px;
+  cursor: pointer;
+  font-size: 14px;
   font-weight: bold;
   text-align: center;
   white-space: nowrap;
+}
+
+.imggoogle {
+  text-align: left;
+  padding: 10px;
+  padding: 10px;
+  margin-top: 20px; 
+  height: 92px;
+  width: 40px;
 }
