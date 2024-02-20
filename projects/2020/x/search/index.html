@@ -6,24 +6,25 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <div>
-            <ul>
-                <li><a href="/projects/2020/x/search/image.html" target="_self">Image Search</a></li>
-                <li><a href="/projects/2020/x/search/advanced.html" target="_self">Advanced Search</a></li>  
-            </ul>    
-        </div>
-        <div class="googlelogo">
-            <img alt="Google" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png">
-            
-        </div>
-        <div class="centrado">
-            <form action="https://google.com/search" method="get">
-                <input type="text" name="q" class="navbutton" >
-                <div>
-                    <input class="buttonsearch" type="submit" value="Google Search"> 
-                    <input class="buttonsearch" type="button" value="I’m Feeling Lucky"  onclick="feelingLucky()">     
-                </div> 
-            </form>           
+        <div class="contenedor">
+            <div>
+                <ul>
+                    <li><a href="/image.html" target="_self">Image Search</a></li>
+                    <li><a href="/advanced.html" target="_self">Advanced Search</a></li>  
+                </ul>    
+            </div>
+            <div class="imgcontainer">
+                <img alt="Google" src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png"> 
+            </div>
+            <div class="centrado">
+                <form action="https://google.com/search" method="get">
+                    <input type="text" name="q" class="navbutton" >
+                    <div>
+                        <input class="buttonsearch" type="submit" value="Google Search"> 
+                        <input class="buttonsearch" type="button" value="I’m Feeling Lucky"  onclick="feelingLucky()">     
+                    </div> 
+                </form>           
+            </div>
         </div>
         <script>
             function feelingLucky() {           
