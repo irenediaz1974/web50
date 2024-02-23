@@ -47,7 +47,7 @@ form {
   flex-wrap: wrap;
   width: 100%;
 }
- .navbutton {
+ .text_area {
   display: inline;
   border-color: lightgrey;
   border-radius: 24px;
@@ -58,6 +58,7 @@ form {
   overflow: hidden;
   margin-top: 20px;
   margin-bottom: 30px;
+  resize: none;
 }
 
 .centrado {
@@ -163,3 +164,24 @@ div.search_image img {
   flex-wrap: nowrap;
   align-items:start;
 }
+.footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: end;
+  justify-content: flex-end;
+  width: 100%;
+  height: 81px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: lightgray;
+  border-bottom: 1px solid gray;
+  font-size: 15px;
+  justify-content: space-between;
+
+}
+h5 {
+  display: block;
+  font: 15px/15px roboto-regular, arial, sans-serif
+  }
