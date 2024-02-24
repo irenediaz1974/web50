@@ -32,8 +32,8 @@ ul {
   
   display: flex;
   justify-content: center; 
-  margin-top: 20px; */
-  }
+  margin-top: 20px; 
+}
 
 img {
     width: 270px;
@@ -217,6 +217,7 @@ div.search_image img {
   display: flex;
   flex: 1;
 }
+
 .footer_right {
   display: flex;
   flex: 1;
