@@ -1,9 +1,8 @@
+/* styles for index, image and search page */
 body {
   font-family: arial, sans-serif;
   font-size: 13px;
 }
-
-/* index */
 .contenedor {
   display: flex;
   flex-direction: column;
