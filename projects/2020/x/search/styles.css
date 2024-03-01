@@ -154,8 +154,10 @@ h6 {
   
     cursor: pointer;
     font-size: 14px;
-    font-weight: bold;
     text-align: center;
+    background-color: #4285f4;
+    color: white;
+    border-color: rgb(233, 230, 230);
   
   }
 .imggoogle {
