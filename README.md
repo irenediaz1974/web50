@@ -5,6 +5,7 @@
 ### Proyecto 1
 
 - Wiki (Markdown, HTML, Django)
+Descripción del proyecto: 
 
 1. Obtener fichero wiki.zip con la estructura del proyecto:
 
@@ -13,16 +14,6 @@ wget https://cdn.cs50.net/web/2020/spring/projects/1/wiki.zip
 
 unzip wiki.zip
 ```
-
-2.Cumplir los siguientes requerimientos:
-
-  a- Página de entrada: visitar /wiki/TITLE, donde TÍTULO es el título de una entrada de enciclopedia, debería mostrar una página que muestra el contenido de esa entrada de enciclopedia.
-  La vista debe obtener el contenido de la entrada de la enciclopedia llamando a la función de utilidad adecuada. Si se solicita una entrada que no existe, se le debe presentar al usuario una página de error que indica que no se encontró la página solicitada.
-  Si la entrada existe, se le debe presentar al usuario una página que muestra el contenido de la entrada. El título de la página debe incluir el nombre de la entrada.
-  b- Página de índice: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
-Buscar: permite al usuario escribir una consulta en el cuadro de búsqueda de la barra lateral para buscar una entrada de enciclopedia.
-Si la consulta coincide con el nombre de una entrada de la enciclopedia, el usuario debe ser redirigido a la página de esa entrada.Si la consulta no coincide con el nombre de una entrada de la enciclopedia, el usuario debería ser dirigido a una página de resultados de búsqueda que muestra una lista de todas las entradas de la enciclopedia que tienen la consulta como subcadena. Por ejemplo, si la consulta de búsqueda fuera ytho, entonces Python debería aparecer en los resultados de la búsqueda.
-Al hacer clic en cualquiera de los nombres de las entradas en la página de resultados de búsqueda, el usuario debería acceder a la página de esa entrada.
 
 3.Realizar submit50
 
