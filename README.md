@@ -1,23 +1,55 @@
-# web50
-## My CS50´s Web Programming Projects
+# CS50’s Web Programming with Python and JavaScript
 
-- [Crear Condiciones en la PC para ejecutar los proyectos:](#título-3)
-  - [En la PC](#subtítulo-11)
+## CS50´s Web Programming Projects (2024)
 
-    - Instalar submit50:
-    Primero necesitas crear un entorno virtual. Aquí están los pasos generales:
+### Proyecto 1
+
+- Wiki (Markdown, HTML, Django)
+
+1. Obtener fichero wiki.zip con la estructura del proyecto:
+
+```console
+wget https://cdn.cs50.net/web/2020/spring/projects/1/wiki.zip
+
+unzip wiki.zip
+```
+
+2.Cumplir los siguientes requerimientos:
+
+  a- Página de entrada: visitar /wiki/TITLE, donde TÍTULO es el título de una entrada de enciclopedia, debería mostrar una página que muestra el contenido de esa entrada de enciclopedia.
+  La vista debe obtener el contenido de la entrada de la enciclopedia llamando a la función de utilidad adecuada. Si se solicita una entrada que no existe, se le debe presentar al usuario una página de error que indica que no se encontró la página solicitada.
+  Si la entrada existe, se le debe presentar al usuario una página que muestra el contenido de la entrada. El título de la página debe incluir el nombre de la entrada.
+  b- Página de índice: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
+Buscar: permite al usuario escribir una consulta en el cuadro de búsqueda de la barra lateral para buscar una entrada de enciclopedia.
+Si la consulta coincide con el nombre de una entrada de la enciclopedia, el usuario debe ser redirigido a la página de esa entrada.Si la consulta no coincide con el nombre de una entrada de la enciclopedia, el usuario debería ser dirigido a una página de resultados de búsqueda que muestra una lista de todas las entradas de la enciclopedia que tienen la consulta como subcadena. Por ejemplo, si la consulta de búsqueda fuera ytho, entonces Python debería aparecer en los resultados de la búsqueda.
+Al hacer clic en cualquiera de los nombres de las entradas en la página de resultados de búsqueda, el usuario debería acceder a la página de esa entrada.
+
+3.Realizar submit50
+
+### Proyecto 0
+
+1. Search (HTML, CSS, JavaScript)
+
+- Imitar la página Search de Google, Image Search y Advanced Search.
+
+### Configuración Inicial para el curso
+
+Dado mi sistema operativo Win8 no puedo ejecutar submit50 en vscode, por lo que además de tener los proyectos en mi laptop para trabajar necesito un codespace para hacer los submits
+
+- Codespaces
+Crear un codespace dentro del repositorio creado para el curso: web50
+Crear el devcontainer.json para que utilice la imagen del CS50 codespaces: "image": "ghcr.io/cs50/codespace:bf6014b603182697b53bcd953eeae55de8ae66f3"
+  - En el codespace
+  Instalé submit50 y pude hacer los submits al sitio me50.
+  
+  - En mi PC
+    Creé un entorno virtual. Aquí están los pasos generales:
     1. En tu terminal, navega al directorio donde deseas crear el entorno virtual.
     2. Crea el entorno virtual con el comando python3 -m venv web50.
     3. Activa el entorno virtual con ```. .\web50\Scripts\activate```
-  - [Configurar gitignore](#subtitulo-11)
+  - Configurar gitignore
     Crear gitignore y añadir el entorno creado:
-      - Desde el terminal y en el subdirectorio del proyecto:
+    - Desde el terminal y en el subdirectorio del proyecto:
         1. Crea un archivo .gitignore con el comando touch .gitignore.
         2. Abre el archivo .gitignore con tu editor de texto preferido.
         3. Escribe el nombre de la carpeta del entorno en una nueva línea y guarda el archivo.Por ejemplo, si tu entorno se llama "nombre_del_entorno", entonces escribes "nombre_del_entorno/" en el archivo .gitignore. Esto le dice a Git que ignore los archivos en esa carpeta.
-- [Proyecto Search](#titulo-3)
-  - Imitar la página Search de Google, Image Search y Advanced Search.
-
-
-
-[2]: #subtítulo-12
