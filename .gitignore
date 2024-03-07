@@ -1,1 +1,4 @@
 web50/
+__pycache__/
+db.sqlite3
+

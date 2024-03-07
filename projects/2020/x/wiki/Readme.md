@@ -4,21 +4,29 @@ En el código de distribución hay un proyecto de Django llamado wiki que contie
 
 1- Abrir encyclopedia/urls.py, donde se define la configuración de URL para esta aplicación. Observe que comenzamos con una única ruta predeterminada asociada con la función views.index.
 
-2- A continuación, mire encyclopedia/util.py. No necesitará cambiar nada en este archivo, pero tenga en cuenta que hay tres funciones que pueden resultar útiles para interactuar con las entradas de la enciclopedia. list_entries devuelve una lista de los nombres de todas las entradas de la enciclopedia guardadas actualmente. save_entry guardará una nueva entrada de la enciclopedia, dado su título y parte del contenido de Markdown. get_entry recuperará una entrada de enciclopedia por su título y devolverá su contenido de Markdown si la entrada existe o Ninguno si la entrada no existe. Cualquiera de las vistas que escriba puede utilizar estas funciones para interactuar con las entradas de la enciclopedia.
+2- A continuación, mire encyclopedia/util.py. No necesitará cambiar nada en este archivo, pero tenga en cuenta que hay tres funciones que pueden resultar útiles para interactuar con las entradas de la enciclopedia. list_entries devuelve una lista de los nombres de todas las entradas de la enciclopedia guardadas actualmente. save_entry guardará una nueva entrada de la enciclopedia, dado su título y parte del contenido de Markdown. get_entry recuperará una entrada de enciclopedia por su título y devolverá su contenido de Markdown si la entrada existe o Ninguno si la entrada no existe.
 
-Cada entrada de la enciclopedia se guardará como un archivo Markdown dentro del directorio entradas/. Si marca allá ahora, verá que hemos creado previamente algunas entradas de muestra. Puedes agregar más!
+__default_storage es una instancia de la clase Storage que Django usa para manejar archivos estáticos y de medios. Esta instancia se configura en tu archivo settings.py con la variable DEFAULT_FILE_STORAGE. Por defecto, Django usa el sistema de archivos del sistema operativo, pero puedes cambiarlo a otros sistemas de almacenamiento como Amazon S3 o Google Cloud Storage.** Cualquiera de las vistas que escriba puede utilizar estas funciones para interactuar con las entradas de la enciclopedia__
+
+Cada entrada de la enciclopedia se guardará como un archivo Markdown dentro del directorio entries/. Donde existen ahora algunas entradas de muestra. Puedes agregar más!
 
 Ahora, veamos enciclopedia/views.py. Ahora solo hay una vista aquí, la vista de índice. Esta vista devuelve una plantilla enciclopedia/index.html, proporcionando a la plantilla una lista de todas las entradas de la enciclopedia (obtenida llamando a util.list_entries, que vimos definida en util.py).
 
 Puede encontrar la plantilla consultando encyclopedia/templates/encyclopedia/index.html. Esta plantilla hereda de un archivo base layout.html y especifica cuál debe ser el título de la página y qué debe haber en el cuerpo de la página: en este caso, una lista desordenada de todas las entradas de la enciclopedia. Mientras tanto, layout.html define la estructura más amplia de la página: cada página tiene una barra lateral con un campo de búsqueda (que por ahora no hace nada), un enlace para ir a casa y enlaces (que aún no funcionan) para crear una página. nueva página o visite una página aleatoria.
+__La entrada {% load static %} en Django se utiliza para cargar la biblioteca de plantillas estáticas. Esto te permite acceder a tus archivos estáticos, como CSS, JavaScript o imágenes, que has almacenado en tu directorio STATICFILES_DIRS.__
+
 
 Especificación
 
 Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los siguientes requisitos:
 
     1. Entry Page: visitar /wiki/TITLE, donde TíTULO es el título de una entrada de enciclopedia, debería mostrar una página que muestre el contenido de esa entrada de enciclopedia.
-        * La vista debe obtener el contenido de la entrada de la enciclopedia llamando a la función de utilidad adecuada.
-        * Si se solicita una entrada que no existe, se le debe presentar al usuario una página de error que indica que no se encontró la página solicitada.
+
+__Para que "Title" pueda aceptar un título variable. En Django, puedes hacerlo utilizando <str:variable> en tu ruta. Por ejemplo, podrías tener algo como ```path("wiki/<str:title>", views.entry, name="entry")``` donde views.entry es la función de vista que manejará la solicitud y mostrará la entrada de la enciclopedia.__
+
+
+     * La vista debe obtener el contenido de la entrada de la enciclopedia llamando a la función de utilidad adecuada.
+    * Si se solicita una entrada que no existe, se le debe presentar al usuario una página de error que indica que no se encontró la página solicitada.
         * Si la entrada existe, se le debe presentar al usuario una página que muestra el contenido de la entrada. El título de la página debe incluir el nombre de la entrada.
     2. Index Page: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
 
