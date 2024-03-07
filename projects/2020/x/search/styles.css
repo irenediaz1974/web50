@@ -209,7 +209,7 @@ div.search_image img {
 }
 .footer_left{
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-self: left;
   flex: 2;
 
@@ -227,7 +227,7 @@ div.search_image img {
 
 h5 {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   font: 15px/15px roboto-regular, arial, sans-serif ; 
   margin-right: 12px;
   align-self: center;
