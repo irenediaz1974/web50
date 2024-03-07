@@ -38,7 +38,7 @@ Crear el devcontainer.json para que utilice la imagen del CS50 codespaces: "imag
     1. En tu terminal, navega al directorio donde deseas crear el entorno virtual.
     2. Crea el entorno virtual con el comando python3 -m venv web50.
     3. Activa el entorno virtual con ```. .\web50\Scripts\activate```
-  - Configurar gitignore
+  - Configurar gitignore nnn
     Crear gitignore y añadir el entorno creado:
     - Desde el terminal y en el subdirectorio del proyecto:
         1. Crea un archivo .gitignore con el comando touch .gitignore.
