@@ -20,6 +20,11 @@ Notas:
 ```python
     python manage.py runserver
 ```
+- Convertir Markdown a HTML utilizando el paquete python-markdown2, instalar:
+
+```python
+    pip3 install markdown2
+```
 
 3.Realizar submit50
 

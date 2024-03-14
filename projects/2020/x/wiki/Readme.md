@@ -1,4 +1,33 @@
-Comprension:
+
+***
+# Aprendizaje importante en este proyecto:
+
+- ### Como mostrar archivos **Markdown** *.md en HTML con **Django**.
+
+    >Creando una funcion en views.py que devuelve contenido HTML convirtiendo un archivo markdown *.md:
+
+    :bulb:
+
+```python
+def entry(request, title):
+    # Crear clase markdown para usarla para convertir de markdown a html
+    mark_cont=Markdown()
+    return render(request, "encyclopedia/title.html", {
+         "title": title,
+         "title_cont": mark_cont.convert(util.get_entry(title))
+    })
+``` 
+
+   >Luego en la página html que vamos a renderizar debemos utilizar el filtro safe.
+
+   ```python
+    {{ title_cont|safe }}
+   ```
+
+This tells Django to treat title_cont as safe HTML and not escape it. If you're not using the safe filter, Django will escape the HTML, which could be why it's not rendering correctly.
+
+***
+## Tarea a realizar:
 
 En el código de distribución hay un proyecto de Django llamado wiki que contiene una única aplicación llamada enciclopedia.
 
@@ -6,14 +35,15 @@ En el código de distribución hay un proyecto de Django llamado wiki que contie
 
 2- A continuación, mire encyclopedia/util.py. No necesitará cambiar nada en este archivo, pero tenga en cuenta que hay tres funciones que pueden resultar útiles para interactuar con las entradas de la enciclopedia. list_entries devuelve una lista de los nombres de todas las entradas de la enciclopedia guardadas actualmente. save_entry guardará una nueva entrada de la enciclopedia, dado su título y parte del contenido de Markdown. get_entry recuperará una entrada de enciclopedia por su título y devolverá su contenido de Markdown si la entrada existe o Ninguno si la entrada no existe.
 
-__default_storage es una instancia de la clase Storage que Django usa para manejar archivos estáticos y de medios. Esta instancia se configura en tu archivo settings.py con la variable DEFAULT_FILE_STORAGE. Por defecto, Django usa el sistema de archivos del sistema operativo, pero puedes cambiarlo a otros sistemas de almacenamiento como Amazon S3 o Google Cloud Storage.** Cualquiera de las vistas que escriba puede utilizar estas funciones para interactuar con las entradas de la enciclopedia__
+> default_storage es una instancia de la clase Storage que Django usa para manejar archivos estáticos y de medios. Esta instancia se configura en tu archivo settings.py con la variable DEFAULT_FILE_STORAGE. Por defecto, Django usa el sistema de archivos del sistema operativo, pero puedes cambiarlo a otros sistemas de almacenamiento como Amazon S3 o Google Cloud Storage.** Cualquiera de las vistas que escriba puede utilizar estas funciones para interactuar con las entradas de la enciclopedia
 
 Cada entrada de la enciclopedia se guardará como un archivo Markdown dentro del directorio entries/. Donde existen ahora algunas entradas de muestra. Puedes agregar más!
 
 Ahora, veamos enciclopedia/views.py. Ahora solo hay una vista aquí, la vista de índice. Esta vista devuelve una plantilla enciclopedia/index.html, proporcionando a la plantilla una lista de todas las entradas de la enciclopedia (obtenida llamando a util.list_entries, que vimos definida en util.py).
 
 Puede encontrar la plantilla consultando encyclopedia/templates/encyclopedia/index.html. Esta plantilla hereda de un archivo base layout.html y especifica cuál debe ser el título de la página y qué debe haber en el cuerpo de la página: en este caso, una lista desordenada de todas las entradas de la enciclopedia. Mientras tanto, layout.html define la estructura más amplia de la página: cada página tiene una barra lateral con un campo de búsqueda (que por ahora no hace nada), un enlace para ir a casa y enlaces (que aún no funcionan) para crear una página. nueva página o visite una página aleatoria.
-__La entrada {% load static %} en Django se utiliza para cargar la biblioteca de plantillas estáticas. Esto te permite acceder a tus archivos estáticos, como CSS, JavaScript o imágenes, que has almacenado en tu directorio STATICFILES_DIRS.__
+
+> La entrada {% load static %} en Django se utiliza para cargar la biblioteca de plantillas estáticas. Esto te permite acceder a tus archivos estáticos, como CSS, JavaScript o imágenes, que has almacenado en tu directorio STATICFILES_DIRS.
 
 
 Especificación
@@ -22,19 +52,20 @@ Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los sigui
 
     1. Entry Page: visitar /wiki/TITLE, donde TíTULO es el título de una entrada de enciclopedia, debería mostrar una página que muestre el contenido de esa entrada de enciclopedia.
 
-__Para que "Title" pueda aceptar un título variable. En Django, puedes hacerlo utilizando <str:variable> en tu ruta. Por ejemplo, podrías tener algo como ```path("wiki/<str:title>", views.entry, name="entry")``` donde views.entry es la función de vista que manejará la solicitud y mostrará la entrada de la enciclopedia.__
+> Para que "Title" pueda aceptar un título variable. En Django, puedes hacerlo utilizando <str:variable> en tu ruta. Por ejemplo, podrías tener algo como ```path("wiki/<str:title>", views.entry, name="entry")``` donde views.entry es la función de vista que manejará la solicitud y mostrará la entrada de la enciclopedia.
 
 
-     * La vista debe obtener el contenido de la entrada de la enciclopedia llamando a la función de utilidad adecuada.
+    * La vista debe obtener el contenido de la entrada de la enciclopedia llamando a la función de utilidad adecuada.
     * Si se solicita una entrada que no existe, se le debe presentar al usuario una página de error que indica que no se encontró la página solicitada.
         * Si la entrada existe, se le debe presentar al usuario una página que muestra el contenido de la entrada. El título de la página debe incluir el nombre de la entrada.
-    2. Index Page: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
 
-  3. Search: permite al usuario escribir una consulta en el cuadro de b�squeda de la barra lateral para buscar una entrada de enciclopedia.
+  2. Index Page: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
+
+  3. Search: permite al usuario escribir una consulta en el cuadro de búsqueda de la barra lateral para buscar una entrada de enciclopedia.
         * Si la consulta coincide con el nombre de una entrada de la enciclopedia, el usuario debe ser redirigido a la página de esa entrada.
         * Si la consulta no coincide con el nombre de una entrada de la enciclopedia, el usuario debería ser llevado a una página de resultados de búsqueda que muestra una lista de todas las entradas de la enciclopedia que tienen la consulta como subcadena. Por ejemplo, si la consulta de búsqueda fuera ytho, entonces Python debería aparecer en los resultados de la búsqueda.
        *  Al hacer clic en cualquiera de los nombres de las entradas en la página de resultados de búsqueda, el usuario debería acceder a la página de esa entrada.
-    4. New Page: Al hacer clic en "Crear nueva página" en la barra lateral, el usuario debería acceder a una página donde puede crear una nueva entrada de enciclopedia.
+  4. New Page: Al hacer clic en "Crear nueva página" en la barra lateral, el usuario debería acceder a una página donde puede crear una nueva entrada de enciclopedia.
         * Los usuarios deberían poder ingresar un título para la página y, en un área de texto, deberían poder ingresar el contenido de Markdown para la página.
         * Los usuarios deberían poder hacer clic en un botón para guardar su nueva página.
         * Cuando se guarda la página, si ya existe una entrada de enciclopedia con el título proporcionado, se le debe presentar al usuario un mensaje de error.
@@ -49,5 +80,5 @@ __Para que "Title" pueda aceptar un título variable. En Django, puedes hacerlo 
    7. Markdown to HTML Conversion: en la página de cada entrada, cualquier contenido de Markdown en el archivo de entrada debe convertirse a HTML antes de mostrarse al usuario. Puede utilizar el paquete python-markdown2 para realizar esta conversión, que se puede instalar mediante pip3 install markdown2.
        * Desafío para aquellos más cómodos: si se siente más cómodo, intente implementar la conversión de Markdown a HTML sin utilizar bibliotecas externas, sin admitir encabezados, texto en negrita, listas desordenadas, enlaces y párrafos. Puede que le resulte útil utilizar expresiones regulares en Python(https://docs.python.org/3/howto/regex.html)
 
-Pista:
-De forma predeterminada, al sustituir un valor en una plantilla de Django, Django HTML escapa del valor para evitar generar HTML no deseado. Si desea permitir que se genere una cadena HTML, puede hacerlo con el filtro seguro (como agregando |seguro después del nombre de la variable que está sustituyendo).
+#### Pista:
+De forma predeterminada, al sustituir un valor en una plantilla de Django, Django HTML escapa del valor para evitar generar HTML no deseado. Si desea permitir que se genere una cadena HTML, puede hacerlo con el filtro seguro (como agregando |safe después del nombre de la variable que está sustituyendo).
