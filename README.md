@@ -4,8 +4,9 @@
 
 ### Proyecto 1
 
-- Wiki (Markdown, HTML, Django)
-Descripción del proyecto: 
+- Wiki (Framework Django)
+
+Ejecución del proyecto: 
 
 1. Obtener fichero wiki.zip con la estructura del proyecto:
 
@@ -14,15 +15,22 @@ wget https://cdn.cs50.net/web/2020/spring/projects/1/wiki.zip
 
 unzip wiki.zip
 ```
+Notas: 
+- Levantar el servicio:
+```python
+    python manage.py runserver
+```
 
 3.Realizar submit50
 
+***
 ### Proyecto 0
 
 1. Search (HTML, CSS, JavaScript)
 
 - Imitar la página Search de Google, Image Search y Advanced Search.
 
+***
 ### Configuración Inicial para el curso
 
 Dado mi sistema operativo Win8 no puedo ejecutar submit50 en vscode, por lo que además de tener los proyectos en mi laptop para trabajar necesito un codespace para hacer los submits

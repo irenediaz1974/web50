@@ -10,7 +10,7 @@ def index(request):
 
 def entry(request, title):
     return render(request, "encyclopedia/title.html", {
-        "entries": util.get_entry(title)
+         "entries": util.get_entry(title)
     })
 
 
