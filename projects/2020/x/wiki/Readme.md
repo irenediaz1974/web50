@@ -1,12 +1,12 @@
 
 ***
-# Aprendizaje importante en este proyecto:
+### Tips: :bulb:
 
 - ### Como mostrar archivos **Markdown** *.md en HTML con **Django**.
 
     >Creando una funcion en views.py que devuelve contenido HTML convirtiendo un archivo markdown *.md:
 
-    :bulb:
+    
 
 ```python
 def entry(request, title):
@@ -57,7 +57,7 @@ Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los sigui
 
     * La vista debe obtener el contenido de la entrada de la enciclopedia llamando a la función de utilidad adecuada.
     * Si se solicita una entrada que no existe, se le debe presentar al usuario una página de error que indica que no se encontró la página solicitada.
-        * Si la entrada existe, se le debe presentar al usuario una página que muestra el contenido de la entrada. El título de la página debe incluir el nombre de la entrada.
+    * Si la entrada existe, se le debe presentar al usuario una página que muestra el contenido de la entrada. El título de la página debe incluir el nombre de la entrada.
 
   2. Index Page: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
 

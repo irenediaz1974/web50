@@ -36,3 +36,8 @@ textarea {
 .sidebar h2 {
     margin-top: 5px;
 }
+
+h4 {
+    font-size: 50px;
+    color: black;
+}
