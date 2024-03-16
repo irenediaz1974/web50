@@ -1,10 +1,10 @@
 # CS50’s Web Programming with Python and JavaScript
 
 ## CS50´s Web Programming Projects (2024)
-
+![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 ### Proyecto 1
 
-- Wiki (Framework Django)
+:negative_squared_cross_mark: - Wiki (Framework Django)
 
 Ejecución del proyecto: 
 
@@ -31,7 +31,7 @@ Notas:
 ***
 ### Proyecto 0
 
-1. Search (HTML, CSS, JavaScript)
+:white_check_mark: 1. Search (HTML, CSS, JavaScript)
 
 - Imitar la página Search de Google, Image Search y Advanced Search.
 
