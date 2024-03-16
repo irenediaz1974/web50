@@ -2,7 +2,7 @@
 ***
 ### Tips: :bulb:
 
-- ### Como mostrar archivos **Markdown** *.md en HTML con **Django**.
+1.- ### Como mostrar archivos **Markdown** *.md en HTML con **Django**.
 
     >Creando una funcion en views.py que devuelve contenido HTML convirtiendo un archivo markdown *.md:
 
@@ -25,6 +25,24 @@ def entry(request, title):
    ```
 
 This tells Django to treat title_cont as safe HTML and not escape it. If you're not using the safe filter, Django will escape the HTML, which could be why it's not rendering correctly.
+
+2.- Debemos crear una lista que a la vez sea clickeable y que devuelva la página 
+
+Esto se resuelve logrando que cada elemento de la lista generada sea un enlace a la vista que renderiza la pagina que muestra el documento (index.html)
+
+
+    - <li><a href="{% url 'entry' entry %}">{{ entry }}</a></li>
+
+Explicación de la IA: 
+En la plantilla Django, cuando usas {% url 'entry' entry %}, el primer entry es el nombre de la vista en tu archivo urls.py, que debería apuntar a la función correspondiente en views.py. El segundo entry es el argumento que se pasa a esa vista.
+
+Entonces, si tu vista entry en views.py se ve algo así:
+```python
+def entry(request, title):
+    ...
+```
+
+El entry dentro de {% url 'entry' entry %} se reemplaza por cada elemento en tu lista entries, y ese valor se pasa como el argumento title a tu vista entry.
 
 ***
 ## Tarea a realizar:
