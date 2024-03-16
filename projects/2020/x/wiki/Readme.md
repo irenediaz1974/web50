@@ -2,7 +2,7 @@
 ***
 ### Tips: :bulb:
 
-1.- ### Como mostrar archivos **Markdown** *.md en HTML con **Django**.
+1.- Como mostrar archivos **Markdown** *.md en HTML con **Django**.
 
 Función en views.py que devuelve contenido HTML de un archivo markdown *.md:
     
@@ -66,7 +66,7 @@ Especificación
 
 Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los siguientes requisitos:
 
-    1. Entry Page: visitar /wiki/TITLE, donde TíTULO es el título de una entrada de enciclopedia, debería mostrar una página que muestre el contenido de esa entrada de enciclopedia.
+1.- Entry Page: visitar /wiki/TITLE, donde TíTULO es el título de una entrada de enciclopedia, debería mostrar una página que muestre el contenido de esa entrada de enciclopedia.
 
 > Para que "Title" pueda aceptar un título variable. En Django, puedes hacerlo utilizando <str:variable> en tu ruta. Por ejemplo, podrías tener algo como ```path("wiki/<str:title>", views.entry, name="entry")``` donde views.entry es la función de vista que manejará la solicitud y mostrará la entrada de la enciclopedia.
 
@@ -75,26 +75,22 @@ Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los sigui
     * Si se solicita una entrada que no existe, se le debe presentar al usuario una página de error que indica que no se encontró la página solicitada.
     * Si la entrada existe, se le debe presentar al usuario una página que muestra el contenido de la entrada. El título de la página debe incluir el nombre de la entrada.
 
-  2. Index Page: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
+2.- Index Page: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
 
-  3. Search: permite al usuario escribir una consulta en el cuadro de búsqueda de la barra lateral para buscar una entrada de enciclopedia.
+3.- Search: permite al usuario escribir una consulta en el cuadro de búsqueda de la barra lateral para buscar una entrada de enciclopedia.
         * Si la consulta coincide con el nombre de una entrada de la enciclopedia, el usuario debe ser redirigido a la página de esa entrada.
         * Si la consulta no coincide con el nombre de una entrada de la enciclopedia, el usuario debería ser llevado a una página de resultados de búsqueda que muestra una lista de todas las entradas de la enciclopedia que tienen la consulta como subcadena. Por ejemplo, si la consulta de búsqueda fuera ytho, entonces Python debería aparecer en los resultados de la búsqueda.
        *  Al hacer clic en cualquiera de los nombres de las entradas en la página de resultados de búsqueda, el usuario debería acceder a la página de esa entrada.
-  4. New Page: Al hacer clic en "Crear nueva página" en la barra lateral, el usuario debería acceder a una página donde puede crear una nueva entrada de enciclopedia.
+4.- New Page: Al hacer clic en "Crear nueva página" en la barra lateral, el usuario debería acceder a una página donde puede crear una nueva entrada de enciclopedia.
         * Los usuarios deberían poder ingresar un título para la página y, en un área de texto, deberían poder ingresar el contenido de Markdown para la página.
         * Los usuarios deberían poder hacer clic en un botón para guardar su nueva página.
         * Cuando se guarda la página, si ya existe una entrada de enciclopedia con el título proporcionado, se le debe presentar al usuario un mensaje de error.
         * De lo contrario, la entrada de la enciclopedia debe guardarse en el disco y el usuario debe ser llevado a la página de la nueva entrada.
 
-   5. Edit Page: En cada página de entrada, el usuario debería poder hacer clic en un enlace para ir a una página donde el usuario puede editar el contenido de Markdown de esa entrada en un área de texto.
+5.- Edit Page: En cada página de entrada, el usuario debería poder hacer clic en un enlace para ir a una página donde el usuario puede editar el contenido de Markdown de esa entrada en un área de texto.
         * El área de texto debe rellenarse previamente con el contenido de Markdown existente de la página. (es decir, el contenido existente debe ser el valor inicial del área de texto).
         * El usuario debería poder hacer clic en un botón para guardar los cambios realizados en la entrada.
         * Una vez guardada la entrada, el usuario debe ser redirigido nuevamente a la página de esa entrada.
 
-   6. Random Page: Al hacer clic en "Página aleatoria" en la barra lateral, el usuario debería acceder a una entrada aleatoria de la enciclopedia.
-   7. Markdown to HTML Conversion: en la página de cada entrada, cualquier contenido de Markdown en el archivo de entrada debe convertirse a HTML antes de mostrarse al usuario. Puede utilizar el paquete python-markdown2 para realizar esta conversión, que se puede instalar mediante pip3 install markdown2.
-       * Desafío para aquellos más cómodos: si se siente más cómodo, intente implementar la conversión de Markdown a HTML sin utilizar bibliotecas externas, sin admitir encabezados, texto en negrita, listas desordenadas, enlaces y párrafos. Puede que le resulte útil utilizar expresiones regulares en Python(https://docs.python.org/3/howto/regex.html)
-
-#### Pista:
-De forma predeterminada, al sustituir un valor en una plantilla de Django, Django HTML escapa del valor para evitar generar HTML no deseado. Si desea permitir que se genere una cadena HTML, puede hacerlo con el filtro seguro (como agregando |safe después del nombre de la variable que está sustituyendo).
+6.- Random Page: Al hacer clic en "Página aleatoria" en la barra lateral, el usuario debería acceder a una entrada aleatoria de la enciclopedia.
+  
