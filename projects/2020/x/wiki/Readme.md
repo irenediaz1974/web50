@@ -66,7 +66,7 @@ Especificación
 
 Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los siguientes requisitos:
 
-1.- Entry Page: visitar /wiki/TITLE, donde TíTULO es el título de una entrada de enciclopedia, debería mostrar una página que muestre el contenido de esa entrada de enciclopedia.
+:white_check_mark: 1.- Entry Page: visitar /wiki/TITLE, donde TíTULO es el título de una entrada de enciclopedia, debería mostrar una página que muestre el contenido de esa entrada de enciclopedia.
 
 > Para que "Title" pueda aceptar un título variable. En Django, puedes hacerlo utilizando <str:variable> en tu ruta. Por ejemplo, podrías tener algo como ```path("wiki/<str:title>", views.entry, name="entry")``` donde views.entry es la función de vista que manejará la solicitud y mostrará la entrada de la enciclopedia.
 
@@ -74,23 +74,23 @@ Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los sigui
  * Si se solicita una entrada que no existe, se le debe presentar al usuario una página de error que indica que no se encontró la página solicitada.
  * Si la entrada existe, se le debe presentar al usuario una página que muestra el contenido de la entrada. El título de la página debe incluir el nombre de la entrada.
 
-2.- Index Page: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
+:white_check_mark: 2.- Index Page: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
 
-3.- Search: permite al usuario escribir una consulta en el cuadro de búsqueda de la barra lateral para buscar una entrada de enciclopedia.
+:negative_squared_cross_mark: 3.- Search: permite al usuario escribir una consulta en el cuadro de búsqueda de la barra lateral para buscar una entrada de enciclopedia.
  * Si la consulta coincide con el nombre de una entrada de la enciclopedia, el usuario debe ser redirigido a la página de esa entrada.
  * Si la consulta no coincide con el nombre de una entrada de la enciclopedia, el usuario debería ser llevado a una página de resultados de búsqueda que muestra una lista de todas las entradas de la enciclopedia que tienen la consulta como subcadena. Por ejemplo, si la consulta de búsqueda fuera ytho, entonces Python debería aparecer en los resultados de la búsqueda.
  * Al hacer clic en cualquiera de los nombres de las entradas en la página de resultados de búsqueda, el usuario debería acceder a la página de esa entrada.
 
-4.- New Page: Al hacer clic en "Crear nueva página" en la barra lateral, el usuario debería acceder a una página donde puede crear una nueva entrada de enciclopedia.
+:negative_squared_cross_mark: 4.- New Page: Al hacer clic en "Crear nueva página" en la barra lateral, el usuario debería acceder a una página donde puede crear una nueva entrada de enciclopedia.
  * Los usuarios deberían poder ingresar un título para la página y, en un área de texto, deberían poder ingresar el contenido de Markdown para la página.
  * Los usuarios deberían poder hacer clic en un botón para guardar su nueva página.
  * Cuando se guarda la página, si ya existe una entrada de enciclopedia con el título proporcionado, se le debe presentar al usuario un mensaje de error.
  * De lo contrario, la entrada de la enciclopedia debe guardarse en el disco y el usuario debe ser llevado a la página de la nueva entrada.
 
-5.- Edit Page: En cada página de entrada, el usuario debería poder hacer clic en un enlace para ir a una página donde el usuario puede editar el contenido de Markdown de esa entrada en un área de texto.
+:negative_squared_cross_mark: 5.- Edit Page: En cada página de entrada, el usuario debería poder hacer clic en un enlace para ir a una página donde el usuario puede editar el contenido de Markdown de esa entrada en un área de texto.
  * El área de texto debe rellenarse previamente con el contenido de Markdown existente de la página. (es decir, el contenido existente debe ser el valor inicial del área de texto).
  * El usuario debería poder hacer clic en un botón para guardar los cambios realizados en la entrada.
  * Una vez guardada la entrada, el usuario debe ser redirigido nuevamente a la página de esa entrada.
 
-6.- Random Page: Al hacer clic en "Página aleatoria" en la barra lateral, el usuario debería acceder a una entrada aleatoria de la enciclopedia.
+:negative_squared_cross_mark: 6.- Random Page: Al hacer clic en "Página aleatoria" en la barra lateral, el usuario debería acceder a una entrada aleatoria de la enciclopedia.
   
