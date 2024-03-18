@@ -35,3 +35,32 @@ def get_entry(title):
         return f.read().decode("utf-8")
     except FileNotFoundError:
         return None
+
+
+def search(request):
+    """
+    Find a title given by Search form.
+    """
+    if request.method == "GET":
+        _, filenames = default_storage.listdir("entries")
+       
+        for filename in filenames:
+            if (request.GET['q'].lower() in filename.lower()):
+                try:
+                    f = default_storage.open(f"entries/{filename}.md")
+                    return f.read().decode("utf-8")
+                except:
+                    pass
+    else:
+        pass
+
+
+            
+       
+        
+    
+    
+    
+    
+    return list(sorted(re.sub(r"\.md$", "", filename)
+                for filename in filenames if filename.endswith(".md")))
