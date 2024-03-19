@@ -24,14 +24,14 @@ def entry(request, title):
 def search(request):
     # check if the file name is in a search string
     if request.method == "GET":
-     filenames= util.list_entries()    
+     filenames= util.list_entries()
+     search_string= request.GET.get('q').lower()
      for filename in filenames:
-            # if the string is the same name of *.md file
-            if (request("q").lower() == filename.lower()):
+            if (search_string == filename.lower()):
                 mark_cont=Markdown()
                 return render(request, "encyclopedia/title.html", {
-                "title": request("q").capitalize(),
-                "title_cont": mark_cont.convert(util.get_entry(request("q").capitalize()))
+                "title": search_string,
+                "title_cont": mark_cont.convert(util.get_entry(search_string))
             })              
            # elif(request("q").lower() in filename.lower()):   
             else:
