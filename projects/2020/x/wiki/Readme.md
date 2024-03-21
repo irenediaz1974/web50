@@ -31,7 +31,7 @@ En index.html donde se genera la lista , dentro del ciclo For, agregamos:
 
     - <li><a href="{% url 'entry' entry %}">{{ entry }}</a></li>
 
-Explicación de Duck: 
+Explicación de IA: 
 En la plantilla Django, cuando usas {% url 'entry' entry %}, el primer entry es el nombre de la vista en tu archivo urls.py, que debería apuntar a la función correspondiente en views.py. El segundo entry es el argumento que se pasa a esa vista.
 
 Entonces, si tu vista entry en views.py se ve algo así:
@@ -42,17 +42,16 @@ def entry(request, title):
 
 El entry dentro de {% url 'entry' entry %} se reemplaza por cada elemento en tu lista entries, y ese valor se pasa como el argumento title a tu vista entry.
 
-3. Las rutas en Django son una forma de decirle a Django qué función debe ejecutar cuando se solicita una URL específica. Cada ruta se asocia con una función de vista, y esa función de vista se ejecuta cuando se solicita la URL.
+3.- Las rutas en Django son una forma de decirle a Django qué función debe ejecutar cuando se solicita una URL específica. Cada ruta se asocia con una función de vista, y esa función de vista se ejecuta cuando se solicita la URL. Por ejemplo, si tienes una ruta como esta en tu archivo urls.py:
 
-Por ejemplo, si tienes una ruta como esta en tu archivo urls.py:
+```python
+path('search/', views.search, name='search')
+```
+Esto significa que cuando alguien va a la URL 'tusitio.com/search/', Django ejecutará la función search en tu archivo views.py. Si tienes un formulario de búsqueda en la página index, cuando el formulario se envía(GET), necesitas decirle a Django a qué URL enviar la solicitud. Esto se hace en el atributo action del formulario (en nuestro caso layout.html). Si tu formulario se ve así:
 
-path('search/', views.search, name='search'),
-
-Esto significa que cuando alguien va a la URL 'tusitio.com/search/', Django ejecutará la función search en tu archivo views.py.
-
-Si tienes un formulario de búsqueda en tu página index, cuando el formulario se envía, necesitas decirle a Django a qué URL enviar la solicitud. Esto se hace en el atributo action del formulario. Si tu formulario se ve así:
-
+```python
 <form action="{% url 'search' %}" method="get">
+```
 
 Esto significa que cuando el formulario se envía, la solicitud se envía a la URL asociada con la ruta 'search'. Django entonces ejecuta la función de vista asociada con esa ruta.
 
@@ -90,7 +89,7 @@ Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los sigui
 
 :white_check_mark: 2.- Index Page: actualice index.html de modo que, en lugar de simplemente enumerar los nombres de todas las páginas de la enciclopedia, el usuario pueda hacer clic en el nombre de cualquier entrada para ir directamente a esa página de entrada.
 
-:negative_squared_cross_mark: 3.- Search: permite al usuario escribir una consulta en el cuadro de búsqueda de la barra lateral para buscar una entrada de enciclopedia.
+:white_check_mark: 3.- Search: permite al usuario escribir una consulta en el cuadro de búsqueda de la barra lateral para buscar una entrada de enciclopedia.
  * Si la consulta coincide con el nombre de una entrada de la enciclopedia, el usuario debe ser redirigido a la página de esa entrada.
  * Si la consulta no coincide con el nombre de una entrada de la enciclopedia, el usuario debería ser llevado a una página de resultados de búsqueda que muestra una lista de todas las entradas de la enciclopedia que tienen la consulta como subcadena. Por ejemplo, si la consulta de búsqueda fuera ytho, entonces Python debería aparecer en los resultados de la búsqueda.
  * Al hacer clic en cualquiera de los nombres de las entradas en la página de resultados de búsqueda, el usuario debería acceder a la página de esa entrada.
