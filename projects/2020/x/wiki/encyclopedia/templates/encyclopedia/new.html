@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+
+{% block body %}
+    <h3>New entry</h3>
+    <div class="container_new">
+        <form class="new_page" action="{% url 'new' %}" method="get"> 
+            <div>              
+                <span>Title:</span>
+                <input id="title" type="text" name="new_title"  value="" placeholder= "Enter new Title">
+                <hr>
+            </div>
+            <textarea name="texto" cols="20" rows="20" id="id_text_area" placeholder="Enter data"></textarea>           
+            <div class="button">
+                <input type="submit" name="submit_save" value="Save">
+            </div>
+        </form>
+    </div>
+{% endblock %}

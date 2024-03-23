@@ -45,3 +45,6 @@ def search(request):
     if len(found_entries)==0: 
         return render(request,"encyclopedia/404.html")
 
+
+def new(request):
+       return render(request,"encyclopedia/new.html")

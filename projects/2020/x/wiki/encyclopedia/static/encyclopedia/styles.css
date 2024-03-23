@@ -41,3 +41,33 @@ h4 {
     font-size: 50px;
     color: black;
 }
+
+h3{
+    margin-top: 20px;
+    font-size: 30px;
+    color: rgb(58, 20, 94);
+}
+
+.container_new {
+    display: flex;
+    flex-direction: row;
+    text-align: left; 
+    padding: 20px;
+   
+  }
+
+textarea {
+    width: 40rem;
+    height: 20rem;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+    resize: none;
+    margin-left: 30px ;
+   
+}
+.button {
+    margin-left: 30px ;
+    margin-top: 15px;
+    text-align: center;
+}
