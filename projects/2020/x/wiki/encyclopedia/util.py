@@ -51,16 +51,6 @@ def search(request):
                     return f.read().decode("utf-8")
                 except:
                     pass
-    else:
-        pass
-
-
-            
-       
-        
-    
-    
-    
-    
+ 
     return list(sorted(re.sub(r"\.md$", "", filename)
                 for filename in filenames if filename.endswith(".md")))

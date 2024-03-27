@@ -11,10 +11,10 @@
             {% csrf_token %} 
             <div>              
                 <span>Title:</span>
-                <input id="title" type="text" name="new_title"  value="" placeholder= "Enter new Title">
+                <input id="title" type="text" name="title_text"  value="" placeholder= "Enter new Title">
                 <hr>
             </div>
-            <textarea name="texto" cols="20" rows="20" id="id_text_area" placeholder="Enter data"></textarea>           
+            <textarea id="id_text_area" name="texto"  placeholder="Enter data"></textarea>           
             <div class="button">
                 <input type="submit" name="submit_save" value="Save">
             </div>
