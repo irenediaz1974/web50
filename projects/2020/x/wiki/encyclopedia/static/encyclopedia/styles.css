@@ -58,10 +58,11 @@ h3{
 
 textarea {
     width: 40rem;
-    height: 20rem;
+    height: 100px;
     padding: 10px 20px;
     box-sizing: border-box;
     font-size: 14px;
+    field-sizing: content;
     resize: none;
     margin-left: 30px ;
    

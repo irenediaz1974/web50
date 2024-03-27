@@ -18,7 +18,8 @@ def entry(request, title):
             "title_cont": mark_cont.convert(util.get_entry(title))
             }) 
     else:
-        return render(request,"encyclopedia/404.html")
+        error_message="no se que poner aqui"
+        return render(request,"encyclopedia/404.html", {"error_message": error_message} )
 
 
 def search(request):
@@ -43,8 +44,24 @@ def search(request):
         "entries": found_entries
         })
     if len(found_entries)==0: 
-        return render(request,"encyclopedia/404.html")
+        error_message ="Lo sentimos, no pudimos encontrar la página que estás buscando."
+        return render(request,"encyclopedia/404.html", {"error_message": error_message} )
 
 
 def new(request):
+    if request.method == "GET":
        return render(request,"encyclopedia/new.html")
+    elif request.method == "POST":
+        
+        save_data(request)
+        return render(request,"encyclopedia/new.html")
+
+def save_data(request):
+    #Salvar los datos de entrada en un fichero.md
+     title= request.GET.get('title').lower()
+     if not util.get_entry(title):
+        mark_cont=Markdown()
+        mark_cont.convert(util.get_entry(title))       
+     else: 
+         error_message="El nombre del title ya existe"
+         return render(request, "encyclopedia/404.html", {"error_message": error_message} )
