@@ -94,7 +94,7 @@ Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los sigui
  * Si la consulta no coincide con el nombre de una entrada de la enciclopedia, el usuario debería ser llevado a una página de resultados de búsqueda que muestra una lista de todas las entradas de la enciclopedia que tienen la consulta como subcadena. Por ejemplo, si la consulta de búsqueda fuera ytho, entonces Python debería aparecer en los resultados de la búsqueda.
  * Al hacer clic en cualquiera de los nombres de las entradas en la página de resultados de búsqueda, el usuario debería acceder a la página de esa entrada.
 
-:negative_squared_cross_mark: 4.- New Page: Al hacer clic en "Crear nueva página" en la barra lateral, el usuario debería acceder a una página donde puede crear una nueva entrada de enciclopedia.
+:white_check_mark: 4.- New Page: Al hacer clic en "Crear nueva página" en la barra lateral, el usuario debería acceder a una página donde puede crear una nueva entrada de enciclopedia.
  * Los usuarios deberían poder ingresar un título para la página y, en un área de texto, deberían poder ingresar el contenido de Markdown para la página.
  * Los usuarios deberían poder hacer clic en un botón para guardar su nueva página.
  * Cuando se guarda la página, si ya existe una entrada de enciclopedia con el título proporcionado, se le debe presentar al usuario un mensaje de error.
