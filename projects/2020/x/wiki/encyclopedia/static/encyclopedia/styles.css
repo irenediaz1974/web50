@@ -12,11 +12,6 @@ h1 {
     padding-top: 20px;
 }
 
-textarea {
-    height: 90vh;
-    width: 80%;
-}
-
 .main {
     padding: 10px;
 }
@@ -42,10 +37,10 @@ h4 {
     color: black;
 }
 
-h3{
+h3 {
     margin-top: 20px;
     font-size: 30px;
-    color: rgb(58, 20, 94);
+    color: rgb(238, 170, 74);
 }
 
 .container_new {
@@ -53,10 +48,9 @@ h3{
     flex-direction: row;
     text-align: left; 
     padding: 20px;
-   
-  }
+}
 
-textarea {
+/* textarea {
     width: 40rem;
     height: 100px;
     padding: 10px 20px;
@@ -65,10 +59,17 @@ textarea {
     field-sizing: content;
     resize: none;
     margin-left: 30px ;
-   
-}
+} */
 .button {
     margin-left: 30px ;
     margin-top: 15px;
     text-align: center;
 }
+
+/* .cont_add {
+    display: flex;
+    flex-direction: column;
+    text-align: center; 
+    padding: 20px;   
+    background-color: blue;
+} */

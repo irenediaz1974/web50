@@ -7,7 +7,7 @@
 {% block body %}
     <h3>New entry</h3>
     <div class="container_new">
-        <form class="new_page" action="{% url 'new' %}" method="post" > 
+        <form class="new_page" action="{% url 'wiki:new' %}" method="post" > 
             {% csrf_token %} 
             <div>              
                 <span>Title:</span>

@@ -4,8 +4,19 @@ from . import util
 from django.http import HttpResponse
 from django.http import HttpResponseNotAllowed
 from django.core.files.storage import default_storage
+from django import forms
 import errno
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
+
+class Task5Form(forms.Form):
+    
+    title_mkup = forms.CharField(label='Title')
+    text_mkup = forms.CharField(widget=forms.Textarea, label='Data')
+
+
+mark_cont=Markdown()
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -15,7 +26,7 @@ def index(request):
 def entry(request, title):
     # Crear clase markdown para usarla para convertir de markdown a html
     if util.get_entry(title):
-        mark_cont=Markdown()
+        
         return render(request, "encyclopedia/title.html", {
             "title": title,
             "title_cont": mark_cont.convert(util.get_entry(title))
@@ -33,7 +44,7 @@ def search(request):
      found_entries=[]
      for filename in filenames:
             if (search_string == filename.lower()):
-                mark_cont=Markdown()
+                #mark_cont=Markdown()
                 return render(request, "encyclopedia/title.html", {
                 "title": search_string,
                 "title_cont": mark_cont.convert(util.get_entry(search_string))
@@ -57,7 +68,7 @@ def new(request):
         text_mkup=request.POST["texto"]
         error_message= save_data(request, title_mkup.lower(), text_mkup) 
         if (error_message)=="":
-            mark_cont=Markdown()
+            #mark_cont=Markdown()
             return render(request, "encyclopedia/title.html", {
             "title": title_mkup.lower(),
             "title_cont": mark_cont.convert(util.get_entry(title_mkup.lower()))
@@ -88,3 +99,48 @@ def save_data(request, title_mkup, text_mkup):
      else: 
          error_message= "Ya existe un documento con el mismo nombre" + title_mkup   
          return (error_message)
+
+
+
+# task 5 : Creando un formulario y rellenarlo antes de mostrarlo
+def add(request, title=""):
+    title_mkup = title.strip()
+    text_mkup = util.get_entry(title_mkup)
+    data = {'title_mkup': title_mkup, 'text_mkup': text_mkup.strip()}
+    form = Task5Form(initial=data)
+    
+    if request.method == "GET":
+        return render(request, "encyclopedia/add.html", {
+            "form": form,
+            "title": title
+        })
+    elif request.method == "POST":
+        form = Task5Form(request.POST)      
+        if form.is_valid():
+            print (data['text_mkup'])
+            print (form.cleaned_data["text_mkup"])
+            if data['text_mkup'].strip()!=form.cleaned_data["text_mkup"].strip():
+                # Salvar cambios
+                title_mkup= form.cleaned_data["title_mkup"]
+                text_mkup= form.cleaned_data["text_mkup"]
+                util.save_entry (title_mkup, text_mkup)
+                return render(request, "encyclopedia/title.html", {
+                    "title": title_mkup.lower(),
+                    "title_cont": mark_cont.convert(util.get_entry(title_mkup.lower()))
+                }) 
+            else:
+                 form.add_error(None, "No ocurrieron cambios")
+                 return render(request, "encyclopedia/add.html", {
+                "form": form,
+                "title": title
+             })
+
+        else:
+
+            form.add_error(None, "El formulario no es valido")
+            return render(request, "encyclopedia/add.html", {
+                "form": form,
+                "title": title
+             })      
+
+

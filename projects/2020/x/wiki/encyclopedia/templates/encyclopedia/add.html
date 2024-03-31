@@ -1,0 +1,17 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block body %}
+    <h3>Modify Entry:</h3>
+    <div class="cont_add">
+        <form action="{% url 'wiki:add' title=title %}" method="post">
+            {% csrf_token %}
+                {{ form }}
+            <input type="submit" value="Save" >
+        </form> 
+    </div>
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}  
+{% endblock %}

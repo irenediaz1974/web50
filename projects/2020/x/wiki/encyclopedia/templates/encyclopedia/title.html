@@ -7,5 +7,6 @@
 {% block body %}
     <br>
     <h5> {{ title_cont|safe }}</h5>
-          
+    <a href="{% url 'wiki:add' title=title %}">Edit Page</a>
+        
 {% endblock %}
