@@ -5,13 +5,16 @@
     <div class="cont_add">
         <form action="{% url 'wiki:add' title=title %}" method="post">
             {% csrf_token %}
-                {{ form }}
-            <input type="submit" value="Save" >
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+            {% else %}
+                {{form}}
+                <input type="submit" value="Save" >
+            {% endif %}  
+            
         </form> 
     </div>
-    {% if form.non_field_errors %}
-        <div class="alert alert-danger">
-            {{ form.non_field_errors }}
-        </div>
-    {% endif %}  
+   
 {% endblock %}
