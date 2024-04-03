@@ -17,7 +17,7 @@ from django.contrib import messages
 class Task5Form(forms.Form):
     
     title_mkup = forms.CharField(label='Title')
-    text_mkup = forms.CharField(widget=forms.Textarea, label='Data')
+    text_mkup = forms.CharField(widget=forms.Textarea, label='')
 
 
 mark_cont=Markdown()
@@ -87,6 +87,7 @@ def save_data(request, title_mkup, text_mkup):
      
      if  util.get_entry(title_mkup) == None:
         try:
+             title_mkup.capitalize()
              file= default_storage.open(f"entries/{title_mkup}.md", 'w') 
              file.write(f"# {title_mkup.upper()}\n\n{text_mkup}")
              file.close()
@@ -101,7 +102,7 @@ def save_data(request, title_mkup, text_mkup):
                  error_message="An OS error occurred."
               
      else: 
-         error_message= "Ya existe un documento con el mismo nombre" + title_mkup   
+         error_message= "Ya existe un documento con el mismo nombre " + title_mkup   
          return (error_message)
 
 
