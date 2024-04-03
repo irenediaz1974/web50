@@ -100,10 +100,12 @@ Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los sigui
  * Cuando se guarda la página, si ya existe una entrada de enciclopedia con el título proporcionado, se le debe presentar al usuario un mensaje de error.
  * De lo contrario, la entrada de la enciclopedia debe guardarse en el disco y el usuario debe ser llevado a la página de la nueva entrada.
 
-:negative_squared_cross_mark: 5.- Edit Page: En cada página de entrada, el usuario debería poder hacer clic en un enlace para ir a una página donde el usuario puede editar el contenido de Markdown de esa entrada en un área de texto.
+:white_check_mark: 5.- Edit Page: En cada página de entrada, el usuario debería poder hacer clic en un enlace para ir a una página donde el usuario puede editar el contenido de Markdown de esa entrada en un área de texto.
  * El área de texto debe rellenarse previamente con el contenido de Markdown existente de la página. (es decir, el contenido existente debe ser el valor inicial del área de texto).
  * El usuario debería poder hacer clic en un botón para guardar los cambios realizados en la entrada.
  * Una vez guardada la entrada, el usuario debe ser redirigido nuevamente a la página de esa entrada.
 
 :negative_squared_cross_mark: 6.- Random Page: Al hacer clic en "Página aleatoria" en la barra lateral, el usuario debería acceder a una entrada aleatoria de la enciclopedia.
   
+
+:negative_squared_cross_mark:

@@ -1,3 +1,6 @@
+
+import errno
+import random
 from django.shortcuts import render
 from markdown2 import Markdown
 from . import util
@@ -5,9 +8,9 @@ from django.http import HttpResponse
 from django.http import HttpResponseNotAllowed
 from django.core.files.storage import default_storage
 from django import forms
-import errno
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+
 
 
 class Task5Form(forms.Form):
@@ -141,6 +144,13 @@ def add(request, title=""):
             return render(request, "encyclopedia/add.html", {
                 "form": form,
                 "title": title
-             })      
+             })  
 
 
+def random_page(request):
+    pagina = random.choice(util.list_entries())
+    title= pagina.lower().strip()
+    return render(request, "encyclopedia/title.html", {
+            "title": title,
+            "title_cont": mark_cont.convert(util.get_entry(title))
+            }) 

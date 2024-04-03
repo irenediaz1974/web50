@@ -50,7 +50,7 @@ h3 {
     padding: 20px;
 }
 
-/* textarea {
+textarea {
     width: 40rem;
     height: 100px;
     padding: 10px 20px;
@@ -59,17 +59,18 @@ h3 {
     field-sizing: content;
     resize: none;
     margin-left: 30px ;
-} */
+} 
+
 .button {
     margin-left: 30px ;
     margin-top: 15px;
     text-align: center;
 }
 
-/* .cont_add {
+.cont_add {
     display: flex;
     flex-direction: column;
-    text-align: center; 
+    text-align: center;    
     padding: 20px;   
     background-color: blue;
-} */
+}
