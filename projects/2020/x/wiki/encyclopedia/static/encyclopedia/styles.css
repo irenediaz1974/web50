@@ -40,7 +40,7 @@ h4 {
 h3 {
     margin-top: 20px;
     font-size: 30px;
-    color: rgb(238, 170, 74);
+    color: rgb(15, 9, 0);
 }
 
 .container_new {
@@ -69,8 +69,8 @@ textarea {
 
 .cont_add {
     display: flex;
-    flex-direction: column;
-    text-align: center;    
+    flex-wrap: nowrap;
+    text-align: left;    
     padding: 20px;   
     background-color: blue;
 }

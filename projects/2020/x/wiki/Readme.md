@@ -55,6 +55,18 @@ Esto significa que cuando alguien va a la URL 'tusitio.com/search/', Django ejec
 
 Esto significa que cuando el formulario se envía, la solicitud se envía a la URL asociada con la ruta 'search'. Django entonces ejecuta la función de vista asociada con esa ruta.
 
+4. Para usar Django message framework. Agregar en el principio del template:
+```python
+{% load messages %} 
+```
+Luego en la misma template agregar:
+        ```python
+        {% messages %}
+             <p>{{ message }}</p>
+        {% endmessages %}
+        ```
+
+
 ***
 ## Tarea a realizar:
 
@@ -105,7 +117,7 @@ Completa la implementación de tu enciclopedia Wiki. Debes cumplir con los sigui
  * El usuario debería poder hacer clic en un botón para guardar los cambios realizados en la entrada.
  * Una vez guardada la entrada, el usuario debe ser redirigido nuevamente a la página de esa entrada.
 
-:negative_squared_cross_mark: 6.- Random Page: Al hacer clic en "Página aleatoria" en la barra lateral, el usuario debería acceder a una entrada aleatoria de la enciclopedia.
+:white_check_mark: 6.- Random Page: Al hacer clic en "Página aleatoria" en la barra lateral, el usuario debería acceder a una entrada aleatoria de la enciclopedia.
   
 
 :negative_squared_cross_mark:

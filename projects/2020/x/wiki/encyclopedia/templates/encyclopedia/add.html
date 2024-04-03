@@ -9,12 +9,9 @@
             <div class="alert alert-danger">
                 {{ form.non_field_errors }}
             </div>
-            {% else %}
-                {{form}}
-                <input type="submit" value="Save" >
             {% endif %}  
-            
+            {{form}}
+            <input type="submit" value="Save" >
         </form> 
     </div>
-   
 {% endblock %}

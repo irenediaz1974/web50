@@ -10,6 +10,7 @@ from django.core.files.storage import default_storage
 from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 
 
@@ -120,31 +121,21 @@ def add(request, title=""):
     elif request.method == "POST":
         form = Task5Form(request.POST)      
         if form.is_valid():
-            print (data['text_mkup'])
-            print (form.cleaned_data["text_mkup"])
-            if data['text_mkup'].strip()!=form.cleaned_data["text_mkup"].strip():
-                # Salvar cambios
-                title_mkup= form.cleaned_data["title_mkup"]
-                text_mkup= form.cleaned_data["text_mkup"]
-                util.save_entry (title_mkup, text_mkup)
-                return render(request, "encyclopedia/title.html", {
+            print(data['text_mkup'].strip())
+            form.cleaned_data["text_mkup"].strip()
+            if data['text_mkup'].strip() == form.cleaned_data["text_mkup"].strip():               
+                error_message ="No se hicieron modificaciones."
+                return render(request,"encyclopedia/404.html", {"error_message": error_message} )
+            else:
+                 text_mkup= form.cleaned_data["text_mkup"]
+                 util.save_entry (title, text_mkup)
+                 return render(request, "encyclopedia/title.html", {
                     "title": title_mkup.lower(),
                     "title_cont": mark_cont.convert(util.get_entry(title_mkup.lower()))
                 }) 
-            else:
-                 form.add_error(None, "No ocurrieron cambios")
-                 return render(request, "encyclopedia/add.html", {
-                "form": form,
-                "title": title
-             })
-
         else:
-
-            form.add_error(None, "El formulario no es valido")
-            return render(request, "encyclopedia/add.html", {
-                "form": form,
-                "title": title
-             })  
+            error_message ="Error en la operación."
+            return render(request,"encyclopedia/404.html", {"error_message": error_message} ) 
 
 
 def random_page(request):
