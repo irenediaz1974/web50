@@ -36,7 +36,7 @@ def entry(request, title):
             "title_cont": mark_cont.convert(util.get_entry(title))
             }) 
     else:
-        error_message="Error al generar el fichero"
+        error_message="NO se encontró la página solicitada"
         return render(request,"encyclopedia/404.html", {"error_message": error_message} )
 
 
