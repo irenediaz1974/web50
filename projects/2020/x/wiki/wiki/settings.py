@@ -119,3 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#using the CS50 Codespace
+CSRF_TRUSTED_ORIGINS = ['https://super-doodle-56pjwwr6wv72444-8000.preview.app.github.dev']
