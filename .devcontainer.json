@@ -1,5 +1,4 @@
 {
-    "image": "python:3.8-slim",
     "forwardPorts": [
       5000,
       5900,
