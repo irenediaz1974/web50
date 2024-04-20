@@ -1,5 +1,6 @@
 {
-    "forwardPorts": [
+  "image": "ghcr.io/cs50/codespace",  
+  "forwardPorts": [
       5000,
       5900,
       6081,
