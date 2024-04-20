@@ -8,7 +8,7 @@
     <h1>All Pages</h1>
     <ul>
         {% for entry in entries %}
-            <li><a href="{% url 'wiki:entry' entry %}">{{ entry }}</a></li>
+            <li><a href="{% url 'wiki:entry' entry %}">{{ entry.capitalize }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}
