@@ -2,9 +2,28 @@
 
 ## CS50´s Web Programming Projects (2024)
 ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+
+### Proyecto 2
+
+:negative_squared_cross_mark: - Commerce (Framework Django)
+
+Ejecución del proyecto: 
+
+1. Obtener fichero commerce.zip con la estructura del proyecto:
+
+ https://cdn.cs50.net/web/2020/spring/projects/2/commerce.zip
+
+2. Primeros pasos (En mi PC):
+ - En projects\2020\x --> Descompactar: commerce.zip
+ - cd into the commerce
+ - Crear fichero README.md en el subdirectorio commerce
+ 
+3. Realizar submit50
+
+
 ### Proyecto 1
 
-:negative_squared_cross_mark: - Wiki (Framework Django)
+:white_check_mark: - Wiki (Framework Django)
 
 Ejecución del proyecto: 
 
@@ -15,6 +34,10 @@ wget https://cdn.cs50.net/web/2020/spring/projects/1/wiki.zip
 
 unzip wiki.zip
 ```
+
+- Crear fichero README.md en el subdirectorio wiki
+
+
 Notas: 
 - Levantar el servicio:
 ```python
