@@ -5,7 +5,7 @@
 
 ### Proyecto 2
 
-:negative_squared_cross_mark: - Tarea: Commerce (Framework Django) [Proyecto Curso Web](/../../../../irenediaz1974/web50/blob/main/projects/2020/x/wiki/Readme.md)
+:negative_squared_cross_mark: - Tarea: Commerce (Framework Django) [Commerce](/../../../../irenediaz1974/web50/blob/main/projects/2020/x/commerce/README.md)
 
 #### Diseñar un sitio de subastas de comercio electrónico similar a eBay que permita a los usuarios publicar listados de subastas, realizar ofertas en los listados, comentar sobre esos listados y agregar listados a una "lista de seguimiento".
 
@@ -28,7 +28,7 @@ Ejecución del proyecto:
 
 ### Proyecto 1
 
-:white_check_mark: - Wiki (Framework Django)
+:white_check_mark: - Wiki (Framework Django) [Wiki](/../../../../irenediaz1974/web50/blob/main/projects/2020/x/wiki/Readme.md)
 #### Diseñar una enciclopedia online similar a Wikipedia.
 
 Ejecución del proyecto: 
@@ -74,6 +74,7 @@ Crear un codespace dentro del repositorio creado para el curso: web50
 
 devcontainer.json:
 {
+    "image": "ghcr.io/cs50/codespace",   
     "forwardPorts": [
       5000,
       5900,
