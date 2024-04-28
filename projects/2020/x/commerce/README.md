@@ -6,20 +6,25 @@
 
 #### Complete la implementación de su sitio de subastas. Debes cumplir los siguientes requisitos:
 
-1 **Models:** su aplicación debe tener al menos tres modelos además del modelo de Usuario: uno para listados de subastas, uno para ofertas y otro para comentarios realizados en listados de subastas. Depende de usted decidir qué campos debe tener cada modelo y cuáles deben ser los tipos de esos campos. Es posible que tenga modelos adicionales si lo desea.
-2 **Create Listing**: Los usuarios deberían poder visitar una página para crear una nueva lista. Deberían poder especificar un título para el listado, una descripción basada en texto y cuál debería ser la oferta inicial. Opcionalmente, los usuarios también deberían poder proporcionar una URL para una imagen del listado y/o una categoría (por ejemplo, moda, juguetes, electrónica, hogar, etc.).
-3 **Active Listings Page**: La ruta predeterminada de su aplicación web debería permitir a los usuarios ver todos los listados de subastas activos actualmente. Para cada listado activo, esta página debe mostrar (como mínimo) el título, la descripción, el precio actual y la foto (si existe una para el listado).
-4 **Listing Page**: Al hacer clic en un listado, los usuarios deberían acceder a una página específica de ese listado. En esa página, los usuarios deberían poder ver todos los detalles sobre el listado, incluido el precio actual del listado.
-       ######
-        a- Si el usuario ha iniciado sesión, debería poder agregar el elemento a su "Lista de seguimiento". Si el elemento ya está en la lista de seguimiento, el usuario debería poder eliminarlo.
-        b- Si el usuario ha iniciado sesión, debería poder ofertar por el artículo. La oferta debe ser al menos tan grande como la oferta inicial y debe ser mayor que cualquier otra oferta que se haya realizado (si la hubiera). Si la oferta no cumple con esos criterios, se le debería presentar un error al usuario.
-        c- Si el usuario ha iniciado sesión y es quien creó el listado, el usuario debería tener la capacidad de "cerrar" la subasta desde esta página, lo que convierte al mejor postor en el ganador de la subasta y hace que el listado ya no esté activo.
-        d- Si un usuario ha iniciado sesión en una página de listado cerrada y el usuario ganó esa subasta, la página debería indicarlo.
-        e- Los usuarios que hayan iniciado sesión deberían poder agregar comentarios a la página de listado. La página del listado debe mostrar todos los comentarios que se han realizado en el listado. 
-####
-5 **Watchlist** : Los usuarios que hayan iniciado sesión deberían poder visitar una página de Lista de seguimiento, que debería mostrar todos los listados que un usuario ha agregado a su lista de seguimiento. Al hacer clic en cualquiera de esos listados, el usuario debería acceder a la página de ese listado.
-6 **Categories**: Los usuarios deberían poder visitar una página que muestre una lista de todas las categorías de listados. Al hacer clic en el nombre de cualquier categoría, el usuario debería acceder a una página que muestra todos los listados activos en esa categoría.
-7 **Django Admin Interface**: A través de la interfaz de administración de Django, un administrador del sitio debería poder ver, agregar, editar y eliminar cualquier listado, comentario y oferta realizada en el sitio.
+:negative_squared_cross_mark: 1-  **Models:** su aplicación debe tener al menos tres modelos además del modelo de Usuario: uno para listados de subastas, uno para ofertas y otro para comentarios realizados en listados de subastas. Depende de usted decidir qué campos debe tener cada modelo y cuáles deben ser los tipos de esos campos. Es posible que tenga modelos adicionales si lo desea.
+
+:negative_squared_cross_mark: 2- **Create Listing**: Los usuarios deberían poder visitar una página para crear una nueva lista. Deberían poder especificar un título para el listado, una descripción basada en texto y cuál debería ser la oferta inicial. Opcionalmente, los usuarios también deberían poder proporcionar una URL para una imagen del listado y/o una categoría (por ejemplo, moda, juguetes, electrónica, hogar, etc.).
+
+:negative_squared_cross_mark: 3- **Active Listings Page**: La ruta predeterminada de su aplicación web debería permitir a los usuarios ver todos los listados de subastas activos actualmente. Para cada listado activo, esta página debe mostrar (como mínimo) el título, la descripción, el precio actual y la foto (si existe una para el listado).
+
+:negative_squared_cross_mark: 4- **Listing Page**: Al hacer clic en un listado, los usuarios deberían acceder a una página específica de ese listado. En esa página, los usuarios deberían poder ver todos los detalles sobre el listado, incluido el precio actual del listado.
+
+        * Si el usuario ha iniciado sesión, debería poder agregar el elemento a su "Lista de seguimiento". Si el elemento ya está en la lista de seguimiento, el usuario debería poder eliminarlo.
+        *  Si el usuario ha iniciado sesión, debería poder ofertar por el artículo. La oferta debe ser al menos tan grande como la oferta inicial y debe ser mayor que cualquier otra oferta que se haya realizado (si la hubiera). Si la oferta no cumple con esos criterios, se le debería presentar un error al usuario.
+        *  Si el usuario ha iniciado sesión y es quien creó el listado, el usuario debería tener la capacidad de "cerrar" la subasta desde esta página, lo que convierte al mejor postor en el ganador de la subasta y hace que el listado ya no esté activo.
+        *  Si un usuario ha iniciado sesión en una página de listado cerrada y el usuario ganó esa subasta, la página debería indicarlo.
+        *  Los usuarios que hayan iniciado sesión deberían poder agregar comentarios a la página de listado. La página del listado debe mostrar todos los comentarios que se han realizado en el listado. 
+
+:negative_squared_cross_mark: 5- **Watchlist** : Los usuarios que hayan iniciado sesión deberían poder visitar una página de Lista de seguimiento, que debería mostrar todos los listados que un usuario ha agregado a su lista de seguimiento. Al hacer clic en cualquiera de esos listados, el usuario debería acceder a la página de ese listado.
+
+:negative_squared_cross_mark: 6- **Categories**: Los usuarios deberían poder visitar una página que muestre una lista de todas las categorías de listados. Al hacer clic en el nombre de cualquier categoría, el usuario debería acceder a una página que muestra todos los listados activos en esa categoría.
+
+:negative_squared_cross_mark: 7- **Django Admin Interface**: A través de la interfaz de administración de Django, un administrador del sitio debería poder ver, agregar, editar y eliminar cualquier listado, comentario y oferta realizada en el sitio.
 
 Pistas
 
