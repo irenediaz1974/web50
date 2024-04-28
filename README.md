@@ -5,14 +5,18 @@
 
 ### Proyecto 2
 
-:negative_squared_cross_mark: - Tarea: Commerce (Framework Django)
+:negative_squared_cross_mark: - Tarea: Commerce (Framework Django) [Proyecto Curso Web](/../../../../irenediaz1974/web50/blob/main/projects/2020/x/wiki/Readme.md)
+
 #### Diseñar un sitio de subastas de comercio electrónico similar a eBay que permita a los usuarios publicar listados de subastas, realizar ofertas en los listados, comentar sobre esos listados y agregar listados a una "lista de seguimiento".
 
 Ejecución del proyecto: 
 
 1. Obtener fichero commerce.zip con la estructura del proyecto:
 
+```console
  https://cdn.cs50.net/web/2020/spring/projects/2/commerce.zip
+```
+
 
 2. Primeros pasos (En mi PC):
  - En projects\2020\x --> Descompactar: commerce.zip
