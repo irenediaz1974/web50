@@ -5,7 +5,8 @@
 
 ### Proyecto 2
 
-:negative_squared_cross_mark: - Commerce (Framework Django)
+:negative_squared_cross_mark: - Tarea: Commerce (Framework Django)
+#### Diseñar un sitio de subastas de comercio electrónico similar a eBay que permita a los usuarios publicar listados de subastas, realizar ofertas en los listados, comentar sobre esos listados y agregar listados a una "lista de seguimiento".
 
 Ejecución del proyecto: 
 
@@ -24,6 +25,7 @@ Ejecución del proyecto:
 ### Proyecto 1
 
 :white_check_mark: - Wiki (Framework Django)
+#### Diseñar una enciclopedia online similar a Wikipedia.
 
 Ejecución del proyecto: 
 
