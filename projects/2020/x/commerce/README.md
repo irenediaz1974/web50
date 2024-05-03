@@ -6,11 +6,11 @@
 
 #### Complete la implementación de su sitio de subastas. Debes cumplir los siguientes requisitos:
 
-:negative_squared_cross_mark: 1-  **Models:** su aplicación debe tener al menos tres modelos además del modelo de Usuario: uno para listados de subastas, uno para ofertas y otro para comentarios realizados en listados de subastas. Depende de usted decidir qué campos debe tener cada modelo y cuáles deben ser los tipos de esos campos. Es posible que tenga modelos adicionales si lo desea.
+:negative_squared_cross_mark: 1-  **Models:** su aplicación debe tener al menos tres modelos además del modelo de Usuario: uno para subastas, uno para ofertas y otro para comentarios realizados en las subastas. Depende de usted decidir qué campos debe tener cada modelo y cuáles deben ser los tipos de esos campos. Es posible que tenga modelos adicionales si lo desea.
 
-:negative_squared_cross_mark: 2- **Create Listing**: Los usuarios deberían poder visitar una página para crear una nueva lista. Deberían poder especificar un título para el listado, una descripción basada en texto y cuál debería ser la oferta inicial. Opcionalmente, los usuarios también deberían poder proporcionar una URL para una imagen del listado y/o una categoría (por ejemplo, moda, juguetes, electrónica, hogar, etc.).
+:negative_squared_cross_mark: 2- **Create Listing**: Los usuarios deberían poder visitar una página para crear una nueva oferta. Deberían poder especificar un título para la oferta, una descripción basada en texto y cuál debería ser la oferta inicial. Opcionalmente, los usuarios también deberían poder proporcionar una URL para una imagen del producto  y/o una categoría (por ejemplo, moda, juguetes, electrónica, hogar, etc.).
 
-:negative_squared_cross_mark: 3- **Active Listings Page**: La ruta predeterminada de su aplicación web debería permitir a los usuarios ver todos los listados de subastas activos actualmente. Para cada listado activo, esta página debe mostrar (como mínimo) el título, la descripción, el precio actual y la foto (si existe una para el listado).
+:negative_squared_cross_mark: 3- **Active Listings Page**: La ruta predeterminada de su aplicación web debería permitir a los usuarios ver todos los productos de subastas activos actualmente. Para cada producto activo, esta página debe mostrar (como mínimo) el título, la descripción, el precio actual y la foto (si existe una para el producto).
 
 :negative_squared_cross_mark: 4- **Listing Page**: Al hacer clic en un listado, los usuarios deberían acceder a una página específica de ese listado. En esa página, los usuarios deberían poder ver todos los detalles sobre el listado, incluido el precio actual del listado.
 
@@ -49,7 +49,7 @@ Pistas
 ```python
 python manage.py makemigrations auctions
 ```
- ###### System check identified some issues:
+        System check identified some issues:
 
     ```console
     WARNINGS:
@@ -58,6 +58,7 @@ python manage.py makemigrations auctions
     ←[36;1mMigrations for 'auctions':←[0m
     ←[1mauctions\migrations\0001_initial.py←[0m
         - Create model User
+        
     ```
  
 - Ejecutar  para aplicar migraciones a la Base de datos:

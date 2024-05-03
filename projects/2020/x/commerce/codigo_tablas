@@ -1,0 +1,64 @@
+CREATE TABLE Usuario (
+    ID_Usuario INTEGER PRIMARY KEY,
+    Nombre TEXT,
+    Dirección TEXT,
+    Correo TEXT,
+    Teléfono TEXT
+);
+
+CREATE TABLE Subasta (
+    ID_Subasta INTEGER PRIMARY KEY,
+    Nombre TEXT,
+    Descripción TEXT,
+    Fecha_Inicio TEXT,
+    Fecha_Fin TEXT,
+    Estado BOOLEAN -- Puedes usar 1 para activo y 0 para cerrado
+);
+
+CREATE TABLE Producto (
+    ID_Producto INTEGER PRIMARY KEY,
+    Nombre TEXT,
+    Descripción TEXT,
+    Precio_Inicio REAL,
+    ID_Categoria INTEGER,
+    FOREIGN KEY (ID_Categoria) REFERENCES CategoriaProducto(ID_Categoria)
+);
+
+CREATE TABLE CategoriaProducto (
+    ID_Categoria INTEGER PRIMARY KEY,
+    Nombre TEXT
+);
+
+CREATE TABLE Oferta (
+    ID_Oferta INTEGER PRIMARY KEY,
+    ID_Subasta INTEGER,
+    ID_Usuario INTEGER,
+    Monto REAL,
+    FOREIGN KEY (ID_Subasta) REFERENCES Subasta(ID_Subasta),
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
+);
+
+CREATE TABLE Subastado (
+    ID_Subasta INTEGER,
+    ID_Producto INTEGER,
+    PRIMARY KEY (ID_Subasta, ID_Producto),
+    FOREIGN KEY (ID_Subasta) REFERENCES Subasta(ID_Subasta),
+    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
+);
+
+CREATE TABLE ImagenProducto (
+    ID_Imagen INTEGER PRIMARY KEY,
+    ID_Producto INTEGER,
+    Imagen BLOB,
+    Descripción TEXT,
+    FOREIGN KEY (ID_Producto) REFERENCES Producto(ID_Producto)
+);
+
+CREATE TABLE ComentarioSubasta (
+    ID_Comentario INTEGER PRIMARY KEY,
+    ID_Subasta INTEGER,
+    ID_Usuario INTEGER,
+    Comentario TEXT,
+    FOREIGN KEY (ID_Subasta) REFERENCES Subasta(ID_Subasta),
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
+);
