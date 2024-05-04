@@ -1,6 +1,71 @@
 ***
 ### Tips: :bulb:
 
+#### Tarea 1.
+
+a. En el modelado se definen 7 tablas: Usuario, Subasta, Producto, CategoriaProd, Oferta, subastado, ImagenProducto, ComentariosSubasta
+ En el caso de la tabla subastado hay que preveer que el mismo producto puede estar en varias subastas, por lo que la llave primaria de esta tabla seria una combinacion de dos llaves primarias de Producto y Subasta.
+ Para implementarlo usé la clase Meta:
+ ```python
+ class Subastado(models.Model):
+    id_subasta = models.ForeignKey(Subasta, on_delete=models.CASCADE)
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = (('id_subasta', 'id_producto'),)
+ ```
+ unique_together asegura que la combinación de id_subasta e id_producto sea única, actuando efectivamente como una clave primaria compuesta.
+ **La clase Meta es una clase interna que puedes usar en tus modelos para definir opciones de modelo específicas. Por ejemplo, puedes usarla para especificar el nombre de la tabla de la base de datos, el orden de clasificación por defecto, si la combinación de algunos campos debe ser única (como en tu caso con unique_together), entre otras cosas. Es una forma de proporcionar metadatos adicionales a tu modelo.**
+b. En el modelo del almacenamiento de la imagen del producto, utilicé segun recomendación de Duck la libreria Pillow.
+```python
+ class ImagenProducto(models.Model):
+    id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='ruta/donde/guardar/imagenes')
+    descripcion = models.TextField()
+```
+**Donde, upload_to es la ruta donde se guardarán las imágenes subidas. Django manejará automáticamente la subida de archivos y almacenará la ruta al archivo en la base de datos. Por favor, ten en cuenta que para usar ImageField, necesitarás tener instalada la biblioteca Pillow.**
+```python
+ pip install Pillow
+```
+c. Crear cuenta de superuser que permite acceder a la interface admin de Django
+ ```python
+ run python manage.py createsuperuser
+ ```
+d. **Django 3.2 introdujo una nueva configuración llamada DEFAULT_AUTO_FIELD para controlar el tipo de campo que se utiliza para las claves primarias automáticas. Antes de Django 3.2, el tipo de campo predeterminado era AutoField, que es un entero de 32 bits. Sin embargo, si tienes una gran cantidad de objetos, puedes quedarte sin valores. Por eso, Django 3.2 cambió el valor predeterminado a BigAutoField, que es un entero de 64 bits. Para eliminar que se cree por default la PK BigAutoField, debido a que mi BD es pequeña, debo:**
+* Agregar en apps.py default_auto_field
+
+```python
+from django.apps import AppConfig
+
+class AuctionsConfig(AppConfig):
+    default_auto_field = 'django.db.models.AutoField' # Para que no cree BigAutoField por default
+    name = 'auctions'
+```
+
+Revisar que en settings.py solo quede: 
+:bulb: Eliminé 'auctions' a sugerencia de Duck
+
+```python
+INSTALLED_APPS = [
+    # otras apps aquí
+    'auctions.apps.AuctionsConfig',  # tu configuración personalizada
+]
+```
+
+e. 
+* Migrar el modelo: python manage.py makemigrations
+* aplicar el modelo: python manage.py migrate
+* Para manipular los datos desde admin.py :
+ debemos entrar los modelos que queremos utilizar en admin.py :
+ # Register your models here.
+admin.site.register(User)
+admin.site.register(Subasta)
+admin.site.register(Oferta)
+admin.site.register(CategoriaProd)
+admin.site.register(Producto)
+admin.site.register(Subastado)
+admin.site.register(ImagenProducto)
+admin.site.register(ComentarioSubasta)
 ***
 ## Tarea a realizar:
 
@@ -77,4 +142,10 @@ python manage.py migrate
     Applying contenttypes.0001_initial...←[32;1m OK←[0m
    
    ```
-   
+***
+## REQUERIMIENTOS
+
+1. Manejar imagenes
+```python
+ pip install Pillow
+``` 

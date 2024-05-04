@@ -24,7 +24,7 @@ CREATE TABLE Producto (
     FOREIGN KEY (ID_Categoria) REFERENCES CategoriaProducto(ID_Categoria)
 );
 
-CREATE TABLE CategoriaProducto (
+CREATE TABLE CategoriaProd (
     ID_Categoria INTEGER PRIMARY KEY,
     Nombre TEXT
 );
