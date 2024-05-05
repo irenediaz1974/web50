@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Adicionar productos</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ producto.as_p }}
+        <button id="show-categ-form">Añadir categoría</button>
+        <div id="categ-form" style="display: none;">
+            {{ categoria.as_p }}
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('show-categ-form').addEventListener('click', function() {
+            document.getElementById('categ-form').style.display = 'block';
+        });
+    </script>
+    
+{% endblock %}

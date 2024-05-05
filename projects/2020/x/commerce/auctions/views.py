@@ -3,13 +3,34 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
+from .forms import ProductoForm, CategoriaForm
 from .models import User
 
 
 def index(request):
     return render(request, "auctions/index.html")
 
+# Vistas para implementar las tareas
+
+def add_producto(request):
+    if request.method == 'POST':
+        prod_form = ProductoForm(request.POST, prefix='prod')
+        categ_form= CategoriaForm(request.POST, prefix='categ')
+
+        if prod_form.is_valid():
+            if 'categ-nombre' in request.POST and categ_form.is_valid():
+                categ_form.save()
+            prod_form.save()
+            return render(request, 'auctions/add_producto.html', {'producto': prod_form, 'categoria':categ_form})
+    else:
+        prod_form = ProductoForm()
+        categ_form= CategoriaForm()
+
+    return render(request, 'add_producto.html', {'producto': prod_form, 'categoria':categ_form})
+
+
+
+# Vistas que venian con el ejercicio
 
 def login_view(request):
     if request.method == "POST":

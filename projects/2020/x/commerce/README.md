@@ -4,7 +4,7 @@
 #### Tarea 1.
 
 a. En el modelado se definen 7 tablas: Usuario, Subasta, Producto, CategoriaProd, Oferta, subastado, ImagenProducto, ComentariosSubasta
- En el caso de la tabla subastado hay que preveer que el mismo producto puede estar en varias subastas, por lo que la llave primaria de esta tabla seria una combinacion de dos llaves primarias de Producto y Subasta.
+ En el caso de la tabla subastado hay que prever que el mismo producto puede estar en varias subastas, por lo que la llave primaria de esta tabla seria una combinacion de dos llaves primarias de Producto y Subasta.
  Para implementarlo usé la clase Meta:
  ```python
  class Subastado(models.Model):
@@ -67,17 +67,32 @@ admin.site.register(Subastado)
 admin.site.register(ImagenProducto)
 admin.site.register(ComentarioSubasta)
 ***
+##### Tarea 2:
+a- Crear los modelos de formulario en forms.py
+ - Creo primeramente forms.py y le añado los formularios de cada tabla de la misma manera:
+```python
+from django import forms
+from .models import Producto...
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = '__all__' 
+```
+b- Crear la vista de añadir producto
+
 ## Tarea a realizar:
 
 #### Complete la implementación de su sitio de subastas. Debes cumplir los siguientes requisitos:
 
-:negative_squared_cross_mark: 1-  **Models:** su aplicación debe tener al menos tres modelos además del modelo de Usuario: uno para subastas, uno para ofertas y otro para comentarios realizados en las subastas. Depende de usted decidir qué campos debe tener cada modelo y cuáles deben ser los tipos de esos campos. Es posible que tenga modelos adicionales si lo desea.
+:white_check_mark: 1.-  **Models:** su aplicación debe tener al menos tres modelos además del modelo de Usuario: uno para subastas, uno para ofertas y otro para comentarios realizados en las subastas. Depende de usted decidir qué campos debe tener cada modelo y cuáles deben ser los tipos de esos campos. Es posible que tenga modelos adicionales si lo desea.
 
-:negative_squared_cross_mark: 2- **Create Listing**: Los usuarios deberían poder visitar una página para crear una nueva oferta. Deberían poder especificar un título para la oferta, una descripción basada en texto y cuál debería ser la oferta inicial. Opcionalmente, los usuarios también deberían poder proporcionar una URL para una imagen del producto  y/o una categoría (por ejemplo, moda, juguetes, electrónica, hogar, etc.).
+:negative_squared_cross_mark: 2.- **Create Listing**: 
+los usuarios deben poder crear una nueva entrada para un artículo que desean subastar. Deberán proporcionar un título para la subasta, una descripción del artículo, y la oferta inicial. También pueden optar por proporcionar una URL para una imagen del artículo y/o una categoría como Moda, Juguetes, Electrónica, Hogar, etc.
 
-:negative_squared_cross_mark: 3- **Active Listings Page**: La ruta predeterminada de su aplicación web debería permitir a los usuarios ver todos los productos de subastas activos actualmente. Para cada producto activo, esta página debe mostrar (como mínimo) el título, la descripción, el precio actual y la foto (si existe una para el producto).
+:negative_squared_cross_mark: 3.- **Active Listings Page**: La ruta predeterminada de su aplicación web debería permitir a los usuarios ver todos los productos de subastas activos actualmente. Para cada producto activo, esta página debe mostrar (como mínimo) el título, la descripción, el precio actual y la foto (si existe una para el producto).
 
-:negative_squared_cross_mark: 4- **Listing Page**: Al hacer clic en un listado, los usuarios deberían acceder a una página específica de ese listado. En esa página, los usuarios deberían poder ver todos los detalles sobre el listado, incluido el precio actual del listado.
+:negative_squared_cross_mark: 4.- **Listing Page**: Al hacer clic en un listado, los usuarios deberían acceder a una página específica de ese listado. En esa página, los usuarios deberían poder ver todos los detalles sobre el listado, incluido el precio actual del listado.
 
         * Si el usuario ha iniciado sesión, debería poder agregar el elemento a su "Lista de seguimiento". Si el elemento ya está en la lista de seguimiento, el usuario debería poder eliminarlo.
         *  Si el usuario ha iniciado sesión, debería poder ofertar por el artículo. La oferta debe ser al menos tan grande como la oferta inicial y debe ser mayor que cualquier otra oferta que se haya realizado (si la hubiera). Si la oferta no cumple con esos criterios, se le debería presentar un error al usuario.
@@ -85,11 +100,11 @@ admin.site.register(ComentarioSubasta)
         *  Si un usuario ha iniciado sesión en una página de listado cerrada y el usuario ganó esa subasta, la página debería indicarlo.
         *  Los usuarios que hayan iniciado sesión deberían poder agregar comentarios a la página de listado. La página del listado debe mostrar todos los comentarios que se han realizado en el listado. 
 
-:negative_squared_cross_mark: 5- **Watchlist** : Los usuarios que hayan iniciado sesión deberían poder visitar una página de Lista de seguimiento, que debería mostrar todos los listados que un usuario ha agregado a su lista de seguimiento. Al hacer clic en cualquiera de esos listados, el usuario debería acceder a la página de ese listado.
+:negative_squared_cross_mark: 5.- **Watchlist** : Los usuarios que hayan iniciado sesión deberían poder visitar una página de Lista de seguimiento, que debería mostrar todos los listados que un usuario ha agregado a su lista de seguimiento. Al hacer clic en cualquiera de esos listados, el usuario debería acceder a la página de ese listado.
 
-:negative_squared_cross_mark: 6- **Categories**: Los usuarios deberían poder visitar una página que muestre una lista de todas las categorías de listados. Al hacer clic en el nombre de cualquier categoría, el usuario debería acceder a una página que muestra todos los listados activos en esa categoría.
+:negative_squared_cross_mark: 6.- **Categories**: Los usuarios deberían poder visitar una página que muestre una lista de todas las categorías de listados. Al hacer clic en el nombre de cualquier categoría, el usuario debería acceder a una página que muestra todos los listados activos en esa categoría.
 
-:negative_squared_cross_mark: 7- **Django Admin Interface**: A través de la interfaz de administración de Django, un administrador del sitio debería poder ver, agregar, editar y eliminar cualquier listado, comentario y oferta realizada en el sitio.
+:negative_squared_cross_mark: 7.- **Django Admin Interface**: A través de la interfaz de administración de Django, un administrador del sitio debería poder ver, agregar, editar y eliminar cualquier listado, comentario y oferta realizada en el sitio.
 
 Pistas
 
@@ -97,6 +112,8 @@ Pistas
      ```python
      python enable.py createsuperuser
      ```
+     ###### user:root
+     pass:rootAdmin
 - Consulte la referencia del campo Modelo de Django para conocer los posibles tipos de campos para su modelo Django.
 - Probablemente necesitarás crear algunos formularios de Django para varias partes de esta aplicación web.
 - Agregar el decorador @login_required encima de cualquier vista garantizará que solo un usuario que haya iniciado sesión pueda acceder a esa vista.
