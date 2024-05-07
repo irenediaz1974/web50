@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from .forms import ProductoForm, CategoriaForm
+from .forms import ProductoForm, CategoriaForm, ImagenProductoForm
 from .models import User
 
 
@@ -16,17 +16,20 @@ def add_producto(request):
     if request.method == 'POST':
         prod_form = ProductoForm(request.POST, prefix='prod')
         categ_form= CategoriaForm(request.POST, prefix='categ')
-
+        imagen_prod= ImagenProductoForm(request.POST, prefix='imagen')
         if prod_form.is_valid():
             if 'categ-nombre' in request.POST and categ_form.is_valid():
                 categ_form.save()
+            if 'imagen-descripcion' in request.POST and imagen_prod.is_valid():
+                imagen_prod.save()
             prod_form.save()
-            return render(request, 'auctions/add_producto.html', {'producto': prod_form, 'categoria':categ_form})
+            return render(request, "auctions/add_producto.html", {'producto': prod_form, 'categoria':categ_form})
     else:
         prod_form = ProductoForm()
         categ_form= CategoriaForm()
+        imagen_prod=ImagenProductoForm()
 
-    return render(request, 'add_producto.html', {'producto': prod_form, 'categoria':categ_form})
+    return render(request, "auctions/add_producto.html", {'producto': prod_form, 'categoria':categ_form, 'imagen':imagen_prod})
 
 
 

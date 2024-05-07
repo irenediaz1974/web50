@@ -1,7 +1,7 @@
 ***
 ### Tips: :bulb:
 
-#### Tarea 1.
+#### :point_right: Tarea 1.
 
 a. En el modelado se definen 7 tablas: Usuario, Subasta, Producto, CategoriaProd, Oferta, subastado, ImagenProducto, ComentariosSubasta
  En el caso de la tabla subastado hay que prever que el mismo producto puede estar en varias subastas, por lo que la llave primaria de esta tabla seria una combinacion de dos llaves primarias de Producto y Subasta.
@@ -15,7 +15,7 @@ a. En el modelado se definen 7 tablas: Usuario, Subasta, Producto, CategoriaProd
         unique_together = (('id_subasta', 'id_producto'),)
  ```
  unique_together asegura que la combinación de id_subasta e id_producto sea única, actuando efectivamente como una clave primaria compuesta.
- **La clase Meta es una clase interna que puedes usar en tus modelos para definir opciones de modelo específicas. Por ejemplo, puedes usarla para especificar el nombre de la tabla de la base de datos, el orden de clasificación por defecto, si la combinación de algunos campos debe ser única (como en tu caso con unique_together), entre otras cosas. Es una forma de proporcionar metadatos adicionales a tu modelo.**
+ :duck: **La clase Meta es una clase interna que puedes usar en tus modelos para definir opciones de modelo específicas. Por ejemplo, puedes usarla para especificar el nombre de la tabla de la base de datos, el orden de clasificación por defecto, si la combinación de algunos campos debe ser única (como en tu caso con unique_together), entre otras cosas. Es una forma de proporcionar metadatos adicionales a tu modelo.**
 b. En el modelo del almacenamiento de la imagen del producto, utilicé segun recomendación de Duck la libreria Pillow.
 ```python
  class ImagenProducto(models.Model):
@@ -23,7 +23,7 @@ b. En el modelo del almacenamiento de la imagen del producto, utilicé segun rec
     imagen = models.ImageField(upload_to='ruta/donde/guardar/imagenes')
     descripcion = models.TextField()
 ```
-**Donde, upload_to es la ruta donde se guardarán las imágenes subidas. Django manejará automáticamente la subida de archivos y almacenará la ruta al archivo en la base de datos. Por favor, ten en cuenta que para usar ImageField, necesitarás tener instalada la biblioteca Pillow.**
+:duck: **Donde, upload_to es la ruta donde se guardarán las imágenes subidas. Django manejará automáticamente la subida de archivos y almacenará la ruta al archivo en la base de datos. Por favor, ten en cuenta que para usar ImageField, necesitarás tener instalada la biblioteca Pillow.**
 ```python
  pip install Pillow
 ```
@@ -31,7 +31,7 @@ c. Crear cuenta de superuser que permite acceder a la interface admin de Django
  ```python
  run python manage.py createsuperuser
  ```
-d. **Django 3.2 introdujo una nueva configuración llamada DEFAULT_AUTO_FIELD para controlar el tipo de campo que se utiliza para las claves primarias automáticas. Antes de Django 3.2, el tipo de campo predeterminado era AutoField, que es un entero de 32 bits. Sin embargo, si tienes una gran cantidad de objetos, puedes quedarte sin valores. Por eso, Django 3.2 cambió el valor predeterminado a BigAutoField, que es un entero de 64 bits. Para eliminar que se cree por default la PK BigAutoField, debido a que mi BD es pequeña, debo:**
+d. :duck: **Django 3.2 introdujo una nueva configuración llamada DEFAULT_AUTO_FIELD para controlar el tipo de campo que se utiliza para las claves primarias automáticas. Antes de Django 3.2, el tipo de campo predeterminado era AutoField, que es un entero de 32 bits. Sin embargo, si tienes una gran cantidad de objetos, puedes quedarte sin valores. Por eso, Django 3.2 cambió el valor predeterminado a BigAutoField, que es un entero de 64 bits. Para eliminar que se cree por default la PK BigAutoField, debido a que mi BD es pequeña, debo:**
 * Agregar en apps.py default_auto_field
 
 ```python
@@ -67,7 +67,7 @@ admin.site.register(Subastado)
 admin.site.register(ImagenProducto)
 admin.site.register(ComentarioSubasta)
 ***
-##### Tarea 2:
+##### :point_right: Tarea 2:
 a- Crear los modelos de formulario en forms.py
  - Creo primeramente forms.py y le añado los formularios de cada tabla de la misma manera:
 ```python
@@ -80,6 +80,18 @@ class ProductForm(forms.ModelForm):
         fields = '__all__' 
 ```
 b- Crear la vista de añadir producto
+- Para la imagen del producto instalé pillow. Ahora toca configurarlo:
+:duck: **Primero, necesitas configurar MEDIA_URL y MEDIA_ROOT en tu archivo settings.py. MEDIA_ROOT es el directorio del sistema de archivos donde se guardarán los archivos cargados por los usuarios, y MEDIA_URL es la URL que se utilizará para referirse a estos archivos.**
+- Cree carpeta para imagenes pequeñas en ```console
+\web50\projects\2020\x\commerce\commerce> md imagenprod
+```
+- :boom: Recordar añadirla a gitignore cuando vaya a submit el proyecto.
+- :duck: 
+###### MEDIA_ROOT y MEDIA_URL son configuraciones en Django que se utilizan para manejar archivos de medios, como imágenes, que los usuarios de tu sitio web pueden subir. MEDIA_ROOT es la ubicación física en tu sistema de archivos donde estos archivos de medios se almacenarán. Cuando un usuario sube un archivo, Django lo guarda en una ubicación dentro de MEDIA_ROOT. Por otro lado, MEDIA_URL es la URL base que Django usará para servir estos archivos de medios. Cuando se solicita un archivo de medios, Django busca el archivo en MEDIA_ROOT y luego lo sirve en una URL que comienza con MEDIA_URL. 
+
+###### Por ejemplo, si MEDIA_ROOT está configurado como /home/usuario/imagenes/ y MEDIA_URL está configurado como /media/, y un usuario sube un archivo llamado foto.jpg, Django guardará el archivo en /home/usuario/imagenes/foto.jpg y lo servirá en la URL /media/foto.jpg.**
+Para configurar MEDIA_URL en tu archivo settings.py, necesitas definirlo como una URL que Django usará para referirse a los archivos de medios. Por ejemplo, podrías hacer algo como esto:
+MEDIA_URL = '/media/'
 
 ## Tarea a realizar:
 
