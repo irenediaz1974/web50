@@ -2,31 +2,31 @@
 
 {% block body %}
     <h2>Adicionar productos</h2>
-
     <form action="{% url 'addProducto' %}" method="post">
         {% csrf_token %}
         <div class="form-group">
             <div class="row">
                 <div class="col">
                     {{ producto.as_p }}
+                    <button type="submit" class="btn btn-primary">Salvar nuevo Producto</button>
+                </div> 
+                <div class="col">
+                        <button id="show-categ-form" class="btn btn-success" >Añadir categoría</button>
+                        <div id="categ-form" style="display: none;">
+                            {{ categoria.as_p }}
+                            <button type="submit" class="btn btn-primary">Salvar nueva Categoria</button>
+                        </div>                   
                 </div>
                 <div class="col">
                     <button id="show-imagen-form" class="btn btn-success">Añadir Imagen</button>
                     <div id="imagen-form" style="display: none;">
                         {{ imagen.as_p }}
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Salvar datos Imagen</button>
                     </div>
                 </div>  
             </div>
-        </div>
-            
-        <button id="show-categ-form" class="btn btn-success" >Añadir categoría</button>
-        <div id="categ-form" style="display: none;">
-            {{ categoria.as_p }}
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        </div>               
     </form>
-
     <script>
         document.getElementById('show-categ-form').addEventListener('click', function() {
             document.getElementById('categ-form').style.display = 'block';
