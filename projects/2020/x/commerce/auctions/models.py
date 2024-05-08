@@ -42,7 +42,7 @@ class Subastado(models.Model):
 
 class ImagenProducto(models.Model):
     id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='ruta/donde/guardar/imagenes')
+    imagen = models.ImageField(upload_to='media')
     descripcion = models.TextField()
 
 class ComentarioSubasta(models.Model):

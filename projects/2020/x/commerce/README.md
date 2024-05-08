@@ -1,11 +1,13 @@
 ***
+
 ### Tips: :bulb:
 
-#### :point_right: Tarea 1.
+#### :point_right: Tarea 1
 
 a. En el modelado se definen 7 tablas: Usuario, Subasta, Producto, CategoriaProd, Oferta, subastado, ImagenProducto, ComentariosSubasta
  En el caso de la tabla subastado hay que prever que el mismo producto puede estar en varias subastas, por lo que la llave primaria de esta tabla seria una combinacion de dos llaves primarias de Producto y Subasta.
  Para implementarlo usé la clase Meta:
+
  ```python
  class Subastado(models.Model):
     id_subasta = models.ForeignKey(Subasta, on_delete=models.CASCADE)
@@ -14,24 +16,32 @@ a. En el modelado se definen 7 tablas: Usuario, Subasta, Producto, CategoriaProd
     class Meta:
         unique_together = (('id_subasta', 'id_producto'),)
  ```
+
  unique_together asegura que la combinación de id_subasta e id_producto sea única, actuando efectivamente como una clave primaria compuesta.
  :duck: **La clase Meta es una clase interna que puedes usar en tus modelos para definir opciones de modelo específicas. Por ejemplo, puedes usarla para especificar el nombre de la tabla de la base de datos, el orden de clasificación por defecto, si la combinación de algunos campos debe ser única (como en tu caso con unique_together), entre otras cosas. Es una forma de proporcionar metadatos adicionales a tu modelo.**
 b. En el modelo del almacenamiento de la imagen del producto, utilicé segun recomendación de Duck la libreria Pillow.
+
 ```python
  class ImagenProducto(models.Model):
     id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     imagen = models.ImageField(upload_to='ruta/donde/guardar/imagenes')
     descripcion = models.TextField()
 ```
+
 :duck: **Donde, upload_to es la ruta donde se guardarán las imágenes subidas. Django manejará automáticamente la subida de archivos y almacenará la ruta al archivo en la base de datos. Por favor, ten en cuenta que para usar ImageField, necesitarás tener instalada la biblioteca Pillow.**
+
 ```python
  pip install Pillow
 ```
+
 c. Crear cuenta de superuser que permite acceder a la interface admin de Django
+
  ```python
  run python manage.py createsuperuser
  ```
+
 d. :duck: **Django 3.2 introdujo una nueva configuración llamada DEFAULT_AUTO_FIELD para controlar el tipo de campo que se utiliza para las claves primarias automáticas. Antes de Django 3.2, el tipo de campo predeterminado era AutoField, que es un entero de 32 bits. Sin embargo, si tienes una gran cantidad de objetos, puedes quedarte sin valores. Por eso, Django 3.2 cambió el valor predeterminado a BigAutoField, que es un entero de 64 bits. Para eliminar que se cree por default la PK BigAutoField, debido a que mi BD es pequeña, debo:**
+
 * Agregar en apps.py default_auto_field
 
 ```python
@@ -42,7 +52,7 @@ class AuctionsConfig(AppConfig):
     name = 'auctions'
 ```
 
-Revisar que en settings.py solo quede: 
+Revisar que en settings.py solo quede:
 :bulb: Eliminé 'auctions' a sugerencia de Duck
 
 ```python
@@ -52,12 +62,15 @@ INSTALLED_APPS = [
 ]
 ```
 
-e. 
+e.
+
 * Migrar el modelo: python manage.py makemigrations
 * aplicar el modelo: python manage.py migrate
 * Para manipular los datos desde admin.py :
  debemos entrar los modelos que queremos utilizar en admin.py :
- # Register your models here.
+
+# Register your models here
+
 admin.site.register(User)
 admin.site.register(Subasta)
 admin.site.register(Oferta)
@@ -67,9 +80,13 @@ admin.site.register(Subastado)
 admin.site.register(ImagenProducto)
 admin.site.register(ComentarioSubasta)
 ***
-##### :point_right: Tarea 2:
+
+## :point_right: Tarea 2
+
 a- Crear los modelos de formulario en forms.py
- - Creo primeramente forms.py y le añado los formularios de cada tabla de la misma manera:
+
+* Creo primeramente forms.py y le añado los formularios de cada tabla de la misma manera:
+
 ```python
 from django import forms
 from .models import Producto...
@@ -79,23 +96,22 @@ class ProductForm(forms.ModelForm):
         model = Producto
         fields = '__all__' 
 ```
-b- Crear la vista de añadir producto
-- Para la imagen del producto instalé pillow. Ahora toca configurarlo:
-:duck: **Primero, necesitas configurar MEDIA_URL y MEDIA_ROOT en tu archivo settings.py. MEDIA_ROOT es el directorio del sistema de archivos donde se guardarán los archivos cargados por los usuarios, y MEDIA_URL es la URL que se utilizará para referirse a estos archivos.**
-- Cree carpeta para imagenes pequeñas en ```console
-\web50\projects\2020\x\commerce\commerce> md imagenprod
-```
-- :boom: Recordar añadirla a gitignore cuando vaya a submit el proyecto.
-- :duck: 
-###### MEDIA_ROOT y MEDIA_URL son configuraciones en Django que se utilizan para manejar archivos de medios, como imágenes, que los usuarios de tu sitio web pueden subir. MEDIA_ROOT es la ubicación física en tu sistema de archivos donde estos archivos de medios se almacenarán. Cuando un usuario sube un archivo, Django lo guarda en una ubicación dentro de MEDIA_ROOT. Por otro lado, MEDIA_URL es la URL base que Django usará para servir estos archivos de medios. Cuando se solicita un archivo de medios, Django busca el archivo en MEDIA_ROOT y luego lo sirve en una URL que comienza con MEDIA_URL. 
 
-###### Por ejemplo, si MEDIA_ROOT está configurado como /home/usuario/imagenes/ y MEDIA_URL está configurado como /media/, y un usuario sube un archivo llamado foto.jpg, Django guardará el archivo en /home/usuario/imagenes/foto.jpg y lo servirá en la URL /media/foto.jpg.**
-Para configurar MEDIA_URL en tu archivo settings.py, necesitas definirlo como una URL que Django usará para referirse a los archivos de medios. Por ejemplo, podrías hacer algo como esto:
+b- Crear la vista de añadir producto
+
+* Para la imagen del producto instalé pillow. Ahora toca configurarlo:
+:duck: **Primero, necesitas configurar MEDIA_URL y MEDIA_ROOT en tu archivo settings.py. MEDIA_ROOT es el directorio del sistema de archivos donde se guardarán los archivos cargados por los usuarios, y MEDIA_URL es la URL que se utilizará para referirse a estos archivos.**
+:boom: Recordar añadirla a gitignore cuando vaya a submit el proyecto.
+
+:duck: ### MEDIA_ROOT y MEDIA_URL son configuraciones en Django que se utilizan para manejar archivos de medios, como imágenes, que los usuarios de tu sitio web pueden subir. MEDIA_ROOT es la ubicación física en tu sistema de archivos donde estos archivos de medios se almacenarán. Por otro lado, MEDIA_URL es la URL base que Django usará para servir estos archivos de medios. Cuando se solicita un archivo de medios, Django busca el archivo en MEDIA_ROOT y luego lo sirve en una URL que comienza con MEDIA_URL. 
+
+Para configurar MEDIA_URL en tu archivo settings.py.
+MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
 MEDIA_URL = '/media/'
 
-## Tarea a realizar:
+## Tarea a realizar
 
-#### Complete la implementación de su sitio de subastas. Debes cumplir los siguientes requisitos:
+### Complete la implementación de su sitio de subastas. Debes cumplir los siguientes requisitos:
 
 :white_check_mark: 1.-  **Models:** su aplicación debe tener al menos tres modelos además del modelo de Usuario: uno para subastas, uno para ofertas y otro para comentarios realizados en las subastas. Depende de usted decidir qué campos debe tener cada modelo y cuáles deben ser los tipos de esos campos. Es posible que tenga modelos adicionales si lo desea.
 
@@ -106,12 +122,11 @@ los usuarios deben poder crear una nueva entrada para un artículo que desean su
 
 :negative_squared_cross_mark: 4.- **Listing Page**: Al hacer clic en un listado, los usuarios deberían acceder a una página específica de ese listado. En esa página, los usuarios deberían poder ver todos los detalles sobre el listado, incluido el precio actual del listado.
 
-        * Si el usuario ha iniciado sesión, debería poder agregar el elemento a su "Lista de seguimiento". Si el elemento ya está en la lista de seguimiento, el usuario debería poder eliminarlo.
-        *  Si el usuario ha iniciado sesión, debería poder ofertar por el artículo. La oferta debe ser al menos tan grande como la oferta inicial y debe ser mayor que cualquier otra oferta que se haya realizado (si la hubiera). Si la oferta no cumple con esos criterios, se le debería presentar un error al usuario.
-        *  Si el usuario ha iniciado sesión y es quien creó el listado, el usuario debería tener la capacidad de "cerrar" la subasta desde esta página, lo que convierte al mejor postor en el ganador de la subasta y hace que el listado ya no esté activo.
-        *  Si un usuario ha iniciado sesión en una página de listado cerrada y el usuario ganó esa subasta, la página debería indicarlo.
-        *  Los usuarios que hayan iniciado sesión deberían poder agregar comentarios a la página de listado. La página del listado debe mostrar todos los comentarios que se han realizado en el listado. 
-
+* Si el usuario ha iniciado sesión, debería poder agregar el elemento a su "Lista de seguimiento". Si el elemento ya está en la lista de seguimiento, el usuario debería poder eliminarlo.
+* Si el usuario ha iniciado sesión, debería poder ofertar por el artículo. La oferta debe ser al menos tan grande como la oferta inicial y debe ser mayor que cualquier otra oferta que se haya realizado (si la hubiera). Si la oferta no cumple con esos criterios, se le debería presentar un error al usuario.
+* Si el usuario ha iniciado sesión y es quien creó el listado, el usuario debería tener la capacidad de "cerrar" la subasta desde esta página, lo que convierte al mejor postor en el ganador de la subasta y hace que el listado ya no esté activo.
+* Si un usuario ha iniciado sesión en una página de listado cerrada y el usuario ganó esa subasta, la página debería indicarlo.
+        *  Los usuarios que hayan iniciado sesión deberían poder agregar comentarios a la página de listado. La página del listado debe mostrar todos los comentarios que se han realizado en el listado
 :negative_squared_cross_mark: 5.- **Watchlist** : Los usuarios que hayan iniciado sesión deberían poder visitar una página de Lista de seguimiento, que debería mostrar todos los listados que un usuario ha agregado a su lista de seguimiento. Al hacer clic en cualquiera de esos listados, el usuario debería acceder a la página de ese listado.
 
 :negative_squared_cross_mark: 6.- **Categories**: Los usuarios deberían poder visitar una página que muestre una lista de todas las categorías de listados. Al hacer clic en el nombre de cualquier categoría, el usuario debería acceder a una página que muestra todos los listados activos en esa categoría.
@@ -120,8 +135,9 @@ los usuarios deben poder crear una nueva entrada para un artículo que desean su
 
 Pistas
 
-- Para crear una cuenta de superusuario que pueda acceder a la interfaz de administración de Django, ejecute:
-     ```python
+* Para crear una cuenta de superusuario que pueda acceder a la interfaz de administración de Django, ejecute:
+
+```python
      python enable.py createsuperuser
      ```
      ###### user:root
@@ -143,9 +159,10 @@ Pistas
 ```python
 python manage.py makemigrations auctions
 ```
-        System check identified some issues:
 
-    ```console
+System check identified some issues:
+
+``` console
     WARNINGS:
     ←[33;1mauctions.User: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
             HINT: Configure the DEFAULT_AUTO_FIELD setting or the AuctionsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.←[0m
@@ -154,12 +171,14 @@ python manage.py makemigrations auctions
         - Create model User
         
     ```
- 
-- Ejecutar  para aplicar migraciones a la Base de datos:
+
+* Ejecutar  para aplicar migraciones a la Base de datos:
+
 ```python
 python manage.py migrate
 ```
-    System check identified some issues:
+
+System check identified some issues:
 
    ```console
     WARNINGS:
@@ -171,10 +190,13 @@ python manage.py migrate
     Applying contenttypes.0001_initial...←[32;1m OK←[0m
    
    ```
+
 ***
+
 ## REQUERIMIENTOS
 
 1. Manejar imagenes
+
 ```python
  pip install Pillow
-``` 
+```

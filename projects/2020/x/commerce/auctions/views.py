@@ -23,7 +23,7 @@ def add_producto(request):
             if 'imagen-descripcion' in request.POST and imagen_prod.is_valid():
                 imagen_prod.save()
             prod_form.save()
-            return render(request, "auctions/add_producto.html", {'producto': prod_form, 'categoria':categ_form})
+            return render(request, "auctions/add_producto.html", {'producto': prod_form, 'imagen': imagen_prod, 'categoria':categ_form})
     else:
         prod_form = ProductoForm()
         categ_form= CategoriaForm()
