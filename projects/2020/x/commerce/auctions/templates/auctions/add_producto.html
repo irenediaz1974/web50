@@ -4,25 +4,29 @@
     <h2>Adicionar productos</h2>
     <form action="{% url 'addProducto' %}" method="post">
         {% csrf_token %}
-        <div class="form-group">
+        <div class="form-group d-flex flex-column">
             <div class="row">
                 <div class="col">
                     {{ producto.as_p }}
-                    <button type="submit" class="btn btn-primary">Salvar nuevo Producto</button>
+                    <button type="submit" class="btn btn-primary p-1">Salvar Producto</button>
                 </div> 
-                <div class="col">
-                        <button id="show-categ-form" class="btn btn-success" >Añadir categoría</button>
-                        <div id="categ-form" style="display: none;">
-                            {{ categoria.as_p }}
-                            <button type="submit" class="btn btn-primary">Salvar nueva Categoria</button>
-                        </div>                   
+                <div class="col m-2">
+                        <button id="show-categ-form" class="btn btn-success p-1 m-2" >Añadir categoría</button>
+                        <div class="col">
+                            <div id="categ-form" style="display: none;">
+                                {{ categoria.as_p }}
+                                <button type="submit" class="btn btn-primary p-1">Salvar Categoria</button>
+                            </div> 
+                        </div>                                        
                 </div>
-                <div class="col">
-                    <button id="show-imagen-form" class="btn btn-success">Añadir Imagen</button>
-                    <div id="imagen-form" style="display: none;">
-                        {{ imagen.as_p }}
-                        <button type="submit" class="btn btn-primary">Salvar datos Imagen</button>
-                    </div>
+                <div class="col-md-6 m-2">
+                    <button id="show-imagen-form" class="btn btn-success p-1 m-2">Añadir Imagen</button>
+                    <div class="col-md-6 m-2">
+                        <div id="imagen-form" style="display: none;">
+                            {{ imagen.as_p }}
+                            <button type="submit" class="btn btn-primary p-1 ">Salvar datos Imagen</button>
+                        </div>
+                    </div>                   
                 </div>  
             </div>
         </div>               
@@ -31,6 +35,18 @@
         document.getElementById('show-categ-form').addEventListener('click', function() {
             document.getElementById('categ-form').style.display = 'block';
         });
+        <!-- Implementar el script de actualizar el select de producto con la categoria añadida --> 
+         /*
+            let nuevaCategoria = /* el valor de la nueva categoría */;
+            let select = document.getElementById('id_de_tu_select');
+            let option = document.createElement('option');
+            option.text = nuevaCategoria;
+            option.value = nuevaCategoria;
+            select.add(option);
+            */
+
+
+
         document.getElementById('show-imagen-form').addEventListener('click', function() {
             document.getElementById('imagen-form').style.display = 'block';
         });
