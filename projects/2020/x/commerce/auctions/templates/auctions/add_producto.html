@@ -2,12 +2,13 @@
 
 {% block body %}
     <h2>Adicionar productos</h2>
-    <form action="{% url 'addProducto' %}" method="post">
+    <form action="{% url 'addProducto' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group d-flex flex-column">
             <div class="row">
-                <div class="col">
+                <div id="form_producto_html" class="col">
                     {{ producto.as_p }}
+                    {% csrf_token %}
                     <button type="submit" class="btn btn-primary p-1">Salvar Producto</button>
                 </div> 
                 <div class="col m-2">
@@ -15,7 +16,8 @@
                         <div class="col">
                             <div id="categ-form" style="display: none;">
                                 {{ categoria.as_p }}
-                                <button type="submit" class="btn btn-primary p-1">Salvar Categoria</button>
+                                {% csrf_token %}
+                                <button id="save_categ" type="submit" class="btn btn-primary p-1">Actualizar</button>
                             </div> 
                         </div>                                        
                 </div>
@@ -24,7 +26,7 @@
                     <div class="col-md-6 m-2">
                         <div id="imagen-form" style="display: none;">
                             {{ imagen.as_p }}
-                            <button type="submit" class="btn btn-primary p-1 ">Salvar datos Imagen</button>
+                            {% csrf_token %}
                         </div>
                     </div>                   
                 </div>  
@@ -34,18 +36,20 @@
     <script>
         document.getElementById('show-categ-form').addEventListener('click', function() {
             document.getElementById('categ-form').style.display = 'block';
+            document.getElementById('form_producto_html').querySelector('button').disabled = true;
+            document.getElementById('form_producto_html').querySelector('select').disabled = true;
         });
-        <!-- Implementar el script de actualizar el select de producto con la categoria añadida --> 
-         /*
-            let nuevaCategoria = /* el valor de la nueva categoría */;
-            let select = document.getElementById('id_de_tu_select');
+        document.getElementById('save_categ').addEventListener('click', function() {
+            <!-- Implementar el script de actualizar el select de producto con la categoria añadida --> 
+            var nuevaCategoria= document.getElementById('nombre_categoria').value;
+            let select = document.getElementById('id_prod-categoria');
             let option = document.createElement('option');
             option.text = nuevaCategoria;
             option.value = nuevaCategoria;
             select.add(option);
-            */
-
-
+            document.getElementById('form_producto_html').querySelector('button').disabled = false;
+            document.getElementById('form_producto_html').querySelector('select').disabled = false;
+        });
 
         document.getElementById('show-imagen-form').addEventListener('click', function() {
             document.getElementById('imagen-form').style.display = 'block';

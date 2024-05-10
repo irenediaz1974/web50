@@ -3,15 +3,16 @@ from .models import Producto, CategoriaProd, Subasta, Subastado, Oferta,Comentar
 
 class ProductoForm(forms.ModelForm):
 
-    descripcion = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'cols': 20, 'rows': 4}))
-
+    nombre = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-sm', 'id': 'nombre_producto'}))
+    descripcion = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_producto', 'cols': 20, 'rows': 4}))
+    
     class Meta:
         model = Producto
         fields = '__all__' 
 
 class CategoriaForm(forms.ModelForm):
 
-    nombre = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-sm'}))
+    nombre = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-sm', 'id': 'nombre_categoria'}))
 
     class Meta:
         model = CategoriaProd
@@ -38,7 +39,7 @@ class ComentarioForm(forms.ModelForm):
         fields = '__all__' 
 
 class ImagenProductoForm(forms.ModelForm):
-    descripcion = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'cols': 10, 'rows': 4}))
+    descripcion = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_imagen','cols': 10, 'rows': 4}))
     class Meta:
         model = ImagenProducto
         fields = '__all__' 
