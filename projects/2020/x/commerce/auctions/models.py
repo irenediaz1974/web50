@@ -6,6 +6,7 @@ class User(AbstractUser):
     pass
 
 class Subasta(models.Model):
+
     nombre= models.CharField(max_length=64)
     descripcion=models.TextField()
     fecha_ini=models.DateField()
@@ -17,13 +18,21 @@ class Subasta(models.Model):
     
 
 class CategoriaProd(models.Model):
-    nombre= models.TextField()
+    nombre= models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.nombre
+
+
+
     
 class Producto(models.Model):
+
     nombre=models.CharField(max_length=64)
     descripcion= models.TextField()
     precio_inicial=models.FloatField()
     categoria=models.ForeignKey(CategoriaProd, on_delete=models.CASCADE,related_name="categoria")
+    
     def __str__(self):
         return f"{self.nombre}: {self.descripcion} y {self.categoria}"
     

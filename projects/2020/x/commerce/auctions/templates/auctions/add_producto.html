@@ -7,37 +7,37 @@
         <div class="form-group d-flex flex-column">
             <div class="row">
                 <div id="form_producto_html" class="col">
-                    {{ producto.as_p }}
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary p-1">Salvar Producto</button>
+                    {{ producto.as_p }} 
+                    {% csrf_token %}                           
                 </div> 
-                <div class="col m-2">
-                        <button id="show-categ-form" class="btn btn-success p-1 m-2" >Añadir categoría</button>
-                        <div class="col">
-                            <div id="categ-form" style="display: none;">
-                                {{ categoria.as_p }}
-                                {% csrf_token %}
-                                <button id="save_categ" type="submit" class="btn btn-primary p-1">Actualizar</button>
-                            </div> 
-                        </div>                                        
-                </div>
-                <div class="col-md-6 m-2">
-                    <button id="show-imagen-form" class="btn btn-success p-1 m-2">Añadir Imagen</button>
+            </div>  
+            <div class="row">
+                    <button id="show-categ-form" class="btn btn-success p-1 m-2" >Añadir categoría</button>
+                <div class="col">
+                    <div id="categ-form" style="display: none;">
+                            {{ categoria.as_p }}
+                            {% csrf_token %}
+                            <button id="save_categ" type="submit" class="btn btn-primary p-1">Actualizar</button>
+                    </div> 
+                </div> 
+            </div>                                            
+            <div class="col-md-6 m-2">
+                <button id="show-imagen-form" class="btn btn-success p-1 m-2">Añadir Imagen</button>
                     <div class="col-md-6 m-2">
                         <div id="imagen-form" style="display: none;">
                             {{ imagen.as_p }}
                             {% csrf_token %}
                         </div>
                     </div>                   
-                </div>  
+            </div>     
+            <div class="submit" class="col">
+                <button type="submit" class="btn btn-primary p-1">Salvar Producto</button>
             </div>
-        </div>               
+        </div>            
     </form>
     <script>
         document.getElementById('show-categ-form').addEventListener('click', function() {
             document.getElementById('categ-form').style.display = 'block';
-            document.getElementById('form_producto_html').querySelector('button').disabled = true;
-            document.getElementById('form_producto_html').querySelector('select').disabled = true;
         });
         document.getElementById('save_categ').addEventListener('click', function() {
             <!-- Implementar el script de actualizar el select de producto con la categoria añadida --> 
@@ -47,10 +47,7 @@
             option.text = nuevaCategoria;
             option.value = nuevaCategoria;
             select.add(option);
-            document.getElementById('form_producto_html').querySelector('button').disabled = false;
-            document.getElementById('form_producto_html').querySelector('select').disabled = false;
         });
-
         document.getElementById('show-imagen-form').addEventListener('click', function() {
             document.getElementById('imagen-form').style.display = 'block';
         });

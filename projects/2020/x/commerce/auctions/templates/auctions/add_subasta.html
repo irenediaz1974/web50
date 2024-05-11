@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Crear subasta</h2>
+
+    <form action="{% url 'add_subasta' %}" method="post">
+        <div class="form-group d-flex flex-column">
+            <div class="row">
+                <div id="form_producto_html" class="col col-md-6">
+                    {% csrf_token %}
+                    {{subasta_form.as_p}}                          
+                </div> 
+            </div>
+        </div>    
+    </form>
+    
+    
+        
+            
+
+
+
+
+
+{% endblock %}

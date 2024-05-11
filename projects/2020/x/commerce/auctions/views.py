@@ -3,45 +3,53 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import ProductoForm, CategoriaForm, ImagenProductoForm
+from .forms import ProductoForm, CategoriaForm, ImagenProductoForm, SubastaForm
 from .models import User
 
 
 def index(request):
     return render(request, "auctions/index.html")
 
-# Vistas para implementar las tareas
+# Vista para implementar subasta
+def add_subasta(request):
+    subasta_form=SubastaForm()
+    return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form})
+    
 
+
+# Vista para implementar producto
 def add_producto(request):
-    if request.method == 'POST':
-        
+    if request.method == 'POST':  
         categ_form= CategoriaForm(request.POST, prefix='categ')
-
+        print(categ_form.errors)
         if 'categ-nombre' in request.POST and categ_form.is_valid():
             print("Es valido formulario categoria" + str(categ_form.is_valid()))
             print("Es valido nombre categoria" + str('categ-nombre' in request.POST))
             categoria = categ_form.save()
-         
-   
+        else:
+            print(categ_form.errors)
         prod_form = ProductoForm(request.POST, prefix='prod')
+        print(prod_form.errors)
         if prod_form.is_valid():
             prod_form.save()
-
-        imagen_prod= ImagenProductoForm(request.POST, request.FILES, prefix='imagen')
-
-        if 'imagen-descripcion' in request.POST and imagen_prod.is_valid():
+        else:
+            print(prod_form.errors)
+        imagen_form= ImagenProductoForm(request.POST, request.FILES, prefix='imagen')
+        print(imagen_form.errors)
+        if 'imagen-descripcion' in request.POST and imagen_form.is_valid():
             print("Es valido la descripcion de la imagen" + str('imagen-descripcion' in request.POST))
-            print("Es valido formulario imagen" + str(imagen_prod.is_valid()))
-            imagen = imagen_prod.save()
-  
-
+            print("Es valido formulario imagen" + str(imagen_form.is_valid()))
+            imagen = imagen_form.save(commit=False)
+            imagen.id_producto = prod_form.instance.id
+            imagen.save()
+        else:
+            print(imagen_form.errors)        
         return redirect('index')
     else:
         prod_form = ProductoForm(prefix='prod')
         categ_form= CategoriaForm(prefix='categ')
-        imagen_prod=ImagenProductoForm(prefix='imagen')
-
-    return render(request, "auctions/add_producto.html", {'producto': prod_form, 'categoria':categ_form, 'imagen':imagen_prod})
+        imagen_form=ImagenProductoForm(prefix='imagen')
+        return render(request, "auctions/add_producto.html", {'producto': prod_form, 'categoria':categ_form, 'imagen':imagen_form})
 
 
 

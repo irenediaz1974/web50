@@ -2,7 +2,8 @@ from django import forms
 from .models import Producto, CategoriaProd, Subasta, Subastado, Oferta,ComentarioSubasta,ImagenProducto
 
 class ProductoForm(forms.ModelForm):
-
+    
+    id_categoria = forms.ModelChoiceField(queryset=CategoriaProd.objects.all(), to_field_name="nombre")
     nombre = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-sm', 'id': 'nombre_producto'}))
     descripcion = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_producto', 'cols': 20, 'rows': 4}))
     
@@ -19,6 +20,10 @@ class CategoriaForm(forms.ModelForm):
         fields = '__all__' 
 
 class SubastaForm(forms.ModelForm):
+    
+    fecha_ini=forms.DateField()
+    fecha_fin=forms.DateField()
+    descripcion = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_subasta', 'cols': 20, 'rows': 4}))
     class Meta:
         model = Subasta
         fields = '__all__' 
