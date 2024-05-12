@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import ProductoForm, CategoriaForm, ImagenProductoForm, SubastaForm
+from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form
 from .models import User
 
 
@@ -12,7 +12,7 @@ def index(request):
 
 # Vista para implementar subasta
 def add_subasta(request):
-    subasta_form=SubastaForm()
+    subasta_form=Subasta_form()
     return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form})
     
 
@@ -20,7 +20,7 @@ def add_subasta(request):
 # Vista para implementar producto
 def add_producto(request):
     if request.method == 'POST':  
-        categ_form= CategoriaForm(request.POST, prefix='categ')
+        categ_form= Categoria_form(request.POST, prefix='categ')
         print(categ_form.errors)
         if 'categ-nombre' in request.POST and categ_form.is_valid():
             print("Es valido formulario categoria" + str(categ_form.is_valid()))
@@ -28,13 +28,13 @@ def add_producto(request):
             categoria = categ_form.save()
         else:
             print(categ_form.errors)
-        prod_form = ProductoForm(request.POST, prefix='prod')
+        prod_form = Producto_form(request.POST, prefix='prod')
         print(prod_form.errors)
         if prod_form.is_valid():
             prod_form.save()
         else:
             print(prod_form.errors)
-        imagen_form= ImagenProductoForm(request.POST, request.FILES, prefix='imagen')
+        imagen_form= Imagen_form(request.POST, request.FILES, prefix='imagen')
         print(imagen_form.errors)
         if 'imagen-descripcion' in request.POST and imagen_form.is_valid():
             print("Es valido la descripcion de la imagen" + str('imagen-descripcion' in request.POST))
@@ -46,9 +46,9 @@ def add_producto(request):
             print(imagen_form.errors)        
         return redirect('index')
     else:
-        prod_form = ProductoForm(prefix='prod')
-        categ_form= CategoriaForm(prefix='categ')
-        imagen_form=ImagenProductoForm(prefix='imagen')
+        prod_form = Producto_form(prefix='prod')
+        categ_form= Categoria_form(prefix='categ')
+        imagen_form=Imagen_form(prefix='imagen')
         return render(request, "auctions/add_producto.html", {'producto': prod_form, 'categoria':categ_form, 'imagen':imagen_form})
 
 

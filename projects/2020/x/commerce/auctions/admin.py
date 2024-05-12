@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import User, Subasta, Oferta, CategoriaProd, Producto, Subastado, ImagenProducto, ComentarioSubasta
+from .models import User, Subasta, Oferta, Categoria, Producto, Subastado, Imagen, Comentario
 
 # Register your models here.
 admin.site.register(User)
 admin.site.register(Subasta)
 admin.site.register(Oferta)
-admin.site.register(CategoriaProd)
+admin.site.register(Categoria)
 admin.site.register(Producto)
 admin.site.register(Subastado)
-admin.site.register(ImagenProducto)
-admin.site.register(ComentarioSubasta)
+admin.site.register(Imagen)
+admin.site.register(Comentario)

@@ -4,7 +4,7 @@
 
 #### :point_right: Tarea 1
 
-a. En el modelado se definen 7 tablas: Usuario, Subasta, Producto, CategoriaProd, Oferta, subastado, ImagenProducto, ComentariosSubasta
+a. En el modelado se definen 7 tablas: Usuario, Subasta, Producto, Categoria, Oferta, subastado, Imagen, Comentarios
  En el caso de la tabla subastado hay que prever que el mismo producto puede estar en varias subastas, por lo que la llave primaria de esta tabla seria una combinacion de dos llaves primarias de Producto y Subasta.
  Para implementarlo usé la clase Meta:
 
@@ -62,10 +62,17 @@ INSTALLED_APPS = [
 ]
 ```
 
-e.
+e. Acciones en el modelo:
 
 * Migrar el modelo: python manage.py makemigrations
 * aplicar el modelo: python manage.py migrate
+
+### Deshacer migraciones
+
+```python
+python manage.py migrate auctions 0001_initial
+```
+
 * Para manipular los datos desde admin.py :
  debemos entrar los modelos que queremos utilizar en admin.py :
 
@@ -103,7 +110,7 @@ b- Crear la vista de añadir producto
 :duck: **Primero, necesitas configurar MEDIA_URL y MEDIA_ROOT en tu archivo settings.py. MEDIA_ROOT es el directorio del sistema de archivos donde se guardarán los archivos cargados por los usuarios, y MEDIA_URL es la URL que se utilizará para referirse a estos archivos.**
 :boom: Recordar añadirla a gitignore cuando vaya a submit el proyecto.
 
-:duck: ### MEDIA_ROOT y MEDIA_URL son configuraciones en Django que se utilizan para manejar archivos de medios, como imágenes, que los usuarios de tu sitio web pueden subir. MEDIA_ROOT es la ubicación física en tu sistema de archivos donde estos archivos de medios se almacenarán. Por otro lado, MEDIA_URL es la URL base que Django usará para servir estos archivos de medios. Cuando se solicita un archivo de medios, Django busca el archivo en MEDIA_ROOT y luego lo sirve en una URL que comienza con MEDIA_URL. 
+:duck: ### MEDIA_ROOT y MEDIA_URL son configuraciones en Django que se utilizan para manejar archivos de medios, como imágenes, que los usuarios de tu sitio web pueden subir. MEDIA_ROOT es la ubicación física en tu sistema de archivos donde estos archivos de medios se almacenarán. Por otro lado, MEDIA_URL es la URL base que Django usará para servir estos archivos de medios. Cuando se solicita un archivo de medios, Django busca el archivo en MEDIA_ROOT y luego lo sirve en una URL que comienza con MEDIA_URL.
 
 Para configurar MEDIA_URL en tu archivo settings.py.
 MEDIA_ROOT = os.path.join(BASE_DIR, '/media')
@@ -111,7 +118,7 @@ MEDIA_URL = '/media/'
 
 ## Tarea a realizar
 
-### Complete la implementación de su sitio de subastas. Debes cumplir los siguientes requisitos:
+### Complete la implementación de su sitio de subastas. Debes cumplir los siguientes requisitos
 
 :white_check_mark: 1.-  **Models:** su aplicación debe tener al menos tres modelos además del modelo de Usuario: uno para subastas, uno para ofertas y otro para comentarios realizados en las subastas. Depende de usted decidir qué campos debe tener cada modelo y cuáles deben ser los tipos de esos campos. Es posible que tenga modelos adicionales si lo desea.
 
