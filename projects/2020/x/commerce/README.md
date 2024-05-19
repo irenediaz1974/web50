@@ -73,6 +73,14 @@ e. Acciones en el modelo:
 python manage.py migrate auctions 0001_initial
 ```
 
+* Para crear un archivo de volcado del modelo:
+    *(web50) PS C:\Users\T\Repositorios\web50\projects\2020\x\commerce> sqlite3 db.sqlite3
+    SQLite version 3.40.0 2022-11-16 12:10:08
+    Enter ".help" for usage hints.
+    sqlite> .output dump.sql
+    sqlite> .dump
+    sqlite> .output stdout*
+
 * Para manipular los datos desde admin.py :
  debemos entrar los modelos que queremos utilizar en admin.py :
 

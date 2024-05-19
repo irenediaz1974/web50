@@ -4,11 +4,16 @@
     <h2>Crear subasta</h2>
 
     <form action="{% url 'add_subasta' %}" method="post">
+        {% csrf_token %}
         <div class="form-group d-flex flex-column">
             <div class="row">
-                <div id="form_producto_html" class="col col-md-6">
-                    {% csrf_token %}
+                <div id="form_subasta_html" class="col col-md-6">
                     {{subasta_form.as_p}}                          
+                </div> 
+            </div>
+            <div class="row">
+                <div id="form_producto_html" class="col col-md-6">                
+                    {{producto_form.as_p}}                          
                 </div> 
             </div>
         </div>    
