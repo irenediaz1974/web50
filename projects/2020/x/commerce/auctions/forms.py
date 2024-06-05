@@ -28,15 +28,26 @@ class Producto_form(forms.ModelForm):
         fields = '__all__' 
 
 
-
 class Subasta_form(forms.ModelForm):
-    
-    fecha_ini=forms.DateField(required=True)
-    fecha_fin=forms.DateField(required=True)
-    s_descrip = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_subasta', 'cols': 20, 'rows': 4}))
+    s_fecha_ini = forms.DateField()
+    s_fecha_fin = forms.DateField()
+
     class Meta:
         model = Subasta
-        fields = '__all__' 
+        fields = '__all__'
+        exclude = ['id_user']
+
+    def __init__(self, *args, **kwargs):
+        super(Subasta_form, self).__init__(*args, **kwargs)
+        self.fields['s_descrip'].label = "Descripcion"
+        self.fields['s_nombre'].label = "Nombre Subasta"
+        self.fields['s_estado'].label = "Activa?"
+        self.fields['s_fecha_ini'].label="Fecha Inicial de Subasta"
+        self.fields['s_fecha_fin'].label="Fecha Final Programada"
+        
+
+
+
     
 class Oferta_form(forms.ModelForm):
     class Meta:

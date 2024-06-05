@@ -31,7 +31,7 @@ class Subasta(models.Model):
     id_user= models.ForeignKey(User, on_delete=models.CASCADE,related_name="usuario_subasta")
     s_nombre= models.CharField(max_length=64)
     s_descrip=models.TextField()
-    s_fecha_ini=models.DateField()
+    s_fecha_ini=models.DateField(auto_now_add=True)
     s_fecha_fin=models.DateField()
     s_estado= models.BooleanField() # true para activa y false para cerrada
 

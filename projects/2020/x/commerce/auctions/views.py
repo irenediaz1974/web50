@@ -13,8 +13,8 @@ def index(request):
 # Vista para implementar subasta
 def add_subasta(request):   
     subasta_form=Subasta_form()
-    producto_form=Producto_form()
-    return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form, 'producto_form': producto_form})
+    
+    return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form})
     
 
 
