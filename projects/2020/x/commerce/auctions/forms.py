@@ -29,8 +29,15 @@ class Producto_form(forms.ModelForm):
 
 
 class Subasta_form(forms.ModelForm):
-    s_fecha_ini = forms.DateField()
-    s_fecha_fin = forms.DateField()
+    s_fecha_ini = forms.DateField( label="Fecha Inicial de Subasta", required=True,
+        widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+        input_formats=["%Y-%m-%d"])
+    s_fecha_fin = forms.DateField(label="Fecha Final Programada", required=True,
+        widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
+        input_formats=["%Y-%m-%d"])
+    s_descrip= forms.CharField(label="Descripción de la Subasta", required=True,
+                widget=forms.Textarea(attrs={'class': 
+                'form-control form-control-sm', 'id':'descrip_subasta', 'cols': 10, 'rows': 2}))
 
     class Meta:
         model = Subasta
@@ -39,12 +46,9 @@ class Subasta_form(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(Subasta_form, self).__init__(*args, **kwargs)
-        self.fields['s_descrip'].label = "Descripcion"
         self.fields['s_nombre'].label = "Nombre Subasta"
         self.fields['s_estado'].label = "Activa?"
-        self.fields['s_fecha_ini'].label="Fecha Inicial de Subasta"
-        self.fields['s_fecha_fin'].label="Fecha Final Programada"
-        
+       
 
 
 

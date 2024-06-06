@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.timezone import make_aware
+from datetime import datetime
 
+aware_datetime = make_aware(datetime.now())
 
 class User(AbstractUser):
     pass
@@ -31,8 +34,8 @@ class Subasta(models.Model):
     id_user= models.ForeignKey(User, on_delete=models.CASCADE,related_name="usuario_subasta")
     s_nombre= models.CharField(max_length=64)
     s_descrip=models.TextField()
-    s_fecha_ini=models.DateField(auto_now_add=True)
-    s_fecha_fin=models.DateField()
+    s_fecha_ini=models.DateTimeField(default=aware_datetime)
+    s_fecha_fin=models.DateTimeField(default=aware_datetime)
     s_estado= models.BooleanField() # true para activa y false para cerrada
 
     def __str__(self):
@@ -43,6 +46,7 @@ class Oferta(models.Model):
     o_monto=models.FloatField()
     id_subasta=models.ForeignKey(Subasta,on_delete=models.CASCADE,related_name="oferta_subasta")
     id_user=models.ForeignKey(User, on_delete=models.CASCADE,related_name="usuario_oferta")
+    o_fecha=models.DateTimeField(default=aware_datetime)
     
 class Subastado(models.Model):
     id_subasta=models.ForeignKey(Subasta,on_delete=models.CASCADE,related_name="subasta")
@@ -57,3 +61,4 @@ class Comentario(models.Model):
     s_coment=models.TextField()
     id_subasta=models.ForeignKey(Subasta,on_delete=models.CASCADE,related_name="Subasta_comentario")
     id_user=models.ForeignKey(User, on_delete=models.CASCADE,related_name="user_comentario")
+    c_fecha=models.DateTimeField(default=aware_datetime)

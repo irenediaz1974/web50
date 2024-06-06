@@ -73,13 +73,24 @@ e. Acciones en el modelo:
 python manage.py migrate auctions 0001_initial
 ```
 
-* Para crear un archivo de volcado del modelo:
-    *(web50) PS C:\Users\T\Repositorios\web50\projects\2020\x\commerce> sqlite3 db.sqlite3
-    SQLite version 3.40.0 2022-11-16 12:10:08
-    Enter ".help" for usage hints.
-    sqlite> .output dump.sql
-    sqlite> .dump
-    sqlite> .output stdout*
+f. Trabajo con los campos fecha:
+
+* Utilicé en el modelo: DateTimeField, para evitar el siguiente error a la hora de **migrate**
+
+```python
+RuntimeWarning: DateTimeField Oferta.o_fecha received a naive datetime (2024-06-06 06:08:14.107491) while time zone support is active
+```
+
+* :duck:
+*Este aviso se refiere a que estás proporcionando una fecha y hora "naive" (ingenua), es decir, una que no tiene información de zona horaria, a un campo que espera una fecha y hora "aware" (consciente), es decir, una que tiene información de zona horaria.
+
+Django utiliza zonas horarias en sus campos DateTimeField si la configuración USE_TZ está establecida como True. Si estás proporcionando una fecha y hora sin información de zona horaria, Django emitirá esta advertencia.
+
+Para solucionar esto, puedes hacer que tu fecha y hora sean "aware" utilizando la función make_aware de Django. Aquí tienes un ejemplo de cómo podrías hacerlo:
+`from django.utils.timezone import make_aware
+from datetime import datetime
+
+aware_datetime = make_aware(datetime.now())`*
 
 * Para manipular los datos desde admin.py :
  debemos entrar los modelos que queremos utilizar en admin.py :
@@ -171,21 +182,10 @@ Pistas
 -  cd into the commerce
 - Ejecutar para correr migrations en auctions app:
 
+
 ```python
-python manage.py makemigrations auctions
+    python manage.py makemigrations auctions
 ```
-
-System check identified some issues:
-
-``` console
-    WARNINGS:
-    ←[33;1mauctions.User: (models.W042) Auto-created primary key used when not defining a primary key type, by default 'django.db.models.AutoField'.
-            HINT: Configure the DEFAULT_AUTO_FIELD setting or the AuctionsConfig.default_auto_field attribute to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'.←[0m
-    ←[36;1mMigrations for 'auctions':←[0m
-    ←[1mauctions\migrations\0001_initial.py←[0m
-        - Create model User
-        
-    ```
 
 * Ejecutar  para aplicar migraciones a la Base de datos:
 
