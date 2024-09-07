@@ -3,19 +3,24 @@
 {% block body %}
     <h2>Crear subasta</h2>
 
-    <form action="{% url 'add_subasta' %}" method="post">
+    <form action="{% url 'add_subasta'%}" method="post">
         {% csrf_token %}
-        <div class="form-group d-flex flex-column">
+   <!--      <div class="form-group d-flex flex-column">
             <div class="row">
                 <div id="form_subasta_html" class="col col-md-6">
                     {{subasta_form.as_p}}                          
                 </div> 
                 <div id="add_prod_button" class="col col-md-6">
-                    <button id="add_Product" type="submit"class="btn btn-primary p-1">Adicionar Producto</button>               
+                    <button id="add_Product" type="submit" class="btn btn-primary p-1">Adicionar Producto</button>               
                 </div> 
-            </div>
-            
-        </div>    
+            </div>         
+        </div> -->   
+        {{ subasta_form.as_p }}
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {{ form.as_p }}
+        {% endfor %}
+        <button type="submit">Submit</button>
     </form>
     
     

@@ -1,20 +1,34 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form
-from .models import User
+from .models import User , Producto , Subasta
+from django.forms import inlineformset_factory
+
+
+ProductoFormSet = inlineformset_factory(Subasta, Producto, form=Producto_form, extra=1)
+    #  inline formset para manejar instancias de Producto en la subasta. 
+    # inlineformset_factory es usada para generar clases formset para varios Productos en una subasta.
 
 
 def index(request):
     return render(request, "auctions/index.html")
 
 # Vista para implementar subasta
+@login_required
 def add_subasta(request):   
-    subasta_form=Subasta_form()
-    
-    return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form})
+       
+    #subasta_form=Subasta_form()
+    subasta_instance = Subasta.objects.create(s_estado=True, id_user=request.user)
+    subasta_form = Subasta_form(instance=subasta_instance)
+    formset = ProductoFormSet(instance=subasta_instance)
+    return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form, 'formset': formset})
+
+
+    #return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form})
     
 
 
