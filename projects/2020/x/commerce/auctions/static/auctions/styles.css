@@ -1,4 +1,13 @@
 body {
     padding: 10px;
+    
+}
+
+.form-group {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: left;  
+    width:40%;
+
 }
 
