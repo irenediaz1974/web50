@@ -34,37 +34,36 @@ def add_subasta(request):
 
 # Vista para implementar producto
 def add_producto(request):
-    if request.method == 'POST':  
-        categ_form= Categoria_form(request.POST, prefix='categ')
-        print(categ_form.errors)
-        if 'categ-nombre' in request.POST and categ_form.is_valid():
-            print("Es valido formulario categoria" + str(categ_form.is_valid()))
-            print("Es valido nombre categoria" + str('categ-nombre' in request.POST))
-            categoria = categ_form.save()
-        else:
-            print(categ_form.errors)
+    if request.method == 'POST': 
+        categ_form = Categoria_form(request.POST, prefix='categ')
         prod_form = Producto_form(request.POST, prefix='prod')
-        print(prod_form.errors)
-        if prod_form.is_valid():
-            prod_form.save()
+        imagen_form = Imagen_form(request.POST, request.FILES, prefix='imagen')
+
+        if categ_form.is_valid():
+            categoria = categ_form.save()
+        
+            if prod_form.is_valid():
+                producto = prod_form.save(commit=False)
+                producto.id_cat = categoria  # Asignar la categoría recién creada
+                producto.save()
+            
+                if imagen_form.is_valid():
+                    imagen = imagen_form.save(commit=False)
+                    imagen.id_producto = producto  # Asignar el producto recién creado
+                    imagen.save()
+                
+                return redirect('index')
+            else:
+                print(prod_form.errors)  # Imprime los errores de validación del producto
         else:
-            print(prod_form.errors)
-        imagen_form= Imagen_form(request.POST, request.FILES, prefix='imagen')
-        print(imagen_form.errors)
-        if 'imagen-descripcion' in request.POST and imagen_form.is_valid():
-            print("Es valido la descripcion de la imagen" + str('imagen-descripcion' in request.POST))
-            print("Es valido formulario imagen" + str(imagen_form.is_valid()))
-            imagen = imagen_form.save(commit=False)
-            imagen.id_producto = prod_form.instance.id
-            imagen.save()
-        else:
-            print(imagen_form.errors)        
-        return redirect('index')
+             print(categ_form.errors)  # Imprime los errores de validación de la categoría
+ 
     else:
         prod_form = Producto_form(prefix='prod')
         categ_form= Categoria_form(prefix='categ')
         imagen_form=Imagen_form(prefix='imagen')
-        return render(request, "auctions/add_producto.html", {'producto': prod_form, 'categoria':categ_form, 'imagen':imagen_form})
+
+    return render(request, "auctions/add_producto.html", {'producto': prod_form, 'categoria':categ_form, 'imagen':imagen_form})
 
 
 

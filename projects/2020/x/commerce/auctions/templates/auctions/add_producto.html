@@ -1,56 +1,32 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Adicionar productos</h2>
-    <form action="{% url 'addProducto' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group d-flex flex-column">
-            <div class="row">
-                <div id="form_producto_html" class="col">
-                    {{ producto.as_p }} 
-                    {% csrf_token %}                           
-                </div> 
-            </div>  
-            <div class="row">
-                    <button id="show-categ-form" class="btn btn-success p-1 m-2" >Añadir categoría</button>
-                <div class="col">
-                    <div id="categ-form" style="display: none;">
-                            {{ categoria.as_p }}
-                            {% csrf_token %}
-                            <button id="save_categ" type="submit" class="btn btn-primary p-1">Actualizar</button>
-                    </div> 
-                </div> 
-            </div>                                            
-            <div class="col-md-6 m-2">
-                <button id="show-imagen-form" class="btn btn-success p-1 m-2">Añadir Imagen</button>
-                    <div class="col-md-6 m-2">
-                        <div id="imagen-form" style="display: none;">
-                            {{ imagen.as_p }}
-                            {% csrf_token %}
-                        </div>
-                    </div>                   
-            </div>     
-            <div class="submit" class="col">
-                <button type="submit" class="btn btn-primary p-1">Salvar Producto</button>
-            </div>
-        </div>            
-    </form>
-    <script>
-        document.getElementById('show-categ-form').addEventListener('click', function() {
-            document.getElementById('categ-form').style.display = 'block';
-        });
-        document.getElementById('save_categ').addEventListener('click', function() {
-            <!-- Implementar el script de actualizar el select de producto con la categoria añadida --> 
-            var nuevaCategoria= document.getElementById('nombre_categoria').value;
-            let select = document.getElementById('id_prod-categoria');
-            let option = document.createElement('option');
-            option.text = nuevaCategoria;
-            option.value = nuevaCategoria;
-            select.add(option);
-        });
-        document.getElementById('show-imagen-form').addEventListener('click', function() {
-            document.getElementById('imagen-form').style.display = 'block';
-        });
-    </script>
+<!-- Category Form -->
+<form id="categ-form" method="POST" style="display: none;">
+    {{ categoria.as_p }}
+    {% csrf_token %}
+    <button id="save_categ" type="submit" class="btn btn-primary p-1">Save Category</button>
+</form>
+
+<!-- Button to Show Category Form -->
+<button id="show-categ-form" type="button">Add Category</button>
+
+<!-- Product Form -->
+<form id="prod-form" method="POST">
+    {{ producto.as_p }}
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary p-1">Save Product</button>
+</form>
+
+<script>
+    document.getElementById('show-categ-form').addEventListener('click', function() {
+        document.getElementById('categ-form').style.display = 'block';
+    });
+
+    document.getElementById('save_categ').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        document.getElementById('categ-form').submit(); // Submit the form
+    });
+</script> 
     
 {% endblock %}

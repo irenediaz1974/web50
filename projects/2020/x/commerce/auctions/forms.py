@@ -18,14 +18,15 @@ class Imagen_form(forms.ModelForm):
 
 class Producto_form(forms.ModelForm):
     
-    id_cat = forms.ModelChoiceField(queryset=Categoria.objects.all(), to_field_name="nombre_cat")
+    id_cat = forms.ModelChoiceField(queryset=Categoria.objects.all(), to_field_name="cat_name", required=False)
     p_nombre = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-sm', 'id': 'nombre_producto'}))
-    p_descrip= forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_producto', 'cols': 20, 'rows': 4}))
-    id_imagen = forms.ModelChoiceField(queryset=Imagen.objects.all(), to_field_name="imagen")
+    p_descrip = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_producto', 'cols': 20, 'rows': 4}))
+    id_imagen = forms.ModelChoiceField(queryset=Imagen.objects.all(), to_field_name="imagen", required=False)
 
     class Meta:
         model = Producto
-        fields = '__all__' 
+        exclude = ['subasta']
+
 
 
 class Subasta_form(forms.ModelForm):
@@ -49,8 +50,6 @@ class Subasta_form(forms.ModelForm):
         self.fields['s_nombre'].label = "Nombre Subasta"
         self.fields['s_estado'].label = "Activa?"
        
-
-
 
     
 class Oferta_form(forms.ModelForm):
