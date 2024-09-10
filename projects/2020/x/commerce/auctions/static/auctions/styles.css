@@ -3,11 +3,10 @@ body {
     
 }
 
-.form-group {
+.form_container {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: left;  
-    width:40%;
-
+    justify-content: center;
+    width:40%;  
 }
-
+  

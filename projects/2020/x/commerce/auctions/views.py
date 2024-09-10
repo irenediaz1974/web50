@@ -17,6 +17,20 @@ ProductoFormSet = inlineformset_factory(Subasta, Producto, form=Producto_form, e
 def index(request):
     return render(request, "auctions/index.html")
 
+@login_required
+def categories(request):
+    if request.method == 'POST': 
+        categ_form = Categoria_form(request.POST, prefix='categ')   
+        if categ_form.is_valid():
+            categoria = categ_form.save()
+        else:
+             print(categ_form.errors)  # Imprime los errores de validación de la categoría
+    else: 
+        categ_form= Categoria_form(prefix='categ')
+
+    return render(request, "auctions/categories.html", {'categoria':categ_form})
+
+
 # Vista para implementar subasta
 @login_required
 def add_subasta(request):   
