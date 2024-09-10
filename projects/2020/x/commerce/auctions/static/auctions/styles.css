@@ -9,4 +9,13 @@ body {
     justify-content: center;
     width:40%;  
 }
-  
+h2 {
+    margin-top: 0px;
+    margin-left: 10px;
+    padding-top: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+}
+ 

@@ -1,14 +1,25 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Categories</h2>
-<!-- Category Form -->
-<div class="form_container">
-    <form id="categ-form" action="{% url 'categories'%}" method="post">
-         {% csrf_token %}
-         {{ categoria.as_p }} 
-         <button id="save_categ" type="submit" class="btn btn-primary p-1">Save Category</button>
-    </form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Categories</h2>
+        </div>
 </div>
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <form id="categ-form" action="{% url 'categories'%}" method="post">
+            {% csrf_token %}
+            {{ categoria.as_p }} 
+            <button id="save_categ" type="submit" class="btn btn-primary p-1">Save Category</button>
+       </form>
+      </div>
+    </div>
+</div>
+  
 
 {% endblock %}
