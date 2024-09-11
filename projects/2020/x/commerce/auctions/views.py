@@ -30,6 +30,16 @@ def categories(request):
 
     return render(request, "auctions/categories.html", {'categoria':categ_form})
 
+# Vista para adicionar lista watchlist
+
+@login_required
+def add_watchlist(request):
+    
+    # TODO: adicionar el producto a alguna lista que tenga el usuario
+
+    return HttpResponseRedirect(reverse("index"))
+
+
 
 # Vista para implementar subasta
 @login_required
