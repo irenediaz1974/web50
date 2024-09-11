@@ -3,16 +3,6 @@ body {
     
 }
 
-.form_container {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
-    width: 40%;  
-}
 h2 {
-    margin-top: 0px;
-    padding-top: 10px;
-    text-decoration: none;
-    background-color: transparent;
+    margin-bottom: 10px;
 }
- 

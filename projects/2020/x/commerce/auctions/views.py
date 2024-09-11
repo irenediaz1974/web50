@@ -27,6 +27,7 @@ def categories(request):
              print(categ_form.errors)  # Imprime los errores de validación de la categoría
     else: 
         categ_form= Categoria_form(prefix='categ')
+        
 
     return render(request, "auctions/categories.html", {'categoria':categ_form})
 
