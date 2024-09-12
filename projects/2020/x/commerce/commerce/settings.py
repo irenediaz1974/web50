@@ -69,6 +69,10 @@ TEMPLATES = [
     },
 ]
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+# The MESSAGE_STORAGE setting specifies how messages are stored. By setting it to 'django.contrib.messages.storage.session.SessionStorage', you are telling Django to store messages in the session, which means they will persist across requests until they are retrieved. 
+# This is useful for displaying messages to users after a redirect.
+
 WSGI_APPLICATION = 'commerce.wsgi.application'
 
 

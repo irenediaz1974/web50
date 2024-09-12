@@ -5,8 +5,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form
-from .models import User , Producto , Subasta
+from .models import User , Producto , Subasta, Imagen
 from django.forms import inlineformset_factory
+from django.contrib import messages
 
 
 ProductoFormSet = inlineformset_factory(Subasta, Producto, form=Producto_form, extra=1)
@@ -23,8 +24,11 @@ def categories(request):
         categ_form = Categoria_form(request.POST, prefix='categ')   
         if categ_form.is_valid():
             categoria = categ_form.save()
+            messages.success(request, 'Category saved successfully!')
+            return HttpResponseRedirect(reverse("categories"))
         else:
              print(categ_form.errors)  # Imprime los errores de validación de la categoría
+        
     else: 
         categ_form= Categoria_form(prefix='categ')
         
@@ -44,51 +48,36 @@ def add_watchlist(request):
 
 # Vista para implementar subasta
 @login_required
-def add_subasta(request):   
-       
-    #subasta_form=Subasta_form()
-    subasta_instance = Subasta.objects.create(s_estado=True, id_user=request.user)
-    subasta_form = Subasta_form(instance=subasta_instance)
-    formset = ProductoFormSet(instance=subasta_instance)
+def add_subasta(request): 
+    DEFAULT_IMAGE_ID = 1 
+    if request.method == 'POST':       
+        subasta_form = Subasta_form(request.POST)
+        if subasta_form.is_valid():
+            subasta_instance = subasta_form.save(commit=False)
+            subasta_instance.s_estado = True
+            subasta_instance.id_user = request.user
+            subasta_instance.save()       
+            formset = ProductoFormSet(request.POST, instance=subasta_instance)
+            if formset.is_valid():
+                productos = formset.save(commit=False)
+                for producto in productos:
+                    if not producto.id_imagen:
+                        # Assign a default image if none is provided
+                        producto.id_imagen = Imagen.objects.get(pk=DEFAULT_IMAGE_ID)
+                    producto.save()
+                messages.success(request, 'Listing saved successfully!')
+                return HttpResponseRedirect(reverse("add_subasta"))
+            else:
+                print(formset.errors)
+        else:
+            print(subasta_form.errors)
+            formset = ProductoFormSet()
+    else:
+        subasta_form = Subasta_form()
+        formset = ProductoFormSet()
+    
     return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form, 'formset': formset})
 
-
-    #return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form})
-    
-
-
-# Vista para implementar producto
-def add_producto(request):
-    if request.method == 'POST': 
-        categ_form = Categoria_form(request.POST, prefix='categ')
-        prod_form = Producto_form(request.POST, prefix='prod')
-        imagen_form = Imagen_form(request.POST, request.FILES, prefix='imagen')
-
-        if categ_form.is_valid():
-            categoria = categ_form.save()
-        
-            if prod_form.is_valid():
-                producto = prod_form.save(commit=False)
-                producto.id_cat = categoria  # Asignar la categoría recién creada
-                producto.save()
-            
-                if imagen_form.is_valid():
-                    imagen = imagen_form.save(commit=False)
-                    imagen.id_producto = producto  # Asignar el producto recién creado
-                    imagen.save()
-                
-                return redirect('index')
-            else:
-                print(prod_form.errors)  # Imprime los errores de validación del producto
-        else:
-             print(categ_form.errors)  # Imprime los errores de validación de la categoría
- 
-    else:
-        prod_form = Producto_form(prefix='prod')
-        categ_form= Categoria_form(prefix='categ')
-        imagen_form=Imagen_form(prefix='imagen')
-
-    return render(request, "auctions/add_producto.html", {'producto': prod_form, 'categoria':categ_form, 'imagen':imagen_form})
 
 
 
