@@ -10,9 +10,6 @@ from django.forms import inlineformset_factory
 from django.contrib import messages
 
 
-ProductoFormSet = inlineformset_factory(Subasta, Producto, form=Producto_form, extra=1)
-    #  inline formset para manejar instancias de Producto en la subasta. 
-    # inlineformset_factory es usada para generar clases formset para varios Productos en una subasta.
 
 
 def index(request):
@@ -44,12 +41,28 @@ def add_watchlist(request):
 
     return HttpResponseRedirect(reverse("index"))
 
+@login_required
+def add_product(request): 
+
+    if request.method == 'POST':       
+       product_form = Producto_form(request.POST)
+       if product_form.is_valid():
+            product_form_instance = product_form.save(commit=False)     
+            messages.success(request, 'Product saved successfully!')
+       else:
+            print(product_form.errors)
+            
+   
+        
+      
+   
+
 
 
 # Vista para implementar subasta
 @login_required
 def add_subasta(request): 
-    DEFAULT_IMAGE_ID = 1 
+
     if request.method == 'POST':       
         subasta_form = Subasta_form(request.POST)
         if subasta_form.is_valid():
@@ -57,26 +70,17 @@ def add_subasta(request):
             subasta_instance.s_estado = True
             subasta_instance.id_user = request.user
             subasta_instance.save()       
-            formset = ProductoFormSet(request.POST, instance=subasta_instance)
-            if formset.is_valid():
-                productos = formset.save(commit=False)
-                for producto in productos:
-                    if not producto.id_imagen:
-                        # Assign a default image if none is provided
-                        producto.id_imagen = Imagen.objects.get(pk=DEFAULT_IMAGE_ID)
-                    producto.save()
-                messages.success(request, 'Listing saved successfully!')
-                return HttpResponseRedirect(reverse("add_subasta"))
-            else:
-                print(formset.errors)
+            messages.success(request, 'Listing saved successfully!')
+            return HttpResponseRedirect(reverse("add_subasta"))
+
         else:
             print(subasta_form.errors)
-            formset = ProductoFormSet()
+            
     else:
         subasta_form = Subasta_form()
-        formset = ProductoFormSet()
-    
-    return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form, 'formset': formset})
+        product_form = Producto_form()
+      
+    return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form, 'product_form': product_form})
 
 
 

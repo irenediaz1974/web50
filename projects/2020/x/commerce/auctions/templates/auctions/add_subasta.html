@@ -6,12 +6,12 @@
     <form action="{% url 'add_subasta'%}" method="post">
         {% csrf_token %}   
         {{ subasta_form.as_p }}
-        {{ formset.management_form }}
-        {% for form in formset %}
-            {{ form.as_p }}
-        {% endfor %}
-        <button type="submit">Submit</button>
+        <button type="submit">Save Listing</button>
     </form>
-   
+    <form action="{% url 'add_product'%}" method="post">
+        {% csrf_token %}   
+        {{ product_form.as_e }}
+        <button type="submit">Save Product</button>
+    </form>
 
 {% endblock %}
