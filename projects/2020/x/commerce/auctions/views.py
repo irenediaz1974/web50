@@ -4,7 +4,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form
+from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form, ImageFormSet, CategoryFormSet
 from .models import User , Producto , Subasta, Imagen
 from django.forms import inlineformset_factory
 from django.contrib import messages
@@ -44,14 +44,28 @@ def add_watchlist(request):
 @login_required
 def add_product(request): 
 
-    if request.method == 'POST':       
-       product_form = Producto_form(request.POST)
-       if product_form.is_valid():
-            product_form_instance = product_form.save(commit=False)     
-            messages.success(request, 'Product saved successfully!')
-       else:
-            print(product_form.errors)
-            
+     if request.method == 'POST':
+        product_form = Producto_form(request.POST)
+        image_formset = ImageFormSet(request.POST, request.FILES)
+        category_formset = CategoryFormSet(request.POST)
+
+        if product_form.is_valid() and image_formset.is_valid() and category_formset.is_valid():
+            product = product_form.save()
+            image_formset.instance = product
+            image_formset.save()
+            category_formset.instance = product
+            category_formset.save()
+            return redirect('success_url')
+     else:
+        product_form = Producto_form()
+        image_formset = ImageFormSet()
+        category_formset = CategoryFormSet()
+
+     return render(request, 'auctions/products.html', {
+        'product_form': product_form,
+        'image_formset': image_formset,
+        'category_formset': category_formset,
+    })
    
         
       

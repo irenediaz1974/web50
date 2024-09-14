@@ -3,11 +3,19 @@
 {% block body %}
     <h2>Create Products</h2>
 
-    <form action="{% url 'add_product'%}" method="post">
-        {% csrf_token %}   
-        {{ product_form.as_p }}
-        <button type="Save Listing">Submit</button>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ product_form.as_table }}
+        {{ image_formset.management_form }}
+        {{ category_formset.management_form }}
+        {% for form in image_formset %}
+            {{ form.as_p }}
+        {% endfor %}
+        {% for form in category_formset %}
+            {{ form.as_ul }}
+        {% endfor %}
+        <button type="submit">Save</button>
     </form>
-   
+    
 
 {% endblock %}

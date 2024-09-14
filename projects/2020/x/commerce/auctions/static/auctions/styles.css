@@ -6,3 +6,7 @@ body {
 h2 {
     margin-bottom: 10px;
 }
+
+.add-product-link {
+    padding-left: 20px; /* Adjust the value as needed */
+}
