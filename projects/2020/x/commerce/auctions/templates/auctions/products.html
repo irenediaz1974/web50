@@ -7,12 +7,8 @@
         {% csrf_token %}
         {{ product_form.as_table }}
         {{ image_formset.management_form }}
-        {{ category_formset.management_form }}
         {% for form in image_formset %}
             {{ form.as_p }}
-        {% endfor %}
-        {% for form in category_formset %}
-            {{ form.as_ul }}
         {% endfor %}
         <button type="submit">Save</button>
     </form>

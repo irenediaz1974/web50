@@ -4,7 +4,7 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form, ImageFormSet, CategoryFormSet
+from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form, ImageFormSet
 from .models import User , Producto , Subasta, Imagen
 from django.forms import inlineformset_factory
 from django.contrib import messages
@@ -47,24 +47,21 @@ def add_product(request):
      if request.method == 'POST':
         product_form = Producto_form(request.POST)
         image_formset = ImageFormSet(request.POST, request.FILES)
-        category_formset = CategoryFormSet(request.POST)
+        
 
-        if product_form.is_valid() and image_formset.is_valid() and category_formset.is_valid():
+        if product_form.is_valid() and image_formset.is_valid():
             product = product_form.save()
             image_formset.instance = product
             image_formset.save()
-            category_formset.instance = product
-            category_formset.save()
             return redirect('success_url')
      else:
         product_form = Producto_form()
         image_formset = ImageFormSet()
-        category_formset = CategoryFormSet()
+      
 
      return render(request, 'auctions/products.html', {
         'product_form': product_form,
-        'image_formset': image_formset,
-        'category_formset': category_formset,
+        'image_formset': image_formset
     })
    
         
@@ -79,22 +76,32 @@ def add_subasta(request):
 
     if request.method == 'POST':       
         subasta_form = Subasta_form(request.POST)
-        if subasta_form.is_valid():
-            subasta_instance = subasta_form.save(commit=False)
-            subasta_instance.s_estado = True
-            subasta_instance.id_user = request.user
-            subasta_instance.save()       
-            messages.success(request, 'Listing saved successfully!')
-            return HttpResponseRedirect(reverse("add_subasta"))
-
+        producto_form = Producto_form(request.POST)
+        imagen_form= Imagen_form(request.POST)
+        if imagen_form.is_valid():
+            imagen_instance=imagen_form.save(commit=False)
+            
+            if producto_form.is_valid():
+                producto_instance=producto_form.save(commit=False)
+                if subasta_form.is_valid():
+                    subasta_instance = subasta_form.save(commit=False)
+                    subasta_instance.s_estado = True
+                    subasta_instance.id_user = request.user
+                    subasta_instance.save()       
+                    messages.success(request, 'Listing saved successfully!')
+                    return HttpResponseRedirect(reverse("add_subasta"))
+                else:
+                    print(subasta_form.errors)
+            else: 
+                print(producto_form.errors)
         else:
-            print(subasta_form.errors)
+            print(imagen_form.errors)
             
     else:
         subasta_form = Subasta_form()
-        product_form = Producto_form()
-      
-    return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form, 'product_form': product_form})
+        producto_form = Producto_form()
+        imagen_form= Imagen_form()
+    return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form, 'producto_form': producto_form, 'imagen_form': imagen_form})
 
 
 

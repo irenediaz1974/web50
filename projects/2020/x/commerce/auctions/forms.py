@@ -14,11 +14,11 @@ class Categoria_form(forms.ModelForm):
         fields = '__all__' 
 
 class Imagen_form(forms.ModelForm):
-    i_descrip = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_imagen','cols': 10, 'rows': 4}))
+    i_descrip = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_imagen','cols': 5, 'rows': 4}))
     
     class Meta:
         model = Imagen
-        fields = '__all__' 
+        exclude = ['producto']
         
 
 class Producto_form(forms.ModelForm):
@@ -26,16 +26,16 @@ class Producto_form(forms.ModelForm):
     id_cat = forms.ModelChoiceField(queryset=Categoria.objects.all(), to_field_name="cat_name", required=False)
     p_nombre = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-sm', 'id': 'nombre_producto'}))
     p_descrip = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_producto', 'cols': 20, 'rows': 4}))
-    id_imagen = forms.ModelChoiceField(queryset=Imagen.objects.all(), to_field_name="imagen", required=False)
+    # id_imagen = forms.ModelChoiceField(queryset=Imagen.objects.all(), to_field_name="imagen", required=False)
 
     class Meta:
         model = Producto
-        exclude = ['subasta']
+        exclude = ['subasta','id_imagen']
 
 
 # Inline Formsets to use in Products CRUD
 ImageFormSet = inlineformset_factory(Producto, Imagen, form=Imagen_form, extra=1)
-CategoryFormSet = modelformset_factory(Categoria, form=Categoria_form, extra=1)
+
 
 
 

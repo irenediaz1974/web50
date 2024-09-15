@@ -6,17 +6,19 @@
     <form action="{% url 'add_subasta'%}" method="post">
         {% csrf_token %}   
         {{ subasta_form.as_p}}
-        <a href="{% url 'add_product' %}" target="_blank" id="add-product-link"><i class="fas fa-plus"></i> Create Product</a>
-        <button type="submit">Save Listing</button>
+        <div> 
+            {{ producto_form.as_p }}        
+        </div>
+        <hr>
+        <div> 
+            {{ imagen_form.as_p}}          
+        </div>
+        <div> 
+            <button type="submit">Save Listing</button>
+        </div>
     </form>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var productField = document.querySelector('#id_s_nombre'); // Adjust the selector to match your field
-            var addLink = document.querySelector('#add-product-link');
-            productField.parentNode.insertBefore(addLink, productField.nextSibling);
-        });
-    </script>
+ 
       
 
 {% endblock %}
