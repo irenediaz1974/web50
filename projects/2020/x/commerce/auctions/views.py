@@ -73,36 +73,40 @@ def add_product(request):
 # Vista para implementar subasta
 @login_required
 def add_subasta(request): 
-
-    if request.method == 'POST':       
+    if request.method == "POST":
         subasta_form = Subasta_form(request.POST)
         producto_form = Producto_form(request.POST)
-        imagen_form= Imagen_form(request.POST)
-        if imagen_form.is_valid():
-            imagen_instance=imagen_form.save(commit=False)
-            
-            if producto_form.is_valid():
-                producto_instance=producto_form.save(commit=False)
-                if subasta_form.is_valid():
-                    subasta_instance = subasta_form.save(commit=False)
-                    subasta_instance.s_estado = True
-                    subasta_instance.id_user = request.user
-                    subasta_instance.save()       
-                    messages.success(request, 'Listing saved successfully!')
-                    return HttpResponseRedirect(reverse("add_subasta"))
-                else:
-                    print(subasta_form.errors)
-            else: 
-                print(producto_form.errors)
+        imagen_form = Imagen_form(request.POST, request.FILES)
+
+        if subasta_form.is_valid() and producto_form.is_valid() and imagen_form.is_valid():
+            subasta_instance = subasta_form.save(commit=False)
+            subasta_instance.s_estado = True
+            subasta_instance.id_user = request.user
+            subasta_instance = subasta_form.save()
+            producto_instance = producto_form.save(commit=False)
+            producto_instance.subasta = subasta_instance
+            producto_instance.save()
+            imagen_instance = imagen_form.save(commit=False)
+            imagen_instance.producto = producto_instance
+            imagen_instance.save()
+            messages.success(request, 'Listing saved successfully!')
+            return redirect("add_subasta")
         else:
-            print(imagen_form.errors)
-            
+            # If forms are not valid, render the form again with errors
+            return render(request, "add_subasta", {
+                "subasta_form": subasta_form,
+                "producto_form": producto_form,
+                "imagen_form": imagen_form
+            })
     else:
         subasta_form = Subasta_form()
         producto_form = Producto_form()
-        imagen_form= Imagen_form()
-    return render(request, "auctions/add_subasta.html", {'subasta_form': subasta_form, 'producto_form': producto_form, 'imagen_form': imagen_form})
-
+        imagen_form = Imagen_form()
+        return render(request, "auctions/add_subasta.html", {
+            "subasta_form": subasta_form,
+            "producto_form": producto_form,
+            "imagen_form": imagen_form
+        })
 
 
 

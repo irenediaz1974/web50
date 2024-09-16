@@ -3,7 +3,7 @@
 {% block body %}
     <h2>Create Listing</h2>
 
-    <form action="{% url 'add_subasta'%}" method="post">
+    <form action="{% url 'add_subasta'%}" method="post" enctype="multipart/form-data">
         {% csrf_token %}   
         {{ subasta_form.as_p}}
         <div> 
