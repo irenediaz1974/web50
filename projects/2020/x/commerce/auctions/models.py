@@ -27,20 +27,25 @@ class Subasta(models.Model):
 
     def __str__(self):
         return self.s_nombre  
+    
+class Imagen(models.Model):
+    imagen = models.ImageField(upload_to='media')
+    i_descrip = models.TextField()
 
+    def __str__(self):
+        return self.i_descrip
+    
 class Producto(models.Model):
     p_nombre=models.CharField(max_length=64)
     p_descrip= models.TextField()
     p_monto_ini=models.FloatField()
     id_cat=models.ForeignKey(Categoria, on_delete=models.CASCADE,related_name="categoria_prod")
     subasta = models.ForeignKey( Subasta, on_delete=models.CASCADE, related_name='productos')
+    id_imagen = models.ForeignKey (Imagen, on_delete=models.CASCADE, related_name="id_imagen" )
+
     def __str__(self):
         return f"{self.p_nombre}: {self.p_descrip} "
-    
-class Imagen(models.Model):
-    imagen = models.ImageField(upload_to='media')
-    i_descrip = models.TextField()
-    producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name="imagenes")
+     
     
 class Oferta(models.Model):
 

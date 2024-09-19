@@ -4,9 +4,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form, ImageFormSet
+from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form
 from .models import User , Producto , Subasta, Imagen
-from django.forms import inlineformset_factory
 from django.contrib import messages
 
 
@@ -41,7 +40,7 @@ def add_watchlist(request):
 
     return HttpResponseRedirect(reverse("index"))
 
-@login_required
+""" @login_required
 def add_product(request): 
 
      if request.method == 'POST':
@@ -62,12 +61,10 @@ def add_product(request):
      return render(request, 'auctions/products.html', {
         'product_form': product_form,
         'image_formset': image_formset
-    })
+    }) """
    
         
-      
-   
-
+    
 
 
 # Vista para implementar subasta
@@ -82,13 +79,14 @@ def add_subasta(request):
             subasta_instance = subasta_form.save(commit=False)
             subasta_instance.s_estado = True
             subasta_instance.id_user = request.user
-            subasta_instance = subasta_form.save()
-            producto_instance = producto_form.save(commit=False)
-            producto_instance.subasta = subasta_instance
-            producto_instance.save()
-            imagen_instance = imagen_form.save(commit=False)
-            imagen_instance.producto = producto_instance
+            subasta_instance.save()
+            imagen_instance = imagen_form.save()
             imagen_instance.save()
+            producto_instance = producto_form.save(commit=False)  
+            producto_instance.subasta = subasta_instance
+            producto_instance.id_imagen = imagen_instance
+            producto_instance.save()
+            
             messages.success(request, 'Listing saved successfully!')
             return redirect("add_subasta")
         else:

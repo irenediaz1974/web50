@@ -1,6 +1,4 @@
 from django import forms
-from django.forms import inlineformset_factory
-from django.forms import modelformset_factory
 from .models import Producto, Categoria, Subasta, Subastado, Oferta,Comentario,Imagen
 
 
@@ -18,7 +16,7 @@ class Imagen_form(forms.ModelForm):
     
     class Meta:
         model = Imagen
-        exclude = ['producto']
+        fields = '__all__'
         
 
 class Producto_form(forms.ModelForm):
@@ -26,15 +24,11 @@ class Producto_form(forms.ModelForm):
     id_cat = forms.ModelChoiceField(queryset=Categoria.objects.all(), to_field_name="cat_name", required=False)
     p_nombre = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control form-control-sm', 'id': 'nombre_producto'}))
     p_descrip = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control form-control-sm', 'id':'descripcion_producto', 'cols': 20, 'rows': 4}))
-    # id_imagen = forms.ModelChoiceField(queryset=Imagen.objects.all(), to_field_name="imagen", required=False)
+    
 
     class Meta:
         model = Producto
         exclude = ['subasta','id_imagen']
-
-
-# Inline Formsets to use in Products CRUD
-ImageFormSet = inlineformset_factory(Producto, Imagen, form=Imagen_form, extra=1)
 
 
 
