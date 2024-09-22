@@ -1,8 +1,8 @@
-***
+# README
 
-### Tips: :bulb:
+## Tips: :bulb:
 
-#### :point_right: Tarea 1
+### :point_right: Tarea 1
 
 a. En el modelado se definen 7 tablas: Usuario, Subasta, Producto, Categoria, Oferta, subastado, Imagen, Comentarios
  En el caso de la tabla subastado hay que prever que el mismo producto puede estar en varias subastas, por lo que la llave primaria de esta tabla seria una combinacion de dos llaves primarias de Producto y Subasta.
@@ -95,7 +95,7 @@ aware_datetime = make_aware(datetime.now())`*
 * Para manipular los datos desde admin.py :
  debemos entrar los modelos que queremos utilizar en admin.py :
 
-# Register your models here
+### Register your models here
 
 admin.site.register(User)
 admin.site.register(Subasta)
@@ -215,3 +215,46 @@ System check identified some issues:
 ```python
  pip install Pillow
 ```
+
+2.Para visualizar la imagen utilizando Pillow debo agregar en settings.py:
+
+```python
+'django.template.context_processors.media'
+```
+
+sería en settings.py:
+`TEMPLATES = [
+    {
+        ...
+        'OPTIONS': {
+            'context_processors': [
+                ...
+                'django.template.context_processors.media',
+            ],
+        },
+    },
+]`
+
+En urls.py:
+
+`from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    # your other url patterns
+]
+
+if settings.DEBUG:`
+
+En views.py:
+
+`from django.conf import settings
+from django.shortcuts import render
+
+def index(request):
+    productos = Producto.objects.filter(subasta__s_estado=True).select_related('subasta', 'id_imagen').values('p_nombre', 'p_descrip', 'p_monto_ini', 'id_imagen__imagen')
+    context = {
+        'productos': productos,
+        'MEDIA_URL': settings.MEDIA_URL,
+    }
+    return render(request, 'index.html', context)`

@@ -7,4 +7,17 @@ h2 {
     margin-bottom: 10px;
 }
 
+.listing {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
 
+.listing-image img {
+    max-width: 150px;
+    margin-right: 20px;
+}
+
+.listing-details {
+    flex: 1;
+}

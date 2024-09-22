@@ -29,7 +29,8 @@ class Subasta(models.Model):
         return self.s_nombre  
     
 class Imagen(models.Model):
-    imagen = models.ImageField(upload_to='media')
+    
+    imagen = models.ImageField(upload_to='img')
     i_descrip = models.TextField()
 
     def __str__(self):

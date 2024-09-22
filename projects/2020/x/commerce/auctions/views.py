@@ -7,12 +7,24 @@ from django.urls import reverse
 from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form
 from .models import User , Producto , Subasta, Imagen
 from django.contrib import messages
-
+from django.conf import settings
+import os
 
 
 
 def index(request):
-    return render(request, "auctions/index.html")
+
+    productos = Producto.objects.filter(subasta__s_estado=True).select_related('subasta', 'id_imagen').values('p_nombre', 'p_descrip', 'p_monto_ini','id_imagen__imagen', 'subasta__s_fecha_ini')
+    for producto in productos:
+        producto['id_imagen__imagen'] = producto['id_imagen__imagen'].replace('media/', '')
+    context = {
+        'productos': productos,
+        'MEDIA_URL': settings.MEDIA_URL,
+    }
+    print(os.path.join(settings.BASE_DIR, 'media'))
+    print('Esta es la direccion:', settings.MEDIA_URL) 
+    return render(request, "auctions/index.html", context)
+    
 
 @login_required
 def categories(request):
