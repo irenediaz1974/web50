@@ -141,7 +141,7 @@ MEDIA_URL = '/media/'
 
 :white_check_mark: 1.-  **Models:** su aplicación debe tener al menos tres modelos además del modelo de Usuario: uno para subastas, uno para ofertas y otro para comentarios realizados en las subastas. Depende de usted decidir qué campos debe tener cada modelo y cuáles deben ser los tipos de esos campos. Es posible que tenga modelos adicionales si lo desea.
 
-:negative_squared_cross_mark: 2.- **Create Listing**
+:white_check_mark: 2.- **Create Listing**
 los usuarios deben poder crear una nueva entrada para un artículo que desean subastar. Deberán proporcionar un título para la subasta, una descripción del artículo, y la oferta inicial. También pueden optar por proporcionar una URL para una imagen del artículo y/o una categoría como Moda, Juguetes, Electrónica, Hogar, etc.
 
 :negative_squared_cross_mark: 3.- **Active Listings Page**: La ruta predeterminada de su aplicación web debería permitir a los usuarios ver todos los productos de subastas activos actualmente. Para cada producto activo, esta página debe mostrar (como mínimo) el título, la descripción, el precio actual y la foto (si existe una para el producto).
