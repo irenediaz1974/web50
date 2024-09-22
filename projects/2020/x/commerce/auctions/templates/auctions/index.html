@@ -12,8 +12,8 @@
           </div>
           <div class="listing-details">
             <h2>{{ producto.p_nombre }}</h2>
-            <p>Created: {{ producto.subasta__s_fecha_ini}}</p>
-            <p>Current Bid: {{ producto.p_monto_ini }}</p>
+            <h5>Price: {{ producto.p_monto_ini }}</h5>
+            <h6>Created: {{ producto.subasta__s_fecha_ini}}</h6>
           </div>
         </div>
       {% endfor %}
@@ -21,5 +21,5 @@
   {% else %}
     <p>No active auctions available.</p>
   {% endif %}
-    TODO
+    
 {% endblock %}

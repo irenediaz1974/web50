@@ -21,8 +21,6 @@ def index(request):
         'productos': productos,
         'MEDIA_URL': settings.MEDIA_URL,
     }
-    print(os.path.join(settings.BASE_DIR, 'media'))
-    print('Esta es la direccion:', settings.MEDIA_URL) 
     return render(request, "auctions/index.html", context)
     
 
