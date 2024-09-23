@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseBadRequest 
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form
@@ -14,7 +14,7 @@ import os
 
 def index(request):
 
-    productos = Producto.objects.filter(subasta__s_estado=True).select_related('subasta', 'id_imagen').values('p_nombre', 'p_descrip', 'p_monto_ini','id_imagen__imagen', 'subasta__s_fecha_ini')
+    productos = Producto.objects.filter(subasta__s_estado=True).select_related('subasta', 'id_imagen').values('id','p_nombre', 'p_descrip', 'p_monto_ini','id_imagen__imagen', 'subasta__s_fecha_ini')
     for producto in productos:
         producto['id_imagen__imagen'] = producto['id_imagen__imagen'].replace('media/', '')
     context = {
@@ -115,6 +115,21 @@ def add_subasta(request):
             "producto_form": producto_form,
             "imagen_form": imagen_form
         })
+
+@login_required
+def products(request,producto_id): 
+    try:
+        producto = Producto.objects.get(id=producto_id)
+    except Producto.DoesNotExist:
+        raise Http404("Products not found.")
+    return render(request, 'auctions/products.html', {
+        "producto": producto
+    })
+
+
+
+    return render(request, 'auctions/products.html')
+
 
 
 

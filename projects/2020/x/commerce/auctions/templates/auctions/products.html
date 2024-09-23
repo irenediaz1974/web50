@@ -1,17 +1,26 @@
 {% extends "auctions/layout.html" %}
 
 {% block body %}
-    <h2>Create Products</h2>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ product_form.as_table }}
-        {{ image_formset.management_form }}
-        {% for form in image_formset %}
-            {{ form.as_p }}
-        {% endfor %}
-        <button type="submit">Save</button>
-    </form>
-    
+ 
+   <h2>Active Listings</h2>
+
+   {% if producto %}
+        <ul>
+            <div class="listing">
+                <div class="listing-image">
+                    <img src="{{ MEDIA_URL }}{{ producto.id_imagen__imagen}}" alt="{{ producto.p_nombre }}">
+            </div>
+            <div class="listing-details">
+                <h2>{{ producto.p_nombre }}</h2>
+                <h5>Price: {{ producto.p_monto_ini }}</h5>
+                <h6>Created: {{ producto.subasta__s_fecha_ini}}</h6>
+            </div>
+            </div>
+        </ul>
+    {% else %}
+         <p>No active auctions available.</p>
+    {% endif %}
+
 
 {% endblock %}
