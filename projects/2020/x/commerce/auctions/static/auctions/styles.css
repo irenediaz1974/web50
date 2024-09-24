@@ -22,6 +22,12 @@ h6 {
     max-width: 150px;
     margin-right: 20px;
 }
+.listing-image-detail img {
+    width: 250px; /* Set the desired width */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;    
+}
 
 .listing-details {
     flex: 1;

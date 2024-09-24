@@ -2,10 +2,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseBadRequest 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,  get_object_or_404
 from django.urls import reverse
 from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form
-from .models import User , Producto , Subasta, Imagen
+from .models import User , Producto , Subasta, Imagen, Watchlist
 from django.contrib import messages
 from django.conf import settings
 import os
@@ -42,39 +42,6 @@ def categories(request):
     return render(request, "auctions/categories.html", {'categoria':categ_form})
 
 # Vista para adicionar lista watchlist
-
-@login_required
-def add_watchlist(request):
-    
-    # TODO: adicionar el producto a alguna lista que tenga el usuario
-
-    return HttpResponseRedirect(reverse("index"))
-
-""" @login_required
-def add_product(request): 
-
-     if request.method == 'POST':
-        product_form = Producto_form(request.POST)
-        image_formset = ImageFormSet(request.POST, request.FILES)
-        
-
-        if product_form.is_valid() and image_formset.is_valid():
-            product = product_form.save()
-            image_formset.instance = product
-            image_formset.save()
-            return redirect('success_url')
-     else:
-        product_form = Producto_form()
-        image_formset = ImageFormSet()
-      
-
-     return render(request, 'auctions/products.html', {
-        'product_form': product_form,
-        'image_formset': image_formset
-    }) """
-   
-        
-    
 
 
 # Vista para implementar subasta
@@ -116,21 +83,35 @@ def add_subasta(request):
             "imagen_form": imagen_form
         })
 
-@login_required
+
 def products(request,producto_id): 
     try:
         producto = Producto.objects.get(id=producto_id)
+        is_in_watchlist = False
+        if request.user.is_authenticated:
+            is_in_watchlist = Watchlist.objects.filter(user=request.user, w_producto=producto).exists()
+        context = {
+            'producto': producto,
+            'is_in_watchlist': is_in_watchlist,
+            'MEDIA_URL': settings.MEDIA_URL,
+        }
     except Producto.DoesNotExist:
-        raise Http404("Products not found.")
-    return render(request, 'auctions/products.html', {
-        "producto": producto
-    })
+        raise Http404("Producto no encontrado.")
+    return render(request, 'auctions/products.html', context)
+
+def add_watchlist(request, producto_id):
+    if request.user.is_authenticated:
+        product = get_object_or_404(Producto, id=producto_id)
+        Watchlist.objects.create(user=request.user, w_producto=product)
+    return redirect('products', producto_id=producto_id)
 
 
 
-    return render(request, 'auctions/products.html')
-
-
+def remove_watchlist(request, producto_id):
+    if request.user.is_authenticated:
+        product = Producto.objects.get(id=producto_id)
+        Watchlist.objects.filter(user=request.user, w_producto=producto_id).delete()
+    return redirect('products', producto_id=producto_id)
 
 
 # Vistas que venian con el ejercicio

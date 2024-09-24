@@ -3,24 +3,37 @@
 {% block body %}
 
  
-   <h2>Active Listings</h2>
+   <h2>Listing: {{ producto.p_nombre }} </h2>
 
    {% if producto %}
         <ul>
             <div class="listing">
-                <div class="listing-image">
-                    <img src="{{ MEDIA_URL }}{{ producto.id_imagen__imagen}}" alt="{{ producto.p_nombre }}">
+                <div class="listing-image-detail">
+                    <img src="{{ producto.id_imagen.imagen.url }}" alt="{{ producto.p_nombre }}">
+                </div>
             </div>
             <div class="listing-details">
-                <h2>{{ producto.p_nombre }}</h2>
                 <h5>Price: {{ producto.p_monto_ini }}</h5>
                 <h6>Created: {{ producto.subasta__s_fecha_ini}}</h6>
             </div>
-            </div>
         </ul>
     {% else %}
-         <p>No active auctions available.</p>
+         <p>Error en detalle del producto.</p>
     {% endif %}
+
+    {% if user.is_authenticated %}
+    {% if product in user.watchlist_set.all %}
+        <form action="{% url 'remove_watchlist' producto.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Remove from Watchlist</button>
+        </form>
+    {% else %}
+        <form action="{% url 'add_watchlist' producto.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Add to Watchlist</button>
+        </form>
+    {% endif %}
+{% endif %}
 
 
 {% endblock %}
