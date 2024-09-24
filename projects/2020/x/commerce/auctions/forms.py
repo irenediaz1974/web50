@@ -60,6 +60,7 @@ class Oferta_form(forms.ModelForm):
     class Meta:
         model = Oferta
         fields = '__all__' 
+        exclude = ['id_user', 'id_subasta']
 
 class Subastado_form(forms.ModelForm):
     class Meta:

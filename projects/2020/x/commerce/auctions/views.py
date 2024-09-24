@@ -4,8 +4,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseBadRequest 
 from django.shortcuts import render, redirect,  get_object_or_404
 from django.urls import reverse
-from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form
-from .models import User , Producto , Subasta, Imagen, Watchlist
+from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form, Oferta_form
+from .models import User , Producto , Subasta, Imagen, Watchlist, Oferta
 from django.contrib import messages
 from django.conf import settings
 import os
@@ -89,14 +89,17 @@ def products(request,producto_id):
         producto = Producto.objects.get(id=producto_id)
         is_in_watchlist = False
         if request.user.is_authenticated:
-            is_in_watchlist = Watchlist.objects.filter(user=request.user, w_producto=producto).exists()
-        context = {
-            'producto': producto,
-            'is_in_watchlist': is_in_watchlist,
-            'MEDIA_URL': settings.MEDIA_URL,
-        }
+                is_in_watchlist = Watchlist.objects.filter(user=request.user, w_producto=producto_id).exists()
+                bids= Oferta.objects.filter(id_subasta=producto.subasta)
+                context = {
+                    'producto': producto,
+                    'oferta_form': Oferta_form(),
+                    'bids': bids,
+                    'is_in_watchlist': is_in_watchlist,
+                    'MEDIA_URL': settings.MEDIA_URL,
+                }
     except Producto.DoesNotExist:
-        raise Http404("Producto no encontrado.")
+            raise Http404("Producto no encontrado.")
     return render(request, 'auctions/products.html', context)
 
 def add_watchlist(request, producto_id):
@@ -111,6 +114,12 @@ def remove_watchlist(request, producto_id):
     if request.user.is_authenticated:
         product = Producto.objects.get(id=producto_id)
         Watchlist.objects.filter(user=request.user, w_producto=producto_id).delete()
+    return redirect('products', producto_id=producto_id)
+
+def place_bid(request, producto_id):
+    if request.user.is_authenticated:
+        product = Producto.objects.get(id=producto_id)
+        Oferta.objects.create(user=request.user, id_subasta=product.subasta)
     return redirect('products', producto_id=producto_id)
 
 

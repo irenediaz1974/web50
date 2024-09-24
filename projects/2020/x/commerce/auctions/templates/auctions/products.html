@@ -4,8 +4,20 @@
 
  
    <h2>Listing: {{ producto.p_nombre }} </h2>
-
    {% if producto %}
+        {% if user.is_authenticated %}
+             {% if is_in_watchlist %}
+                <form action="{% url 'remove_watchlist' producto.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Remove from Watchlist</button>
+                </form>
+            {% else %}
+                <form action="{% url 'add_watchlist' producto.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Watchlist</button>
+                </form>
+            {% endif %}
+        {% endif %}
         <ul>
             <div class="listing">
                 <div class="listing-image-detail">
@@ -17,23 +29,18 @@
                 <h6>Created: {{ producto.subasta__s_fecha_ini}}</h6>
             </div>
         </ul>
+        <div>
+        <form action="{% url 'place_bid' producto_id %}" method="post">
+                {% csrf_token %}
+                {{ oferta_form.as_p }}  
+                <button type="submit">Place bid</button>
+            </form>
+        </div>
+
     {% else %}
          <p>Error en detalle del producto.</p>
     {% endif %}
 
-    {% if user.is_authenticated %}
-    {% if product in user.watchlist_set.all %}
-        <form action="{% url 'remove_watchlist' producto.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Remove from Watchlist</button>
-        </form>
-    {% else %}
-        <form action="{% url 'add_watchlist' producto.id %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Add to Watchlist</button>
-        </form>
-    {% endif %}
-{% endif %}
 
 
 {% endblock %}
