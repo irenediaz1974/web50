@@ -17,6 +17,7 @@
                     <button type="submit">Watchlist</button>
                 </form>
             {% endif %}
+            
         {% endif %}
         <ul>
             <div class="listing">
@@ -29,13 +30,19 @@
                 <h6>Created: {{ producto.subasta__s_fecha_ini}}</h6>
             </div>
         </ul>
-        <div>
-        <form action="{% url 'place_bid' producto_id %}" method="post">
-                {% csrf_token %}
-                {{ oferta_form.as_p }}  
-                <button type="submit">Place bid</button>
-            </form>
-        </div>
+        
+            {% if user.is_authenticated %}
+                <div>
+                    <form action="{% url 'place_bid' producto_id %}" method="post">
+                        {% csrf_token %}
+                        {{ oferta_form.as_p }}  
+                        <button type="submit">Place bid</button>
+                    </form>
+                </div>
+                
+            {% endif %}
+        
+       
 
     {% else %}
          <p>Error en detalle del producto.</p>

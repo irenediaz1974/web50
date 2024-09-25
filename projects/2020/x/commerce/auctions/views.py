@@ -87,19 +87,25 @@ def add_subasta(request):
 def products(request,producto_id): 
     try:
         producto = Producto.objects.get(id=producto_id)
-        is_in_watchlist = False
-        if request.user.is_authenticated:
-                is_in_watchlist = Watchlist.objects.filter(user=request.user, w_producto=producto_id).exists()
-                bids= Oferta.objects.filter(id_subasta=producto.subasta)
-                context = {
+        bids= Oferta.objects.filter(id_subasta=producto.subasta)
+        is_in_watchlist = False 
+        context = {
                     'producto': producto,
                     'oferta_form': Oferta_form(),
                     'bids': bids,
                     'is_in_watchlist': is_in_watchlist,
                     'MEDIA_URL': settings.MEDIA_URL,
+                    'producto_id': producto_id,
+                    'is_in_watchlist': is_in_watchlist,
                 }
+        is_in_watchlist = False
+        if request.user.is_authenticated:
+                is_in_watchlist = Watchlist.objects.filter(user=request.user, w_producto=producto_id).exists()
+                context['is_in_watchlist'] = is_in_watchlist
+             
+                
     except Producto.DoesNotExist:
-            raise Http404("Producto no encontrado.")
+             raise Http404("Producto no encontrado.")
     return render(request, 'auctions/products.html', context)
 
 def add_watchlist(request, producto_id):
@@ -117,10 +123,18 @@ def remove_watchlist(request, producto_id):
     return redirect('products', producto_id=producto_id)
 
 def place_bid(request, producto_id):
-    if request.user.is_authenticated:
-        product = Producto.objects.get(id=producto_id)
-        Oferta.objects.create(user=request.user, id_subasta=product.subasta)
-    return redirect('products', producto_id=producto_id)
+     if request.user.is_authenticated:
+        product = get_object_or_404(Producto, id=producto_id)
+        if request.method == "POST":
+            form = Oferta_form(request.POST)
+            if form.is_valid():
+                o_monto = form.cleaned_data['o_monto']
+                Oferta.objects.create(
+                    id_user=request.user,
+                    id_subasta=product.subasta,
+                    o_monto=o_monto
+                )
+     return redirect('products', producto_id=producto_id)
 
 
 # Vistas que venian con el ejercicio
