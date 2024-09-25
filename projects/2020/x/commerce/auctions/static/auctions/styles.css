@@ -33,3 +33,14 @@ h6 {
     flex: 1;
 }
 
+#watchlist {
+    background-color: lightgray;
+    border: none;
+    border-radius: 5px; /* Adjust the value to make it more or less rounded */
+  }
+
+#bid {
+    background-color: blue;
+    border: none;
+    color: white
+  }

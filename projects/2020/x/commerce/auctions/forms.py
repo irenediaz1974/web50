@@ -1,5 +1,6 @@
 from django import forms
 from .models import Producto, Categoria, Subasta, Subastado, Oferta,Comentario,Imagen
+from django.utils import timezone
 
 
 
@@ -57,10 +58,23 @@ class Subasta_form(forms.ModelForm):
 
     
 class Oferta_form(forms.ModelForm):
+     
+    o_fecha = forms.DateTimeField(
+        initial=timezone.now,
+        widget=forms.HiddenInput()  # This hides the field in the form
+    )
+    o_monto = forms.CharField(
+        initial="Bid",
+        label='',  # This hides the label
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Bid',
+            'style': 'border: 1px solid lightgray;'  # This sets the border color to gray
+        })
+    )
     class Meta:
         model = Oferta
         fields = '__all__' 
-        exclude = ['id_user', 'id_subasta']
+        exclude = ['id_user', 'id_subasta', 'o_fecha']
 
 class Subastado_form(forms.ModelForm):
     class Meta:
