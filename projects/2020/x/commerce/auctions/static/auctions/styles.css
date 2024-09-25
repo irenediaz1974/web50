@@ -33,6 +33,10 @@ h6 {
     flex: 1;
 }
 
+.details {
+   margin-top: 10px;
+}
+
 #watchlist {
     background-color: lightgray;
     border: none;

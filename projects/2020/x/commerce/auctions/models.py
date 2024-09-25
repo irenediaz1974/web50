@@ -26,7 +26,7 @@ class Subasta(models.Model):
     s_estado= models.BooleanField() # true para activa y false para cerrada
 
     def __str__(self):
-        return self.s_nombre  
+        return f"{self.s_nombre}: {self.id_user} " 
     
 class Imagen(models.Model):
     

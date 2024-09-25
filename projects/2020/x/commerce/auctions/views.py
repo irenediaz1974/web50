@@ -87,7 +87,12 @@ def add_subasta(request):
 def products(request,producto_id): 
     try:
         producto = Producto.objects.get(id=producto_id)
-        bids= Oferta.objects.filter(id_subasta=producto.subasta)
+        id_subasta=producto.subasta.pk
+        id_user_subasta= Subasta.objects.get(pk=id_subasta).id_user
+        try:
+            bids= Oferta.objects.get(id_subasta=producto.subasta).o_monto
+        except:
+            bids=False  
         is_in_watchlist = False 
         context = {
                     'producto': producto,
@@ -97,6 +102,8 @@ def products(request,producto_id):
                     'MEDIA_URL': settings.MEDIA_URL,
                     'producto_id': producto_id,
                     'is_in_watchlist': is_in_watchlist,
+                    'id_user_subasta':id_user_subasta,
+                    
                 }
         is_in_watchlist = False
         if request.user.is_authenticated:
