@@ -6,6 +6,9 @@
    <h2>Listing: {{ producto.p_nombre }} </h2>
    {% if producto %}
         {% if user.is_authenticated %}
+            {% if ganador %}
+                <p>¡Felicidades! Has ganado esta subasta.</p>
+            {% endif %}
              {% if is_in_watchlist %}
                 <form action="{% url 'remove_watchlist' producto.id %}" method="post">
                     {% csrf_token %}
@@ -29,9 +32,10 @@
         <ul>
             <div class="listing-details">
                 <h5>{{ producto.p_descrip }}</h5> 
-                {% if bids %}
-                    <h2>$ {{ bids }} </h2>
+                {% if max_bid.o_monto__max != 0.0 %}
+                    <h2>${{ max_bid.o_monto__max|floatformat:2 }}</h2>
                 {% endif %}
+             
             </div>
         </ul>
 
@@ -42,7 +46,12 @@
                     {{ oferta_form.as_p }}  
                     <button id="bid" type="submit">Place bid</button>
                 </form>
-            </div>                       
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>                  
         {% endif %}
         <ul>
             <div class="details">
@@ -57,6 +66,11 @@
          <p>Error en detalle del producto.</p>
     {% endif %}
 
-
+    {% if es_dueno %}
+        <form method="post" action="{% url 'close_bid' producto.id %}">
+            {% csrf_token %}
+            <button type="submit">Cerrar subasta</button>
+        </form>
+    {% endif %}
 
 {% endblock %}

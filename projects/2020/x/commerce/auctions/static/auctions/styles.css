@@ -12,6 +12,14 @@ h6 {
     color: gray;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
 .listing {
     display: flex;
     align-items: center;

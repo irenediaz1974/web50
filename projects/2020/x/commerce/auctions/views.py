@@ -8,6 +8,7 @@ from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form, Ofe
 from .models import User , Producto , Subasta, Imagen, Watchlist, Oferta
 from django.contrib import messages
 from django.conf import settings
+from django.db.models import Max
 import os
 
 
@@ -89,28 +90,36 @@ def products(request,producto_id):
         producto = Producto.objects.get(id=producto_id)
         id_subasta=producto.subasta.pk
         id_user_subasta= Subasta.objects.get(pk=id_subasta).id_user
+        es_dueno = (id_user_subasta == request.user)
+        subasta = Subasta.objects.get(pk=producto.subasta.pk)
         try:
-            bids= Oferta.objects.get(id_subasta=producto.subasta).o_monto
+            max_bid = Oferta.objects.filter(id_subasta=producto.subasta).aggregate(Max('o_monto'))
         except:
-            bids=False  
+            max_bid=False  
+        ganador = None
+        if subasta.s_estado == False:  # Subasta cerrada
+            if request.user.is_authenticated:
+                oferta_ganadora = Oferta.objects.filter(id_subasta=producto.subasta).aggregate(Max('o_monto'))['o_monto__max']
+                if oferta_ganadora and oferta_ganadora.id_user == request.user:
+                    ganador = request.user
+
         is_in_watchlist = False 
         context = {
                     'producto': producto,
                     'oferta_form': Oferta_form(),
-                    'bids': bids,
+                    'max_bid': max_bid,
                     'is_in_watchlist': is_in_watchlist,
                     'MEDIA_URL': settings.MEDIA_URL,
                     'producto_id': producto_id,
-                    'is_in_watchlist': is_in_watchlist,
                     'id_user_subasta':id_user_subasta,
-                    
+                    'es_dueno': es_dueno,
+                    'ganador': ganador,                   
                 }
         is_in_watchlist = False
         if request.user.is_authenticated:
                 is_in_watchlist = Watchlist.objects.filter(user=request.user, w_producto=producto_id).exists()
                 context['is_in_watchlist'] = is_in_watchlist
-             
-                
+                    
     except Producto.DoesNotExist:
              raise Http404("Producto no encontrado.")
     return render(request, 'auctions/products.html', context)
@@ -130,19 +139,41 @@ def remove_watchlist(request, producto_id):
     return redirect('products', producto_id=producto_id)
 
 def place_bid(request, producto_id):
-     if request.user.is_authenticated:
+      if request.user.is_authenticated:
         product = get_object_or_404(Producto, id=producto_id)
         if request.method == "POST":
             form = Oferta_form(request.POST)
             if form.is_valid():
-                o_monto = form.cleaned_data['o_monto']
-                Oferta.objects.create(
-                    id_user=request.user,
-                    id_subasta=product.subasta,
-                    o_monto=o_monto
-                )
-     return redirect('products', producto_id=producto_id)
-
+                o_monto = float(form.cleaned_data['o_monto'])
+                max_bid = Oferta.objects.filter(id_subasta=product.subasta).aggregate(Max('o_monto'))['o_monto__max']
+                if max_bid is None:
+                    max_bid = 0.0
+                if o_monto > max_bid:
+                    Oferta.objects.create(
+                        id_user=request.user,
+                        id_subasta=product.subasta,
+                        o_monto=o_monto
+                    )
+                else:
+                     messages.error(request, 'La oferta debe ser mayor que la oferta máxima actual.')
+                     return redirect('products', producto_id=producto_id)
+        return redirect('products', producto_id=producto_id)
+    
+def close_bid(request, producto_id):
+    producto = Producto.objects.get(id=producto_id)
+    subasta = producto.subasta
+    ofertas = Oferta.objects.filter(id_subasta=subasta).order_by('-o_monto')
+    subasta = Subasta.objects.get(pk=producto.subasta.pk)
+    
+    if ofertas.exists():
+        oferta_ganadora = ofertas.first()
+        ganador = oferta_ganadora.id_user
+        subasta.s_estado = False
+        subasta.save()       
+        messages.success(request, f"Subasta cerrada. El ganador es: {ganador}")
+    else:
+        messages.error(request, "No hay ofertas en esta subasta.")
+    return redirect('products', producto_id=producto_id)
 
 # Vistas que venian con el ejercicio
 
