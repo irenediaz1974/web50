@@ -56,7 +56,7 @@ class Oferta(models.Model):
     o_fecha=models.DateTimeField(default=aware_datetime)
     
 class Subastado(models.Model):
-    won_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_won_auctions", null=True)
+    won_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_won_auctions" )
     id_subasta=models.ForeignKey(Subasta,on_delete=models.CASCADE,related_name="subasta")
     id_producto=models.ForeignKey(Producto,on_delete=models.CASCADE,related_name="producto_subastado")
 
@@ -70,7 +70,7 @@ class Subastado(models.Model):
 
 class Comentario(models.Model):
     s_coment=models.TextField()
-    id_subasta=models.ForeignKey(Subasta,on_delete=models.CASCADE,related_name="Subasta_comentario")
+    id_producto=models.ForeignKey(Producto,on_delete=models.CASCADE,related_name="producto_comentario", null=True)
     id_user=models.ForeignKey(User, on_delete=models.CASCADE,related_name="user_comentario")
     c_fecha=models.DateTimeField(default=aware_datetime)
 

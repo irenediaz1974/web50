@@ -65,7 +65,7 @@ class Oferta_form(forms.ModelForm):
     )
     o_monto = forms.CharField(
         initial="Bid",
-        label='',  # This hides the label
+        label='', 
         widget=forms.TextInput(attrs={
             'placeholder': 'Bid',
             'style': 'border: 1px solid lightgray;'  # This sets the border color to gray
@@ -82,7 +82,11 @@ class Subastado_form(forms.ModelForm):
         fields = '__all__' 
 
 class Coment_form(forms.ModelForm):
+    s_coment= forms.CharField(label="Comentarios", required=True,
+                widget=forms.Textarea(attrs={'class': 
+                'form-control form-control-sm', 'id':'s_coment', 'cols': 10, 'rows': 2}))
     class Meta:
         model = Comentario
         fields = '__all__' 
-        exclude = ['id_user', 'id_subasta', 'c_fecha']
+        exclude = ['id_user', 'id_producto', 'c_fecha']
+       

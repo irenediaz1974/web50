@@ -4,8 +4,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseBadRequest 
 from django.shortcuts import render, redirect,  get_object_or_404
 from django.urls import reverse
-from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form, Oferta_form
-from .models import User , Producto , Subasta, Imagen, Watchlist, Oferta, Subastado
+from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form, Oferta_form, Coment_form
+from .models import User , Producto , Subasta, Imagen, Watchlist, Oferta, Subastado, Comentario
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import Max
@@ -100,6 +100,7 @@ def products(request,producto_id):
         context = {
                     'producto': producto,
                     'oferta_form': Oferta_form(),
+                    'coment_form': Coment_form(),
                     'max_bid': max_bid,
                     'is_in_watchlist': is_in_watchlist,
                     'MEDIA_URL': settings.MEDIA_URL,
@@ -171,6 +172,24 @@ def close_bid(request, producto_id):
     else:
         messages.error(request, "No hay ofertas en esta subasta.")
     return redirect('products', producto_id=producto_id)
+
+
+def comentario(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    if request.method == "POST" and request.user.is_authenticated:
+        coment_form = Coment_form(request.POST) 
+        if coment_form.is_valid():
+            Comentario.objects.create(
+                        id_user=request.user,
+                        id_producto=producto
+                    ) 
+            coment_form.save()
+            messages.success(request, 'Comentario saved successfully!')
+        else:
+             print(coment_form.errors)  # errores de comentario     
+
+    return redirect('products', producto_id=producto_id)   
+         
 
 # Vistas que venian con el ejercicio
 

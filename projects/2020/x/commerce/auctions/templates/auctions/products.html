@@ -60,17 +60,24 @@
                 <li>Category: {{producto.id_cat}}</li>
             </div>               
         </ul>
-       
-
+        {% if es_dueno %}
+            <form method="post" action="{% url 'close_bid' producto.id %}">
+                {% csrf_token %}
+                <button type="submit">Cerrar subasta</button>
+            </form>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <div class ="columna_derecha">
+                <form action="{% url 'comentario' producto.id %}" method="post" >
+                    {% csrf_token %}
+                    {{ coment_form.as_p }}
+                    <button type="submit">Salvar Comentario</button>
+                </form>
+            </div>
+        {% endif %}
     {% else %}
          <p>Error en detalle del producto.</p>
     {% endif %}
-
-    {% if es_dueno %}
-        <form method="post" action="{% url 'close_bid' producto.id %}">
-            {% csrf_token %}
-            <button type="submit">Cerrar subasta</button>
-        </form>
-    {% endif %}
+   
 
 {% endblock %}

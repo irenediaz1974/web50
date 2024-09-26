@@ -16,7 +16,8 @@ urlpatterns = [
     path("<int:producto_id>", views.products, name='products'),
     path('add_watchlist/<int:producto_id>/', views.add_watchlist, name='add_watchlist'),
     path('remove_watchlist/<int:producto_id>/', views.remove_watchlist, name='remove_watchlist'),
-    path("register", views.register, name="register")
+    path("register", views.register, name="register"),
+    path("comentario/<int:producto_id>/", views.comentario, name="comentario")
 ]
 
 if settings.DEBUG:
