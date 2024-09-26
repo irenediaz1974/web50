@@ -85,4 +85,4 @@ class Coment_form(forms.ModelForm):
     class Meta:
         model = Comentario
         fields = '__all__' 
-
+        exclude = ['id_user', 'id_subasta', 'c_fecha']

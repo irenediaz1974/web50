@@ -56,8 +56,12 @@ class Oferta(models.Model):
     o_fecha=models.DateTimeField(default=aware_datetime)
     
 class Subastado(models.Model):
+    won_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_won_auctions", null=True)
     id_subasta=models.ForeignKey(Subasta,on_delete=models.CASCADE,related_name="subasta")
     id_producto=models.ForeignKey(Producto,on_delete=models.CASCADE,related_name="producto_subastado")
+
+    def __str__(self):
+        return self.won_user
 
     class Meta:
         unique_together = (('id_subasta', 'id_producto'),)

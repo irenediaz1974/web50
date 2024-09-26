@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpRespons
 from django.shortcuts import render, redirect,  get_object_or_404
 from django.urls import reverse
 from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form, Oferta_form
-from .models import User , Producto , Subasta, Imagen, Watchlist, Oferta
+from .models import User , Producto , Subasta, Imagen, Watchlist, Oferta, Subastado
 from django.contrib import messages
 from django.conf import settings
 from django.db.models import Max
@@ -96,13 +96,6 @@ def products(request,producto_id):
             max_bid = Oferta.objects.filter(id_subasta=producto.subasta).aggregate(Max('o_monto'))
         except:
             max_bid=False  
-        ganador = None
-        if subasta.s_estado == False:  # Subasta cerrada
-            if request.user.is_authenticated:
-                oferta_ganadora = Oferta.objects.filter(id_subasta=producto.subasta).aggregate(Max('o_monto'))['o_monto__max']
-                if oferta_ganadora and oferta_ganadora.id_user == request.user:
-                    ganador = request.user
-
         is_in_watchlist = False 
         context = {
                     'producto': producto,
@@ -112,8 +105,7 @@ def products(request,producto_id):
                     'MEDIA_URL': settings.MEDIA_URL,
                     'producto_id': producto_id,
                     'id_user_subasta':id_user_subasta,
-                    'es_dueno': es_dueno,
-                    'ganador': ganador,                   
+                    'es_dueno': es_dueno,                   
                 }
         is_in_watchlist = False
         if request.user.is_authenticated:
@@ -161,14 +153,19 @@ def place_bid(request, producto_id):
     
 def close_bid(request, producto_id):
     producto = Producto.objects.get(id=producto_id)
-    subasta = producto.subasta
-    ofertas = Oferta.objects.filter(id_subasta=subasta).order_by('-o_monto')
+    ofertas = Oferta.objects.filter(id_subasta=producto.subasta).order_by('-o_monto')
     subasta = Subasta.objects.get(pk=producto.subasta.pk)
     
     if ofertas.exists():
         oferta_ganadora = ofertas.first()
         ganador = oferta_ganadora.id_user
         subasta.s_estado = False
+        # mover producto a tabla subastado
+        Subastado.objects.create(
+                        won_user=ganador,
+                        id_subasta=producto.subasta,
+                        id_producto=producto
+                    )   
         subasta.save()       
         messages.success(request, f"Subasta cerrada. El ganador es: {ganador}")
     else:
