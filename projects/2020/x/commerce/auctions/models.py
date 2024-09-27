@@ -61,7 +61,8 @@ class Subastado(models.Model):
     id_producto=models.ForeignKey(Producto,on_delete=models.CASCADE,related_name="producto_subastado")
 
     def __str__(self):
-        return self.won_user
+        return str(self.won_user)
+        # return self.won_user
 
     class Meta:
         unique_together = (('id_subasta', 'id_producto'),)

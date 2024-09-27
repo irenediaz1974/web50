@@ -49,15 +49,28 @@ a:hover {
     background-color: lightgray;
     border: none;
     border-radius: 5px; /* Adjust the value to make it more or less rounded */
-  }
+}
 
 #bid {
     background-color: blue;
     border: none;
     color: white
-  }
+}
 
-.columna_derecha {
-    display: flex;
-    align-items: right;
+#comments-section {
+    float: right;
+    width: 40%;
+    /* Add more styling as needed */
+}
+
+.auction-owner {
+    font-weight: bold;
+    color: blue;
+    /* Add more styling as needed */
+}
+.gray-ribbon {
+    background-color: gray;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
 }

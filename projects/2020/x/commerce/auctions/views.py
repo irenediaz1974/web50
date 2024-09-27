@@ -8,7 +8,7 @@ from .forms import Producto_form, Categoria_form, Imagen_form, Subasta_form, Ofe
 from .models import User , Producto , Subasta, Imagen, Watchlist, Oferta, Subastado, Comentario
 from django.contrib import messages
 from django.conf import settings
-from django.db.models import Max
+from django.db.models import Max, Subquery, OuterRef
 import os
 
 
@@ -92,6 +92,7 @@ def products(request,producto_id):
         id_user_subasta= Subasta.objects.get(pk=id_subasta).id_user
         es_dueno = (id_user_subasta == request.user)
         subasta = Subasta.objects.get(pk=producto.subasta.pk)
+        comentarios = Comentario.objects.filter(id_producto=producto)
         try:
             max_bid = Oferta.objects.filter(id_subasta=producto.subasta).aggregate(Max('o_monto'))
         except:
@@ -106,7 +107,8 @@ def products(request,producto_id):
                     'MEDIA_URL': settings.MEDIA_URL,
                     'producto_id': producto_id,
                     'id_user_subasta':id_user_subasta,
-                    'es_dueno': es_dueno,                   
+                    'es_dueno': es_dueno,  
+                    'comentarios': comentarios,             
                 }
         is_in_watchlist = False
         if request.user.is_authenticated:
@@ -176,20 +178,42 @@ def close_bid(request, producto_id):
 
 def comentario(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
-    if request.method == "POST" and request.user.is_authenticated:
+    if request.method == "POST" and request.user.is_authenticated:   
         coment_form = Coment_form(request.POST) 
         if coment_form.is_valid():
-            Comentario.objects.create(
-                        id_user=request.user,
-                        id_producto=producto
-                    ) 
-            coment_form.save()
-            messages.success(request, 'Comentario saved successfully!')
+                comment = Comentario(
+                s_coment=request.POST["s_coment"],
+                id_user=request.user,
+                id_producto=producto
+                )
+                comment.save()
+                messages.success(request, 'Comentario saved successfully!')
         else:
              print(coment_form.errors)  # errores de comentario     
 
     return redirect('products', producto_id=producto_id)   
-         
+
+
+def show_watchlist(request): 
+    if request.user.is_authenticated:
+        try:
+             watchlist_items = Watchlist.objects.filter(user=request.user).values_list('w_producto', flat=True)
+             productos = Producto.objects.filter(id__in=watchlist_items)
+             subastado_product_ids = Subastado.objects.filter(id_producto__in=watchlist_items).values_list('id_producto', flat=True)
+             productos_no_subastados = productos.exclude(id__in=Subquery(subastado_product_ids))
+             subastado_won_user = Subastado.objects.filter(id_producto=OuterRef('pk')).values('won_user')[:1]
+             productos_subastados = productos.filter(id__in=Subquery(subastado_product_ids)).annotate(won_user=Subquery(subastado_won_user))
+
+
+             context = {
+                    'productos_no_subastados': productos_no_subastados,
+                    'productos_subastados': productos_subastados,
+                    'MEDIA_URL': settings.MEDIA_URL,                     
+                }
+        except Watchlist.DoesNotExist:
+                raise Http404("No tiene Watchlist o algun error al crearla")
+        return render(request, 'auctions/show_watchlist.html', context)
+    
 
 # Vistas que venian con el ejercicio
 

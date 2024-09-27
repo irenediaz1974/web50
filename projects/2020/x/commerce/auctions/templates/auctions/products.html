@@ -22,6 +22,25 @@
             {% endif %}
             
         {% endif %}
+
+        {% if user.is_authenticated %}
+            <div id="comments-section">
+                <h3>Comentarios:</h3>
+                {% for comentario in comentarios %}
+                    <p><strong>{{ comentario.id_user.username }}:</strong> {{ comentario.s_coment }}</p>
+                {% endfor %}
+                <form action="{% url 'comentario' producto.id %}" method="post" >
+                    {% csrf_token %}
+                    {{ coment_form.as_p }}
+                    <button type="submit">Salvar Comentario</button>
+                </form>
+            </div>
+            {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endfor %}
+            {% endif %}
+        {% endif %}
         <ul>
             <div class="listing">
                 <div class="listing-image-detail">
@@ -29,10 +48,11 @@
                 </div>
             </div>
         </ul>
+        
         <ul>
             <div class="listing-details">
                 <h5>{{ producto.p_descrip }}</h5> 
-                {% if max_bid.o_monto__max != 0.0 %}
+                {% if user.is_authenticated and max_bid.o_monto__max != None and max_bid.o_monto__max != 0.0 %}
                     <h2>${{ max_bid.o_monto__max|floatformat:2 }}</h2>
                 {% endif %}
              
@@ -46,17 +66,17 @@
                     {{ oferta_form.as_p }}  
                     <button id="bid" type="submit">Place bid</button>
                 </form>
-                {% if messages %}
+                <!-- {% if messages %}
                     {% for message in messages %}
                         <div class="alert alert-{{ message.tags }}">{{ message }}</div>
                     {% endfor %}
-                {% endif %}
+                {% endif %} -->
             </div>                  
         {% endif %}
         <ul>
             <div class="details">
                 <h3>Details:</h3>            
-                <li>Listed by: {{ id_user_subasta }}</li>
+                <li>Listed by: <span class="auction-owner">{{ id_user_subasta }}</span></li>
                 <li>Category: {{producto.id_cat}}</li>
             </div>               
         </ul>
@@ -66,15 +86,7 @@
                 <button type="submit">Cerrar subasta</button>
             </form>
         {% endif %}
-        {% if user.is_authenticated %}
-            <div class ="columna_derecha">
-                <form action="{% url 'comentario' producto.id %}" method="post" >
-                    {% csrf_token %}
-                    {{ coment_form.as_p }}
-                    <button type="submit">Salvar Comentario</button>
-                </form>
-            </div>
-        {% endif %}
+        
     {% else %}
          <p>Error en detalle del producto.</p>
     {% endif %}

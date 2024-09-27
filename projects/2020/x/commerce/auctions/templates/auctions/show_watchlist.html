@@ -1,0 +1,62 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+{% if messages %}
+  <ul>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<h2>Watchlist: Activos en Subasta</h2>
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+          {% for producto in productos_no_subastados %}
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12">
+                  <h4>{{ producto.p_nombre}}:{{ producto.p_descrip }}</h4>                   
+                </div>
+              <div class="listing">
+                <div class="listing-image-detail">
+                    <img src="{{ producto.id_imagen.imagen.url }}" alt="{{ producto.p_nombre }}">
+                </div>
+              </div>
+          {% endfor %}
+      </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+          
+          {% if productos_subastados%}
+              <h2> Subastados</h2>
+              {% for producto in productos_subastados%}
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4>{{ producto.p_nombre}}:{{ producto.p_descrip }}</h4>   
+                      <div class="gray-ribbon">
+                        {{ producto.won_user }}
+                      </div>               
+                    </div>
+                  <div class="listing">
+                    <div class="listing-image-detail">
+                        <img src="{{ producto.id_imagen.imagen.url }}" alt="{{ producto.p_nombre }}">
+                    </div>
+                  </div>
+              {% endfor %}
+          {% endif %}
+      </div>
+  </div>
+</div>
+
+
+{% endblock %}

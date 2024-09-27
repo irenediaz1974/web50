@@ -82,7 +82,7 @@ class Subastado_form(forms.ModelForm):
         fields = '__all__' 
 
 class Coment_form(forms.ModelForm):
-    s_coment= forms.CharField(label="Comentarios", required=True,
+    s_coment= forms.CharField(label=" Añadir un Comentario", required=True,
                 widget=forms.Textarea(attrs={'class': 
                 'form-control form-control-sm', 'id':'s_coment', 'cols': 10, 'rows': 2}))
     class Meta:
