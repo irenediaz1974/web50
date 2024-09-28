@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class Categoria_form(forms.ModelForm):
 
-    cat_name = forms.CharField(help_text="Enter category for products.", widget=forms.TextInput(attrs={'class': 'form-control form-control-sm', 'id': 'nombre_categoria'}))
+    cat_name = forms.CharField(label="Enter category for products:",  widget=forms.TextInput(attrs={'class': 'form-control form-control-sm', 'id': 'nombre_categoria'}))
 
     class Meta:
         model = Categoria

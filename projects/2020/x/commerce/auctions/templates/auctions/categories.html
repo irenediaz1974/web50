@@ -10,24 +10,49 @@
   </ul>
 {% endif %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Categories</h2>
-        </div>
+<div id="comments-section"> 
+  {% if products %}
+  <ul>
+      {% for product in products %}
+          <li>{{ product.p_nombre }}</li>
+          <img src="{{ product.id_imagen.imagen.url }}" alt="{{ product.p_nombre }}">   
+      {% endfor %}
+  </ul>
+  {% endif %}
 </div>
+
+<div class="form-container">
+  <form id="show_product_cat" action="{% url 'categories' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="form_type" value="show_product_cat">
+    <label for="category-select">Select Category:</label>
+    <select id="category-select" name="category">
+        {% for category in categories %}
+            <option value="{{ category.id_cat__cat_name }}">{{ category.id_cat__cat_name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary">Show Products</button>
+  </form>
+  <hr>
+</div>
+
 
 <div class="container">
     <div class="row">
-      <div class="col-md-4">
-        <form id="categ-form" action="{% url 'categories'%}" method="post">
-            {% csrf_token %}
-            {{ categoria.as_p }} 
-            <button id="save_categ" type="submit" class="btn btn-primary p-1">Save Category</button>
-       </form>
-      </div>
+        <div class="col-md-4">
+            <h2>Add Category:</h2>
+        </div>
     </div>
 </div>
-  
+
+<div class="form-container">  
+        <form id="categ-form" action="{% url 'categories'%}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="form_type" value="categoria_form">
+            {{ categ_form.as_p }} 
+            <button id="save_categ" type="submit" class="btn btn-primary p-1">Save Category</button>
+       </form>     
+</div>
+ 
 
 {% endblock %}

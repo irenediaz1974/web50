@@ -27,22 +27,26 @@ def index(request):
 
 @login_required
 def categories(request):
-    if request.method == 'POST': 
-        categ_form = Categoria_form(request.POST, prefix='categ')   
-        if categ_form.is_valid():
-            categoria = categ_form.save()
-            messages.success(request, 'Category saved successfully!')
-            return HttpResponseRedirect(reverse("categories"))
-        else:
-             print(categ_form.errors)  # Imprime los errores de validación de la categoría
-        
-    else: 
-        categ_form= Categoria_form(prefix='categ')
-        
+    distinct_categories = Producto.objects.values('id_cat__cat_name').distinct()
+    if request.method == 'POST':
+        form_type = request.POST.get('form_type') 
+        if form_type == 'show_product_cat':
+            selected_category = request.POST.get('category')
+            products = Producto.objects.filter(id_cat__cat_name=selected_category)
+            categ_form = Categoria_form(prefix='categ')
+            return render(request, "auctions/categories.html", {'products': products, 'categories': distinct_categories,'categ_form': categ_form})
 
-    return render(request, "auctions/categories.html", {'categoria':categ_form})
+        elif form_type == 'categoria_form':
+            categ_form = Categoria_form(request.POST, prefix='categ')
+            if categ_form.is_valid():
+                categoria = categ_form.save()
+                messages.success(request, 'Category saved successfully!')
+                return redirect(reverse("categories"))
 
-# Vista para adicionar lista watchlist
+    
+    categ_form = Categoria_form(prefix='categ')
+    return render(request, 'auctions/categories.html', {'categories': distinct_categories, 'categ_form': categ_form})
+
 
 
 # Vista para implementar subasta

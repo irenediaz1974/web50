@@ -1,11 +1,13 @@
 # README
 
+*En este proyecto se crea un sitio de para subastar productos.*
+
 ## Tips: :bulb:
 
 ### :point_right: Tarea 1
 
-a. En el modelado se definen 7 tablas: Usuario, Subasta, Producto, Categoria, Oferta, subastado, Imagen, Comentarios
- En el caso de la tabla subastado hay que prever que el mismo producto puede estar en varias subastas, por lo que la llave primaria de esta tabla seria una combinacion de dos llaves primarias de Producto y Subasta.
+a. En el modelado se definen 8 tablas:  Subasta, Producto, Categoria, Oferta, subastado, Imagen, Comentarios, Watchlist. Ya existia la tabla User. Total: 9 Tablas.
+ En el caso de la tabla subastado hay que preveer que el mismo producto puede estar en varias subastas, por lo que la llave primaria de esta tabla seria una combinacion de dos llaves primarias de Producto y Subasta.
  Para implementarlo usé la clase Meta:
 
  ```python
@@ -155,9 +157,11 @@ los usuarios deben poder crear una nueva entrada para un artículo que desean su
         *  Los usuarios que hayan iniciado sesión deberían poder agregar comentarios a la página de listado. La página del listado debe mostrar todos los comentarios que se han realizado en el listado
 :white_check_mark: 5.- **Watchlist** : Los usuarios que hayan iniciado sesión deberían poder visitar una página de Lista de seguimiento, que debería mostrar todos los listados que un usuario ha agregado a su lista de seguimiento. Al hacer clic en cualquiera de esos listados, el usuario debería acceder a la página de ese listado.
 
-:negative_squared_cross_mark: 6.- **Categories**: Los usuarios deberían poder visitar una página que muestre una lista de todas las categorías de listados. Al hacer clic en el nombre de cualquier categoría, el usuario debería acceder a una página que muestra todos los listados activos en esa categoría.
+:white_check_mark: 6.- **Categories**: Los usuarios deberían poder visitar una página que muestre una lista de todas las categorías de listados. Al hacer clic en el nombre de cualquier categoría, el usuario debería acceder a una página que muestra todos los listados activos en esa categoría.
 
-:negative_squared_cross_mark: 7.- **Django Admin Interface**: A través de la interfaz de administración de Django, un administrador del sitio debería poder ver, agregar, editar y eliminar cualquier listado, comentario y oferta realizada en el sitio.
+:white_check_mark: 7.- **Django Admin Interface**: A través de la interfaz de administración de Django, un administrador del sitio debería poder ver, agregar, editar y eliminar cualquier listado, comentario y oferta realizada en el sitio.
+
+:negative_squared_cross_mark:
 
 Pistas
 
