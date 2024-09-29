@@ -1,0 +1,45 @@
+Guion de video:
+Bienvenidos Proyecto Commerce del Curso: CS50 Web programming with python and javascript
+Este proyecto es semejante a un sitio de subastas como ebay lo cual permitira al usuario crear productos, mostrarlos para hacer ofertas, comprarlos y tener una watchlist para darle seguimiento a un producto
+1. Primero, el modelado: Nuestro modelo tiene 8 tablas, Subasta, Producto, Categoria, Oferta, subastado, imagen y comentarios.
+Mas la tabla User proporcionada con el ejercicio.
+
+2. La primera tarea sería crear una subasta, usaremos el usuario harry, crearemos una subasta que llamaremos Mi mascota
+
+--- Proporcionar todos los datos al form
+
+3. Una vez creada una subasta ejemplo podemos verla en la ruta por defecto de nuestra aplicacion, index.html, se accede a traves del menú active listing.
+
+4. Luego de seleccionado el producto , podemos ver su lista de detalles.
+
+- Ahora nos autenticaremos como hermione, para poder establecer una oferta para el producto que está vendiendo harry y además ponerla en su lista de deseos.
+- Podemos añadirle comentarios al producto como por que realizamos la oferta.
+
+- Autenticados como harry podemos cerrar la oferta y nos informa que hermione ha ganado la subasta.
+
+5. Una forma de seguir el producto que deseamos es la Watchlist, podemos ver los productos activos y tambien los subastados que hemos deseado anteriormente.
+
+6. Tambien podemos añadir categorias de productos, seleccionarlas y ver que producto subastado esta en cada categoria
+
+7: Finalmente mostrar la interfaz de admin de django
+
+Autenticados como root , podemos interactuar con todas las tablas de nuestro modelo.
+
+8. Gracias por su atencion.
+
+
+Parece que necesitas instalar GraphViz en tu sistema. Aquí tienes cómo hacerlo:
+
+    Instala GraphViz:
+        En Windows, puedes descargar el instalador desde GraphViz Download y seguir las instrucciones de instalación.
+
+    Añade GraphViz al PATH:
+        Asegúrate de que el directorio de instalación de GraphViz esté en tu variable de entorno PATH. Esto permite que los comandos de GraphViz sean accesibles desde la línea de comandos.
+
+Después de hacer esto, intenta ejecutar el comando nuevamente. ¿Puedes probar eso y ver si funciona?
+
+comando
+python manage.py graph_models -a -o myapp_models.png
+
+
+falta bajar e instalar: https://graphviz.gitlab.io/download/
