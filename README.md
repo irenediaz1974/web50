@@ -6,7 +6,7 @@
 
 ### Proyecto 2
 
-:white_check_mark: - Tarea: Commerce (Framework Django) Ver Readme del proyecto [Commerce](/../../../../irenediaz1974/web50/blob/main/projects/2020/x/commerce/README.md)
+:white_check_mark: - Tarea: Commerce. Readme del proyecto [Commerce](/../../../../irenediaz1974/web50/blob/main/projects/2020/x/commerce/README.md) (Framework Django)
 
 #### Diseñar un sitio de subastas de comercio electrónico similar a eBay que permita a los usuarios publicar listados de subastas, realizar ofertas en los listados, comentar sobre esos listados y agregar listados a una "lista de seguimiento"
 
