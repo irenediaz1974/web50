@@ -7,6 +7,9 @@
 ### :point_right: Tarea 1
 
 a. En el modelado se definen 8 tablas:  Subasta, Producto, Categoria, Oferta, subastado, Imagen, Comentarios, Watchlist. Ya existia la tabla User. Total: 9 Tablas.
+
+<img src="auctions.png" alt="Modelo de Datos" style="border: 2px solid black;">
+
  En el caso de la tabla subastado hay que preveer que el mismo producto puede estar en varias subastas, por lo que la llave primaria de esta tabla seria una combinacion de dos llaves primarias de Producto y Subasta.
  Para implementarlo usé la clase Meta:
 
