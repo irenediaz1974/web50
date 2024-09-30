@@ -114,3 +114,32 @@ devcontainer.json:
         1. Crea un archivo .gitignore con el comando touch .gitignore.
         2. Abre el archivo .gitignore con tu editor de texto preferido.
         3. Escribe el nombre de la carpeta del entorno en una nueva línea y guarda el archivo.Por ejemplo, si tu entorno se llama "nombre_del_entorno", entonces escribes "nombre_del_entorno/" en el archivo .gitignore. Esto le dice a Git que ignore los archivos en esa carpeta.
+
+### IMPORTANTE Para ver el modelo ER de las BD de Sqlite3
+
+<https://django-extensions.readthedocs.io/en/latest/graph_models.html>
+
+1.- Instalar en S.O Graphviz software
+ pip install django-extensions
+ pip install django-extensions
+ pip install pyparsing pydot
+
+2.- Agregar en settings.py
+
+```python
+INSTALLED_APPS = [
+    # some app
+    'django_extensions',
+]
+
+
+GRAPH_MODELS = {
+    'app_labels': ["auctions"],
+    'include_models': ["Subasta", "Producto", "Categoria", "Oferta", "Subastado", "Imagen", "Comentarios", "Watchlist"],
+    'group_models': True,
+}
+```
+
+3.- Ejecutar
+
+`python manage.py graph_models auctions -a --color-code-deletions --arrow-shape normal  -o auctions.png`

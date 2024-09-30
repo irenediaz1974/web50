@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,9 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+GRAPH_MODELS = {
+    'app_labels': ["auctions"],
+    'include_models': ["Subasta", "Producto", "Categoria", "Oferta", "Subastado", "Imagen", "Comentarios", "Watchlist"],
+    'group_models': True,
+}
