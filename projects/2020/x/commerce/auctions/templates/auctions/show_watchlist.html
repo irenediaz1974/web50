@@ -34,8 +34,7 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-4">
-          
+      <div class="col-md-4">          
           {% if productos_subastados%}
               <h2> Subastados</h2>
               {% for producto in productos_subastados%}
@@ -43,9 +42,13 @@
                   <div class="row">
                     <div class="col-md-12">
                       <h4>{{ producto.p_nombre}}:{{ producto.p_descrip }}</h4>   
-                      <div class="gray-ribbon">
-                        {{ producto.won_user }}
-                      </div>               
+                      <div class="gray-ribbon">              
+                          {% for subastado in subastados %}
+                              {% if subastado.id_producto == producto %}
+                                  Won User: {{ subastado.won_user.username }}
+                              {% endif %}
+                          {% endfor %}
+                      </div>                                 
                     </div>
                   <div class="listing">
                     <div class="listing-image-detail">
@@ -57,6 +60,4 @@
       </div>
   </div>
 </div>
-
-
 {% endblock %}

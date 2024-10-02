@@ -207,11 +207,12 @@ def show_watchlist(request):
              productos_no_subastados = productos.exclude(id__in=Subquery(subastado_product_ids))
              subastado_won_user = Subastado.objects.filter(id_producto=OuterRef('pk')).values('won_user')[:1]
              productos_subastados = productos.filter(id__in=Subquery(subastado_product_ids)).annotate(won_user=Subquery(subastado_won_user))
-
+             subastados = Subastado.objects.all()
 
              context = {
                     'productos_no_subastados': productos_no_subastados,
                     'productos_subastados': productos_subastados,
+                    'subastados':  subastados,
                     'MEDIA_URL': settings.MEDIA_URL,                     
                 }
         except Watchlist.DoesNotExist:
