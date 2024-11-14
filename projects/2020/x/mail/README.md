@@ -22,13 +22,13 @@
 
 :negative_squared_cross_mark: 1.-  **Send Mail** Agregue código JavaScript para enviar un correo electrónico cuando el usuario envíe el formulario de redacción de correo electrónico.
 
-    . Probablemente quieras realizar una solicitud POST a /emails, pasando valores para los destinatarios, el asunto y el cuerpo.
+- Probablemente quieras realizar una solicitud POST a /emails, pasando valores para los destinatarios, el asunto y el cuerpo.
 
-    . Una vez enviado el correo electrónico, cargue el buzón de enviados del usuario.
+- Una vez enviado el correo electrónico, cargue el buzón de enviados del usuario.
 
 :negative_squared_cross_mark: 2.- **Mailbox** Cargue el buzón correspondiente cuando el usuario visite su Bandeja de entrada, Buzón de enviados o Archivo.
 
-    . Probablemente desee realizar una solicitud GET a /emails/<mailbox> para solicitar los correos electrónicos de un buzón en particular.
+- Probablemente desee realizar una solicitud GET a /emails/<mailbox> para solicitar los correos electrónicos de un buzón en particular.
     . Cuando se visita un buzón, la aplicación primero debe consultar la API para conocer los últimos correos electrónicos en ese buzón.
     . Cuando se visita un buzón, el nombre del buzón debe aparecer en la parte superior de la página (esta parte se hace por usted).
     . Luego, cada correo electrónico debe presentarse en su propio cuadro (por ejemplo, como un <div> con un borde) que muestra de quién proviene el correo electrónico, cuál es la línea de asunto y la marca de tiempo del correo electrónico.
