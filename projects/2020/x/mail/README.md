@@ -40,7 +40,7 @@
 - Su aplicación debe mostrar el remitente, los destinatarios, el asunto, la marca de tiempo y el cuerpo del correo electrónico.
 - Probablemente quieras agregar un div adicional a inbox.html (además de emails-view y compose-view) para mostrar el correo electrónico.
 - Asegúrese de actualizar su código para ocultar y mostrar las vistas correctas cuando se hace clic en las opciones de navegación.
-- Consulte la sugerencia en la sección [Link to Pistas](#Pistas) sobre cómo agregar un detector de eventos a un elemento HTML que haya agregado al DOM.
+- Consulte la sugerencia en la sección [sugerencias](#Pistas) sobre cómo agregar un detector de eventos a un elemento HTML que haya agregado al DOM.
 - Una vez que haya hecho clic en el correo electrónico, debe marcarlo como leído. Recuerde que puede enviar una solicitud PUT a /emails/<email_id> para actualizar si un correo electrónico se lee o no.
 
 :negative_squared_cross_mark: 4.- **Archive and Unarchive** Permita a los usuarios archivar y desarchivar los correos electrónicos que hayan recibido.
