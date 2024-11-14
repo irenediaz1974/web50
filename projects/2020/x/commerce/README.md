@@ -4,6 +4,8 @@
 
 ## Tips: :bulb:
 
+Enlace youtube: <https://youtu.be/-JSePOhcKWg>
+
 ### :point_right: Tarea 1
 
 a. En el modelado se definen 8 tablas:  Subasta, Producto, Categoria, Oferta, subastado, Imagen, Comentarios, Watchlist. Ya existia la tabla User. Total: 9 Tablas.
