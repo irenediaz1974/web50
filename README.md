@@ -4,6 +4,28 @@
 
 ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 
+### Proyecto 3
+
+:white_check_mark: - Tarea: Mail. Readme del proyecto [Mail](/../../../../irenediaz1974/web50/blob/main/projects/2020/x/mail/README.md) (Framework Django)
+
+#### Diseñe una interfaz para un cliente de correo electrónico que realice llamadas API para enviar y recibir correos electrónicos
+
+Ejecución del proyecto:
+
+1. Obtener fichero mail.zip con la estructura del proyecto:
+
+  ```console
+  <https://cdn.cs50.net/web/2020/spring/projects/3/mail.zip>
+  ```
+
+2.Primeros pasos (En mi PC):
+
+- En projects\2020\x --> Descompactar: mail.zip
+- cd into the mail
+- Crear fichero README.md en el subdirectorio mail
+
+3.Realizar submit50
+
 ### Proyecto 2
 
 :white_check_mark: - Tarea: Commerce. Readme del proyecto [Commerce](/../../../../irenediaz1974/web50/blob/main/projects/2020/x/commerce/README.md) (Framework Django)
