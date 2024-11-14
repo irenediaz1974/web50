@@ -62,14 +62,14 @@
 ### Pistas
 
 Para crear un elemento HTML y agregarle un controlador de eventos, puede usar código JavaScript como el siguiente:
-    ```
-    const element = document.createElement('div');
-    element.innerHTML = 'This is the content of the div.';
-    element.addEventListener('click', function() {
+    
+`const element = document.createElement('div');
+element.innerHTML = 'This is the content of the div.';
+element.addEventListener('click', function() {
         console.log('This element has been clicked!')
-    });
-    document.querySelector('#container').append(element);
-    ```
+});
+document.querySelector('#container').append(element);`
+    
 
 Este código crea un nuevo elemento div, establece su HTML interno, agrega un controlador de eventos para ejecutar una función particular cuando se hace clic en ese div y luego lo agrega a un elemento HTML cuya identificación es container (este código supone que hay un elemento HTML cuya identificación es container: es probable que desee cambiar el argumento a querySelector para que sea cualquier elemento al que desee agregar un elemento).
 
