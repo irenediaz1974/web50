@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
+  document.querySelector('form').onsubmit=save_email(); 
 
   // By default, load the inbox
   load_mailbox('inbox');
@@ -22,34 +23,38 @@ function compose_email() {
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
  
- // Save mail data
+}
+
+function save_email() {
+
   document.addEventListener('DOMContentLoaded', function() {
-    console.log("Script loaded"); // Add this line
-    document.querySelector('#compose-form').onsubmit= function (event) {
-      event.preventDefault();
-      console.log("Form submitted"); // Add this line
-      const v_recipients= document.querySelector('#compose-recipients').value;
-      const v_subject= document.querySelector('#compose-subject').value;
-      const v_body= document.querySelector('#compose-body').value;
-      fetch('/emails', {
-        method: 'POST',
-        body: JSON.stringify({
-            recipients: v_recipients ,
-            subject: v_subject,
-            body: v_body
+    
+    const v_recipients= document.querySelector('#compose-recipients').value;
+    const v_subject= document.querySelector('#compose-subject').value;
+    const v_body= document.querySelector('#compose-body').value;
+    console.log(" A quien le mande el mensaje", v_recipients);
+
+    fetch('/emails', {
+      method: 'POST',
+      body: JSON.stringify({
+          recipients: v_recipients ,
+          subject: v_subject,
+          body: v_body
         })
-      })
-      .then(response => response.json())
-      .then(result => {
-      // Print result
-      console.log(result);
-      })
-      .catch(error => {
-        console.log("Errores:", error);
-      });
-    };
+    })
+    .then(response => response.json())
+    .then(result => {
+    // Print result
+    console.log(result);
+    })
+    .catch(error => {
+      console.log("Este es un error:", error);
+    });
   });
 }
+
+
+
 
 function load_mailbox(mailbox) {
   
@@ -59,4 +64,5 @@ function load_mailbox(mailbox) {
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+  console.log(mailbox);
 }
