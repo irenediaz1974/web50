@@ -103,14 +103,11 @@ python manage.py migrate
 
 ## REQUERIMIENTOS
 
-## Explicación junto a la solicitud del proyecto:
+## Explicación junto a la solicitud del proyecto
 
-project3: contiene una única aplicación llamada mail.
+:file_folder: *project3* Contiene una única aplicación llamada mail.
 
-- Despues de la migracion ejecute ```python
-python manage.py runserver
-
-```  para iniciar el servidor web. Abra el servidor web en su navegador y use el enlace “Registrar” para registrarse para una nueva cuenta. Los correos electrónicos que enviará y recibirá en este proyecto se almacenarán completamente en su base de datos local, por lo que puede elegir cualquier dirección de correo electrónico (por ejemplo, foo@example.com) y contraseña que desee para este proyecto.
+- Despues de la migracion ejecute *python manage.py runserver* para iniciar el servidor web. Abra el servidor web en su navegador y use el enlace “Registrar” para registrarse para una nueva cuenta. Los correos electrónicos que enviará y recibirá en este proyecto se almacenarán completamente en su base de datos local, por lo que puede elegir cualquier dirección de correo electrónico (por ejemplo, foo@example.com) y contraseña que desee para este proyecto.
 
 - Una vez que haya iniciado sesión, debería verse dirigido a la página Bandeja de entrada del cliente de correo, aunque esta página está mayormente en blanco (por ahora). Haga clic en los botones para navegar a sus buzones de correo Enviados y Archivados, y observe cómo estos también están actualmente en blanco. Haga clic en el botón “Redactar” y será dirigido a un formulario que le permitirá redactar un nuevo correo electrónico. Sin embargo, cada vez que haces clic en un botón, no se te lleva a una nueva ruta ni se realiza una nueva solicitud web: en cambio, toda esta aplicación es solo una página única, con JavaScript utilizado para controlar la interfaz de usuario. Ahora, observemos más de cerca el código de distribución para ver cómo funciona.
 
