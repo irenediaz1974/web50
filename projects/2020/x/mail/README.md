@@ -40,7 +40,7 @@
 - Su aplicación debe mostrar el remitente, los destinatarios, el asunto, la marca de tiempo y el cuerpo del correo electrónico.
 - Probablemente quieras agregar un div adicional a inbox.html (además de emails-view y compose-view) para mostrar el correo electrónico.
 - Asegúrese de actualizar su código para ocultar y mostrar las vistas correctas cuando se hace clic en las opciones de navegación.
-- Consulte la sugerencia en la sección [sugerencias](#Pistas) sobre cómo agregar un detector de eventos a un elemento HTML que haya agregado al DOM.
+- Consulte la sugerencia en la sección [sugerencias](#pistas) sobre cómo agregar un detector de eventos a un elemento HTML que haya agregado al DOM.
 - Una vez que haya hecho clic en el correo electrónico, debe marcarlo como leído. Recuerde que puede enviar una solicitud PUT a /emails/<email_id> para actualizar si un correo electrónico se lee o no.
 
 :negative_squared_cross_mark: 4.- **Archive and Unarchive** Permita a los usuarios archivar y desarchivar los correos electrónicos que hayan recibido.
@@ -55,7 +55,7 @@
 - Cuando el usuario hace clic en el botón "Responder", se le debe dirigir al formulario de redacción del correo electrónico.
 - Complete previamente el formulario de redacción con el campo de destinatario configurado para quien envió el correo electrónico original.
 - Complete previamente la línea de asunto. Si el correo electrónico original tenía una línea de asunto foo, la nueva línea de asunto debería ser Re: foo. (Si la línea de asunto ya comienza con Re:, no es necesario volver a agregarla).
-- Complete previamente el cuerpo del correo electrónico con una línea como "El 1 de enero de 2020, a las 12:00 a. m., foo@example.com escribió:" seguida del texto original del correo electrónico.
+- Complete previamente el cuerpo del correo electrónico con una línea como "El 1 de enero de 2020, a las 12:00 a. m., <foo@example.com> escribió:" seguida del texto original del correo electrónico.
 
 :white_check_mark:
 
@@ -71,6 +71,7 @@ element.addEventListener('click', function() {
 });
 document.querySelector('#container').append(element);
 ```
+
 Este código crea un nuevo elemento div, establece su HTML interno, agrega un controlador de eventos para ejecutar una función particular cuando se hace clic en ese div y luego lo agrega a un elemento HTML cuya identificación es container (este código supone que hay un elemento HTML cuya identificación es container: es probable que desee cambiar el argumento a querySelector para que sea cualquier elemento al que desee agregar un elemento).
 
 - Puede resultarle útil editar mail/static/mail/styles.css para agregar cualquier CSS que necesite para la aplicación.
@@ -91,13 +92,18 @@ Este código crea un nuevo elemento div, establece su HTML interno, agrega un co
    python manage.py makemigrations mail
 ```
 
+- Luego de ejecutado se creaon los modelos User y Email
+
+    ```console
+    - Create model User
+    - Create model Email
+    ```
+
 - Ejecutar  para aplicar migraciones a la Base de datos:
 
 ```python
 python manage.py migrate
 ```
-
-
 
 ***
 
@@ -107,9 +113,7 @@ python manage.py migrate
 
 :file_folder: *project3* Contiene una única aplicación llamada mail.
 
-- Despues de la migracion ejecute *python manage.py runserver* para iniciar el servidor web. Abra el servidor web en su navegador y use el enlace “Registrar” para registrarse para una nueva cuenta. Los correos electrónicos que enviará y recibirá en este proyecto se almacenarán completamente en su base de datos local, por lo que puede elegir cualquier dirección de correo electrónico (por ejemplo, foo@example.com) y contraseña que desee para este proyecto.
-
-- Una vez que haya iniciado sesión, debería verse dirigido a la página Bandeja de entrada del cliente de correo, aunque esta página está mayormente en blanco (por ahora). Haga clic en los botones para navegar a sus buzones de correo Enviados y Archivados, y observe cómo estos también están actualmente en blanco. Haga clic en el botón “Redactar” y será dirigido a un formulario que le permitirá redactar un nuevo correo electrónico. Sin embargo, cada vez que haces clic en un botón, no se te lleva a una nueva ruta ni se realiza una nueva solicitud web: en cambio, toda esta aplicación es solo una página única, con JavaScript utilizado para controlar la interfaz de usuario. Ahora, observemos más de cerca el código de distribución para ver cómo funciona.
+- Despues de la migracion ejecute *python manage.py runserver* para iniciar el servidor web. Abra el servidor web en su navegador y use el enlace “Registrar” para registrarse para una nueva cuenta. Los correos electrónicos que enviará y recibirá en este proyecto se almacenarán completamente en su base de datos local, por lo que puede elegir cualquier dirección de correo electrónico (por ejemplo, <foo@example.com>) y contraseña que desee para este proyecto.
 
 - Observa mail/urls.py y observa que la ruta predeterminada carga una función de índice en views.py. Por lo tanto, abramos views.py y observemos la función de índice. Observa que, siempre que el usuario haya iniciado sesión, esta función muestra la plantilla mail/inbox.html. Observemos esa plantilla, almacenada en mail/templates/mail/inbox.html. Notarás que en el cuerpo de la página, la dirección de correo electrónico del usuario se muestra primero en un elemento h2. Después de eso, la página tiene una secuencia de botones para navegar entre varias páginas de la aplicación. Debajo de eso, observa que esta página tiene dos secciones principales, cada una definida por un elemento div. El primero (con un id de emails-view) contiene el contenido de un buzón de correo electrónico (inicialmente vacío). El segundo (con un id de compose-view) contiene un formulario donde el usuario puede redactar un nuevo correo electrónico. Los botones de la parte superior, entonces, deben mostrar y ocultar selectivamente estas vistas: el botón de redacción, por ejemplo, debe ocultar la vista de correos electrónicos y mostrar la vista de redacción; el botón de bandeja de entrada, por su parte, debe ocultar la vista de redacción y mostrar la vista de correos electrónicos.
 ¿Cómo lo hacen? Observa que en la parte inferior de inbox.html se incluye el archivo JavaScript mail/inbox.js. Abre ese archivo, almacenado en mail/static/mail/inbox.js, y échale un vistazo. Observa que cuando se ha cargado el contenido DOM de la página, adjuntamos detectores de eventos a cada uno de los botones. Cuando se hace clic en el botón de la bandeja de entrada, por ejemplo, llamamos a la función load_mailbox con el argumento 'inbox'; cuando se hace clic en el botón de redacción, mientras tanto, llamamos a la función compose_email. ¿Qué hacen estas funciones? La función compose_email primero oculta la vista de correos electrónicos (al establecer su propiedad style.display en none) y muestra la vista de redacción (al establecer su propiedad style.display en block). Después de eso, la función toma todos los campos de entrada del formulario (donde el usuario puede escribir una dirección de correo electrónico de destinatario, línea de asunto y cuerpo de correo electrónico) y establece su valor en la cadena vacía '' para borrarlos. Esto significa que cada vez que haga clic en el botón “Redactar”, se le debe presentar un formulario de correo electrónico en blanco: puede probar esto escribiendo valores en el formulario, cambiando la vista a la Bandeja de entrada y luego volviendo a la vista Redactar.
@@ -226,7 +230,7 @@ fetch('/emails', {
 
 Si el correo electrónico se envía correctamente, la ruta responderá con un código de estado 201 y una respuesta JSON de {"message": "Correo electrónico enviado correctamente."}.
 
-Tenga en cuenta que debe haber al menos un destinatario de correo electrónico: si no se proporciona uno, la ruta responderá con un código de estado 400 y una respuesta JSON de {"error": "Se requiere al menos un destinatario". Todos los destinatarios también deben ser usuarios válidos que se hayan registrado en esta aplicación web en particular: si intenta enviar un correo electrónico a baz@example.com pero no hay ningún usuario con esa dirección de correo electrónico, obtendrá una respuesta JSON de {"error ": "El usuario con correo electrónico baz@example.com no existe."}.
+Tenga en cuenta que debe haber al menos un destinatario de correo electrónico: si no se proporciona uno, la ruta responderá con un código de estado 400 y una respuesta JSON de {"error": "Se requiere al menos un destinatario". Todos los destinatarios también deben ser usuarios válidos que se hayan registrado en esta aplicación web en particular: si intenta enviar un correo electrónico a <baz@example.com> pero no hay ningún usuario con esa dirección de correo electrónico, obtendrá una respuesta JSON de {"error ": "El usuario con correo electrónico <baz@example.com> no existe."}.
 
 #### PUT /emails/<int:email_id>
 
@@ -244,5 +248,3 @@ fetch('/emails/100', {
 marcaría el correo electrónico número 100 como archivado. El cuerpo de la solicitud PUT también podría ser {archived: false} para desarchivar el mensaje, y también podría ser {read: true} o read: false} para marcar el correo electrónico como leído o no leído, respectivamente.
 
 Al utilizar estas cuatro rutas API (recibir todos los correos electrónicos en un buzón, obtener un solo correo electrónico, enviar un correo electrónico y actualizar un correo electrónico existente), debería tener todas las herramientas que necesita ahora para completar este proyecto.
-
-

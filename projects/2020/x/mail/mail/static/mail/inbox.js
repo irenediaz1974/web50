@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function compose_email() {
 
+
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
@@ -20,6 +21,34 @@ function compose_email() {
   document.querySelector('#compose-recipients').value = '';
   document.querySelector('#compose-subject').value = '';
   document.querySelector('#compose-body').value = '';
+ 
+ // Save mail data
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("Script loaded"); // Add this line
+    document.querySelector('#compose-form').onsubmit= function (event) {
+      event.preventDefault();
+      console.log("Form submitted"); // Add this line
+      const v_recipients= document.querySelector('#compose-recipients').value;
+      const v_subject= document.querySelector('#compose-subject').value;
+      const v_body= document.querySelector('#compose-body').value;
+      fetch('/emails', {
+        method: 'POST',
+        body: JSON.stringify({
+            recipients: v_recipients ,
+            subject: v_subject,
+            body: v_body
+        })
+      })
+      .then(response => response.json())
+      .then(result => {
+      // Print result
+      console.log(result);
+      })
+      .catch(error => {
+        console.log("Errores:", error);
+      });
+    };
+  });
 }
 
 function load_mailbox(mailbox) {
