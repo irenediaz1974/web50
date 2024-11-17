@@ -6,6 +6,83 @@
 
 ### :point_right: Tarea 1: Send Mail
 
+a. Añadí a admin.py los modelos:
+
+```python
+from django.contrib import admin
+from .models import User, Email
+
+# Register your models here.
+admin.site.register(User)
+admin.site.register(Email)
+```
+
+b. Crear cuenta de superuser que permite acceder a la interface admin de Django
+
+ ```python
+python manage.py createsuperuser
+ ```
+
+```console
+Username: root
+Email address: root@example.com
+Password: rootAdmin
+Password (again): rootAdmin
+Superuser created successfully.
+```
+
+c. En models.py se define una clase *Email* con una funcion **serialize** que se utiliza para convertir una instancia del modelo en un formato que se puede fácilmente convertir a JSON. Esto es útil para enviar datos a través de una API.
+Este ejercicio solo tiene dos modelos de datos : Email y User
+
+```python
+class Email(models.Model):
+    user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="emails")
+    sender = models.ForeignKey("User", on_delete=models.PROTECT, related_name="emails_sent")
+    recipients = models.ManyToManyField("User", related_name="emails_received")
+    subject = models.CharField(max_length=255)
+    body = models.TextField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
+    archived = models.BooleanField(default=False)
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "sender": self.sender.email,
+            "recipients": [user.email for user in self.recipients.all()],
+            "subject": self.subject,
+            "body": self.body,
+            "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
+            "read": self.read,
+            "archived": self.archived
+        }
+```
+
+d. Esta seria la implementación en javascript para visualizar los correos que ha enviado el usuario logueado creando un div en en inbox.html :
+
+```htm
+ <div id="emails-container"></div>
+```  
+
+```javascript
+fetch('/emails/sent')
+    .then(response => response.json())
+    .then(emails => {
+    const container = document.getElementById('emails-container');
+    container.innerHTML = ''; // Clear any existing content
+
+    emails.forEach(email => {
+        const emailElement = document.createElement('div');
+        emailElement.innerHTML = `
+            <h3>${email.subject}</h3>
+            <p>From: ${email.sender}</p>
+            <p>${email.timestamp}</p>
+            <p>${email.body}</p>
+        `;
+        container.appendChild(emailElement);
+    });
+```
+
 ### :point_right: Tarea 2: Mailbox
 
 ### :point_right: Tarea 3: View Email
@@ -20,7 +97,7 @@
 
 ### Utilizando JavaScript, HTML y CSS, complete la implementación de su cliente de correo electrónico de aplicación de una sola página dentro de inbox.js. Debes cumplir con los siguientes requisitos
 
-:negative_squared_cross_mark: 1.-  **Send Mail** Agregue código JavaScript para enviar un correo electrónico cuando el usuario envíe el formulario de redacción de correo electrónico.
+:white_check_mark: 1.-  **Send Mail** Agregue código JavaScript para enviar un correo electrónico cuando el usuario envíe el formulario de redacción de correo electrónico.
 
 - Probablemente quieras realizar una solicitud POST a /emails, pasando valores para los destinatarios, el asunto y el cuerpo.
 

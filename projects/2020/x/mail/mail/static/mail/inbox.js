@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
   document.querySelector('#compose').addEventListener('click', compose_email);
-  document.querySelector('form').onsubmit=save_email(); 
+  document.querySelector('form').onsubmit=save_email; 
 
   // By default, load the inbox
   load_mailbox('inbox');
@@ -25,34 +25,51 @@ function compose_email() {
  
 }
 
-function save_email() {
 
-  document.addEventListener('DOMContentLoaded', function() {
+function save_email(event) {
+    event.preventDefault();
     
-    const v_recipients= document.querySelector('#compose-recipients').value;
-    const v_subject= document.querySelector('#compose-subject').value;
-    const v_body= document.querySelector('#compose-body').value;
-    console.log(" A quien le mande el mensaje", v_recipients);
+    const v_recipients = document.querySelector('#compose-recipients').value;
+    const v_subject = document.querySelector('#compose-subject').value;
+    const v_body = document.querySelector('#compose-body').value;
 
     fetch('/emails', {
       method: 'POST',
       body: JSON.stringify({
-          recipients: v_recipients ,
+          recipients: v_recipients,
           subject: v_subject,
           body: v_body
-        })
+      })
     })
     .then(response => response.json())
     .then(result => {
-    // Print result
-    console.log(result);
+        // Print result
+        console.log(result);
     })
     .catch(error => {
-      console.log("Este es un error:", error);
+        console.log("Este es un error:", error);
     });
-  });
-}
 
+    fetch('/emails/sent')
+    .then(response => response.json())
+    .then(emails => {
+    const container = document.getElementById('emails-container');
+    container.innerHTML = ''; // Clear any existing content
+
+    emails.forEach(email => {
+        const emailElement = document.createElement('div');
+        emailElement.innerHTML = `
+            <h3>${email.subject}</h3>
+            <p>From: ${email.sender}</p>
+            <p>${email.timestamp}</p>
+            <p>${email.body}</p>
+        `;
+        container.appendChild(emailElement);
+    });
+});
+
+  load_mailbox('sent')
+}
 
 
 
