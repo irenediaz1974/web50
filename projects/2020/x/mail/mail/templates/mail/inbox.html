@@ -10,9 +10,19 @@
     <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
     <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
     <hr>
+    <!--  inbox emails -->
+    <div id="emails-view"> 
+        <h3>Inbox by me</h3>
+    </div>
+    <!--  sent emails -->
+    <div id="emails-container">
+        <h3>Email</h3>
+    </div>
+     <!-- archived emails -->
+     <div id="emails-archived">
+        <h3>Archived by me</h3>
+     </div>
 
-    <div id="emails-view"> </div>
-    <div id="emails-container"></div>
 
     <div id="compose-view">
         <h3>New Email</h3>

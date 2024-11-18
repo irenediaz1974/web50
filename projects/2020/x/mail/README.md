@@ -80,10 +80,18 @@ fetch('/emails/sent')
             <p>${email.body}</p>
         `;
         container.appendChild(emailElement);
+        });
     });
 ```
 
 ### :point_right: Tarea 2: Mailbox
+
+- Se visualizan o no los <div> que forman parte del buzon que se solicita por cada boton utilizando style= none, no se visualizará este div
+
+ ```htm
+  document.querySelector('#emails-container').style.display = 'none';
+  document.querySelector('#emails-archived').style.display = 'block';
+ ```
 
 ### :point_right: Tarea 3: View Email
 
@@ -103,7 +111,7 @@ fetch('/emails/sent')
 
 - Una vez enviado el correo electrónico, cargue el buzón de enviados del usuario.
 
-:negative_squared_cross_mark: 2.- **Mailbox** Cargue el buzón correspondiente cuando el usuario visite su Bandeja de entrada, Buzón de enviados o Archivo.
+:white_check_mark: 2.- **Mailbox** Cargue el buzón correspondiente cuando el usuario visite su Bandeja de entrada, Buzón de enviados o Archivo.
 
 - Probablemente desee realizar una solicitud GET a /emails/<mailbox> para solicitar los correos electrónicos de un buzón en particular.
 - Cuando se visita un buzón, la aplicación primero debe consultar la API para conocer los últimos correos electrónicos en ese buzón.
