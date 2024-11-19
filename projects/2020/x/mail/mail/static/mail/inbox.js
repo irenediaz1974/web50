@@ -15,7 +15,9 @@ function compose_email() {
 
 
   // Show compose view and hide other views
-  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#sent-view').style.display = 'none';
+  document.querySelector('#archived-view').style.display = 'none';
+  document.querySelector('#inbox-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'block';
 
   // Clear out composition fields
@@ -53,7 +55,7 @@ function save_email(event) {
     fetch('/emails/sent')
     .then(response => response.json())
     .then(emails => {
-    const container = document.getElementById('emails-container');
+    const container = document.getElementById('sent-view');
     container.innerHTML = ''; // Clear any existing content
 
     emails.forEach(email => {
@@ -76,93 +78,68 @@ function save_email(event) {
 function load_mailbox(mailbox) {
 
     // Show the mailbox and hide other views
+
+    let variable = mailbox;
   
     if (mailbox === "inbox") {
         // Your code for inbox
-          document.querySelector('#emails-view').style.display = 'block';
-          document.querySelector('#compose-view').style.display = 'none';
-          document.querySelector('#emails-container').style.display = 'none';
-          document.querySelector('#emails-archived').style.display = 'none';
+         document.querySelector('#sent-view').style.display = 'none';
+         document.querySelector('#archived-view').style.display = 'none';
+         document.querySelector('#inbox-view').style.display = 'block';
+         document.querySelector('#compose-view').style.display = 'none';
 
-          fetch('/emails/inbox')
-          .then(response => response.json())
-          .then(emails => {
-              const container = document.getElementById('emails-view');
-              container.innerHTML = ''; // Clear any existing content
-          
-              emails.forEach(email => {
-                  const emailElement = document.createElement('div');
-                  emailElement.innerHTML = `
-                      <h3>${email.subject}</h3>
-                      <p>From: ${email.sender}</p>
-                      <p>${email.timestamp}</p>
-                      // <p>${email.body}</p>
-                  `;
-                  container.appendChild(emailElement);
-            });
-          });
+         load_data(mailbox);
 
 
     } else if (mailbox === "sent") {
         // Your code for sent
-        document.querySelector('#emails-view').style.display = 'none';
-          document.querySelector('#compose-view').style.display = 'none';
-          document.querySelector('#emails-container').style.display = 'block';
-          document.querySelector('#emails-archived').style.display = 'none';
-
-          fetch('/emails/sent')
-          .then(response => response.json())
-          .then(emails => {
-              const container = document.getElementById('emails-container');
-              container.innerHTML = ''; // Clear any existing content
-              console.log(emails)
-              emails.forEach(email => {
-                  const emailElement = document.createElement('div');
-                  emailElement.innerHTML = `
-                      <h3>${email.subject}</h3>
-                      <p>From: ${email.sender}</p>
-                      <p>${email.timestamp}</p>
-                      // <p>${email.body}</p>
-                  `;
-                  container.appendChild(emailElement);
-            });
-          });
-
-
-
-
+        document.querySelector('#sent-view').style.display = 'block';
+        document.querySelector('#archived-view').style.display = 'none';
+        document.querySelector('#inbox-view').style.display = 'none';
+        document.querySelector('#compose-view').style.display = 'none';
+        load_data(mailbox);
 
 
     } else if (mailbox === "archive") {
         // Your code for archive
-        document.querySelector('#emails-view').style.display = 'none';
-          document.querySelector('#compose-view').style.display = 'none';
-          document.querySelector('#emails-container').style.display = 'none';
-          document.querySelector('#emails-archived').style.display = 'block';
+        document.querySelector('#sent-view').style.display = 'none';
+        document.querySelector('#archived-view').style.display = 'block';
+        document.querySelector('#inbox-view').style.display = 'none';
+        document.querySelector('#compose-view').style.display = 'none';
+        load_data(mailbox);
 
-          fetch('/emails/archive')
-          .then(response => response.json())
-          .then(emails => {
-              const container = document.getElementById('#emails-archived');
-              container.innerHTML = ''; // Clear any existing content
-          
-              emails.forEach(email => {
-                  const emailElement = document.createElement('div');
-                  emailElement.innerHTML = `
-                      <h3>${email.subject}</h3>
-                      <p>From: ${email.sender}</p>
-                      <p>${email.timestamp}</p>
-                      // <p>${email.body}</p>
-                  `;
-                  container.appendChild(emailElement);
-            });
-          });
     } else {
         // Handle invalid mailbox
         console.error("Algo salio mal con mailbox.");
     }
 
   // Show the mailbox name
-  document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
+  // document.querySelector('#inbox-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
   console.log(mailbox);
+}
+
+function load_data(mailbox) {
+  
+  const variable = mailbox;
+  fetch(`/emails/${variable}`)
+  .then(response => response.json())
+  .then(emails => {
+      const container = document.getElementById(variable + '-view');
+
+      if (container!=null) {
+        container.innerHTML = ''; // Clear any existing content
+      }
+      
+      emails.forEach(email => {
+          const emailElement = document.createElement('div');
+          emailElement.innerHTML = `
+              <h3>${email.subject}</h3>
+              <p>From: ${email.sender}</p>
+              <p>${email.timestamp}</p>
+          `;
+          container.appendChild(emailElement);
+    });
+  });
+
+ 
 }
