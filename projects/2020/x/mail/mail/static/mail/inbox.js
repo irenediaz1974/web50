@@ -145,14 +145,30 @@ function load_data(mailbox) {
           if (email.read === true && mailbox === 'inbox') {
             emailElement.style.backgroundColor = "lightgray";
           }
-          if (email.archive === true && mailbox === 'archive') {
-            console.log("Estoy en archive ");
-          }
+          console.log(email);
+          
           emailElement.innerHTML = `
               <h3>${email.subject}</h3>
               <p>From: ${email.sender}</p>
               <p>${email.timestamp}</p>
           `;
+          if (email.archived === true && mailbox === 'archive') {
+            console.log("Estoy en archive ");
+
+            // Create the undo archived button
+            const undoButton = document.createElement('button');
+            undoButton.textContent = 'Undo  Archived';
+            undoButton.onclick = function() {
+              fetch(`/emails/${email.id}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                  archived: false
+                })
+              })
+              console.log('Deshacer email archived');
+            };
+            emailElement.appendChild(undoButton);
+         }
           container.appendChild(emailElement);
     });
   }); 
@@ -219,7 +235,4 @@ function showEmail(idEmail) {
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
   });
-
- 
-  
 }

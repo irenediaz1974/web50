@@ -131,7 +131,7 @@ fetch('/emails/sent')
 - Consulte la sugerencia en la sección [sugerencias](#pistas) sobre cómo agregar un detector de eventos a un elemento HTML que haya agregado al DOM.
 - Una vez que haya hecho clic en el correo electrónico, debe marcarlo como leído. Recuerde que puede enviar una solicitud PUT a /emails/<email_id> para actualizar si un correo electrónico se lee o no.
 
-:negative_squared_cross_mark: 4.- **Archive and Unarchive** Permita a los usuarios archivar y desarchivar los correos electrónicos que hayan recibido.
+:white_check_mark: 4.- **Archive and Unarchive** Permita a los usuarios archivar y desarchivar los correos electrónicos que hayan recibido.
 
 - Al ver un correo electrónico de la Bandeja de entrada, al usuario se le debe presentar un botón que le permite archivar el correo electrónico. Al ver un correo electrónico Archivado, al usuario se le debe presentar un botón que le permite desarchivar el correo electrónico. Este requisito no se aplica a los correos electrónicos en el buzón de Enviados.
 - Recuerde que puede enviar una solicitud PUT a /emails/<email_id> para marcar un correo electrónico como archivado o no archivado.
