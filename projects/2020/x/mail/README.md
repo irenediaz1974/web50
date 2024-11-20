@@ -4,6 +4,9 @@
 
 ## Tips: :bulb:
 
+Para "Limpiar" el navegador Mozilla Firefox de estilo CSS:
+ Herramientas > Ajustes > Privacy & Security > Cookies and Site Data > Clear Data.
+
 ### :point_right: Tarea 1: Send Mail
 
 a. Añadí a admin.py los modelos:
@@ -119,7 +122,7 @@ fetch('/emails/sent')
 - Luego, cada correo electrónico debe presentarse en su propio cuadro (por ejemplo, como un <div> con un borde) que muestra de quién proviene el correo electrónico, cuál es la línea de asunto y la marca de tiempo del correo electrónico.
 - Si el correo electrónico no está leído, debería aparecer con un fondo blanco. Si el correo electrónico ha sido leído, debería aparecer con un fondo gris.
 
-:negative_squared_cross_mark: 3.- **View Email** Cuando un usuario hace clic en un correo electrónico, se le debe llevar a una vista donde ve el contenido de ese correo electrónico.
+:white_check_mark: 3.- **View Email** Cuando un usuario hace clic en un correo electrónico, se le debe llevar a una vista donde ve el contenido de ese correo electrónico.
 
 - Probablemente quieras realizar una solicitud GET a /emails/<email_id> para solicitar el correo electrónico.
 - Su aplicación debe mostrar el remitente, los destinatarios, el asunto, la marca de tiempo y el cuerpo del correo electrónico.

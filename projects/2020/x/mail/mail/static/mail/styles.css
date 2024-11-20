@@ -1,13 +1,25 @@
 textarea {
     min-height: 400px;
 }
-div {
-    border: 1px solid black;
-    background-color: white;
-}
-
 #compose-view {
     border: none;
     background-color: initial;
 }
 
+div {
+    border: none;
+    background-color: initial;
+}
+
+.email-body {
+    border: 1px solid black;
+    background-color: white;
+  }
+
+  h4 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }

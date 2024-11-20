@@ -7,25 +7,31 @@
     <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
     <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
     <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
-    <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
+    <button class="btn btn-sm btn-outline-primary" id="archive">Archived</button>
     <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
     <hr>
     <!--  inbox emails -->
  
     <div id="inbox-view"> 
-        <h3>Inbox by me</h3>
+        <h4>Inbox by me</h4>
     </div>
      <!-- archived emails -->
-     <div id="archived-view">
-        <h3>Archived by me</h3>
+     <div id="archive-view">
+        <h4>Archived</h4>
      </div>
     <!-- sent emails -->
      <div id="sent-view">
-        <h3>Sent by me</h3>
+        <h4>Sent by me</h4>
+     </div>
+      <!-- show emails -->
+      <div id="show-view">
+        
      </div>
 
+     
+
     <div id="compose-view">
-        <h3>New Email</h3>
+        <h4>New Email</h4>
         <form id="compose-form">
             <div class="form-group">
                 From: <input disabled class="form-control" value="{{ request.user.email }}">
