@@ -123,6 +123,21 @@ event.stopPropagation();
 
 ### :point_right: Tarea 5: Reply
 
+- Para agregar en el body el dato de la fecha en la que se escribió el correo que deseo responder debo convertir timestamp a un formato más "legible"
+
+```javascript
+const timestamp = new Date(email.timestamp);
+const options = { 
+  day: 'numeric', 
+  month: 'long', 
+  year: 'numeric', 
+  hour: 'numeric', 
+  minute: 'numeric', 
+  hour12: true 
+};
+const formattedDate = timestamp.toLocaleString('es-ES', options);
+```
+
 ***
 
 ## Tarea a realizar
@@ -158,7 +173,7 @@ event.stopPropagation();
 - Recuerde que puede enviar una solicitud PUT a /emails/<email_id> para marcar un correo electrónico como archivado o no archivado.
 - Una vez que un correo electrónico ha sido archivado o desarchivado, cargue la bandeja de entrada del usuario.
 
-:negative_squared_cross_mark: 5.- **Reply** Permitir a los usuarios responder a un correo electrónico.
+:white_check_mark: 5.- **Reply** Permitir a los usuarios responder a un correo electrónico.
 
 - Al ver un correo electrónico, al usuario se le debe presentar un botón "Responder" que le permite responder al correo electrónico.
 - Cuando el usuario hace clic en el botón "Responder", se le debe dirigir al formulario de redacción del correo electrónico.
@@ -166,7 +181,8 @@ event.stopPropagation();
 - Complete previamente la línea de asunto. Si el correo electrónico original tenía una línea de asunto foo, la nueva línea de asunto debería ser Re: foo. (Si la línea de asunto ya comienza con Re:, no es necesario volver a agregarla).
 - Complete previamente el cuerpo del correo electrónico con una línea como "El 1 de enero de 2020, a las 12:00 a. m., <foo@example.com> escribió:" seguida del texto original del correo electrónico.
 
-:white_check_mark:
+
+:negative_squared_cross_mark:
 
 ### Pistas
 

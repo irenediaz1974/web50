@@ -4,13 +4,15 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
   document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
   document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
-  document.querySelector('#compose').addEventListener('click', compose_email);
+  document.querySelector('#compose').addEventListener('click', function() {
+    compose_email({});
+  });
 
   // By default, load the inbox
   load_mailbox('inbox');
 });
 
-function compose_email() {
+function compose_email(email) {
 
   // Show compose view and hide other views
   document.querySelector('#emails-view').style.display = 'none';
@@ -22,7 +24,20 @@ function compose_email() {
   document.querySelector('#compose-body').value = '';
 
    // save email
+  if (email) {
+    // email exists, write data inside html
+    document.querySelector('#compose-recipients').value= email.sender;
 
+    if (!email.subject.startsWith('Re: ')) {
+      document.querySelector('#compose-subject').value = 'Re: '+ email.subject;
+    } else {
+      document.querySelector('#compose-subject').value = email.subject;
+    }
+
+    document.querySelector('#compose-body').value = 'El: ' + convert(email.timestamp) + ', ' + email.sender + " escribió: " + email.body;
+  } else {
+    // email does not exist, handle accordingly
+  }
   document.querySelector('form').onsubmit=save_email; 
 }
 
@@ -157,8 +172,13 @@ function leer(id_email) {
       <p>From: ${email.sender}</p>
       <p>${email.timestamp}</p>
       <p>${email.body}</p>
+      <button id="replyButton">Reply</button>
     `;
     container.appendChild(emailElement);
+    document.getElementById('replyButton').addEventListener('click', function() {
+      compose_email(email);
+
+    });
     console.log(email);
   });
   
@@ -198,5 +218,18 @@ function save_email(event) {
 
   load_mailbox('sent');
 
+}
+
+function convert(timestamp) {
+  const date = new Date(timestamp);
+  const options = { 
+    day: 'numeric', 
+    month: 'long', 
+    year: 'numeric', 
+    hour: 'numeric', 
+    minute: 'numeric', 
+    hour12: true 
+  };
+  return date.toLocaleString('es-ES', options);
 }
 
