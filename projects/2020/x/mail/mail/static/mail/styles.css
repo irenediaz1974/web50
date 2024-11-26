@@ -9,17 +9,69 @@ textarea {
 div {
     border: none;
     background-color: initial;
+    
 }
 
-.email-body {
-    border: 1px solid black;
-    background-color: white;
-  }
 
-  h4 {
+h3 {
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #070707;
     margin-bottom: 20px;
     text-transform: uppercase;
+}
+
+#sender {
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+/* #timestamp {
+    float: right;
   }
+  
+  #archivedButton {
+    height: 18px;
+    width: auto;
+    padding: 2px 5px; 
+    font-size: 10px;
+    float: right;
+    margin-right: 10px; 
+*/
+.highlight {
+    border: 1px solid darkgray;
+    background-color: lightgray;
+  }
+
+  li {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 10px; /* Ajusta este valor según el espacio que desees */
+  }
+  
+  
+
+  #subject {
+    margin-right: auto;
+  }
+  
+  #timestamp {
+    order: 1;
+  }
+  
+  #archivedButton {
+    order: 2;
+    height: 18px;
+    width: auto;
+    padding: 2px 5px; 
+    font-size: 12px;
+    margin-left: 10px;
+    background: none;
+    border: none;
+    color: blue; /* Puedes cambiar el color si lo deseas */
+    text-decoration: underline;
+    cursor: pointer; /* Cambia el cursor para que parezca un enlace */   
+  }  
+
+

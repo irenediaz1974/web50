@@ -96,9 +96,30 @@ fetch('/emails/sent')
   document.querySelector('#emails-archived').style.display = 'block';
  ```
 
+- Para evitar que un submit vaya hacia el server-side:
+
+```javascript
+ function save_email(event) {
+  event.preventDefault();
+  // code here
+ }
+```
+
 ### :point_right: Tarea 3: View Email
 
 ### :point_right: Tarea 4: Archive and Unarchive
+
+- Una vez que se ha modificado, deberia verse el buzon inbox sin el elemento archivado, usé para ello:
+
+```javascript
+location.reload();
+```
+
+- Al añadirse codigo a evento click del botón archivar y al click del <li> como tal, para evitar que se ejecute el click del <li>
+
+```javascript
+event.stopPropagation();
+``` 
 
 ### :point_right: Tarea 5: Reply
 
