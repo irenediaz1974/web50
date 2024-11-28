@@ -140,6 +140,46 @@ const formattedDate = timestamp.toLocaleString('es-ES', options);
 
 ***
 
+#### Utilizando la API historial de JavaScript
+
+Ver mas información en: [History API](https://developer.mozilla.org/en-US/docs/Web/API/History_API) to manage navigation and state changes within the application.
+
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+  // Use buttons to toggle between views
+  document.querySelector('#inbox').addEventListener('click', () => {
+    history.pushState({ mailbox: 'inbox' }, '', '#inbox');
+    load_mailbox('inbox');
+  });
+  document.querySelector('#sent').addEventListener('click', () => {
+    history.pushState({ mailbox: 'sent' }, '', '#sent');
+    load_mailbox('sent');
+  });
+  document.querySelector('#archived').addEventListener('click', () => {
+    history.pushState({ mailbox: 'archive' }, '', '#archive');
+    load_mailbox('archive');
+  });
+  document.querySelector('#compose').addEventListener('click', function() {
+    history.pushState({ compose: {} }, '', '#compose');
+    compose_email({});
+  });
+  // By default, load the inbox
+  load_mailbox('inbox');
+});
+
+window.addEventListener('popstate', (event) => {
+  if (event.state) {
+    if (event.state.mailbox) {
+      load_mailbox(event.state.mailbox);
+    } else if (event.state.compose) {
+      compose_email(event.state.compose);
+    }
+  }
+});
+```
+
+***
+
 ## Tarea a realizar
 
 ### Utilizando JavaScript, HTML y CSS, complete la implementación de su cliente de correo electrónico de aplicación de una sola página dentro de inbox.js. Debes cumplir con los siguientes requisitos

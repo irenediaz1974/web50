@@ -1,16 +1,36 @@
 document.addEventListener('DOMContentLoaded', function() {
-
   // Use buttons to toggle between views
-  document.querySelector('#inbox').addEventListener('click', () => load_mailbox('inbox'));
-  document.querySelector('#sent').addEventListener('click', () => load_mailbox('sent'));
-  document.querySelector('#archived').addEventListener('click', () => load_mailbox('archive'));
+  document.querySelector('#inbox').addEventListener('click', () => {
+    history.pushState({ mailbox: 'inbox' }, '', '#inbox');
+    load_mailbox('inbox');
+  });
+  document.querySelector('#sent').addEventListener('click', () => {
+    history.pushState({ mailbox: 'sent' }, '', '#sent');
+    load_mailbox('sent');
+  });
+  document.querySelector('#archived').addEventListener('click', () => {
+    history.pushState({ mailbox: 'archive' }, '', '#archive');
+    load_mailbox('archive');
+  });
   document.querySelector('#compose').addEventListener('click', function() {
+    history.pushState({ compose: {} }, '', '#compose');
     compose_email({});
   });
-
   // By default, load the inbox
   load_mailbox('inbox');
 });
+
+window.addEventListener('popstate', (event) => {
+  if (event.state) {
+    if (event.state.mailbox) {
+      load_mailbox(event.state.mailbox);
+    } else if (event.state.compose) {
+      compose_email(event.state.compose);
+    }
+  }
+});
+
+
 
 function compose_email(email) {
 
