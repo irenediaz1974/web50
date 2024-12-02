@@ -2,13 +2,13 @@
 
 *Diseñar un sitio web de red social similar a Threads para realizar publicaciones y seguir a usuarios.*
 
+![Network Image]({{ {% static 'network/network.png' %} }})
+
 ## Tips: :bulb:
 
 To Do
 
 ### :point_right: Tarea 1: Send Mail
-
-
 
 b. Crear cuenta de superuser que permite acceder a la interface admin de Django
 
@@ -24,36 +24,29 @@ Password (again): rootAdmin
 Superuser created successfully.
 ```
 
-c. 
- 
-d. 
+c.
 
+d.
 
+### :point_right: Tarea 2
 
-### :point_right: Tarea 2: 
+-
 
-- 
+### :point_right: Tarea 3
 
+### :point_right: Tarea 4
 
+### :point_right: Tarea 5
 
-### :point_right: Tarea 3: 
-
-### :point_right: Tarea 4: 
-
-
-
-### :point_right: Tarea 5: 
-
-- 
+-
 
 ***
-
 
 ***
 
 ## Tarea a realizar
 
-### Utilizando Python, JavaScript, HTML y CSS, complete la implementación de una red social que permita a los usuarios realizar publicaciones, seguir a otros usuarios y dar “me gusta” a las publicaciones. Debes cumplir con los siguientes requisitos:
+### Utilizando Python, JavaScript, HTML y CSS, complete la implementación de una red social que permita a los usuarios realizar publicaciones, seguir a otros usuarios y dar “me gusta” a las publicaciones. Debes cumplir con los siguientes requisitos
 
 :negative_squared_cross_mark: 1.-  **New Post** Los usuarios que hayan iniciado sesión deberían poder escribir una nueva publicación basada en texto completando texto en un área de texto y luego haciendo clic en un botón para enviar la publicación.
 
@@ -104,7 +97,7 @@ Para ver ejemplos de llamadas de recuperación de JavaScript, es posible que le 
 
 ## Pasos seguidos
 
-- Download  https://cdn.cs50.net/web/2020/spring/projects/4/network.zip y descompacta.
+- Download  <https://cdn.cs50.net/web/2020/spring/projects/4/network.zip> y descompacta.
 - cd hacia el directorio project4.
 - Realizar la migración.
 
