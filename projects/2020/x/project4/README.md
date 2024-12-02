@@ -6,7 +6,9 @@
 
 ![Network Image 2](/network/static/network/network.png)
 
+![div](/images/image1.png)
 
+![div](/network/static/network/network.png)
 
 ## Tips: :bulb:
 
