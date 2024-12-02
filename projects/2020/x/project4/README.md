@@ -2,7 +2,11 @@
 
 *Diseñar un sitio web de red social similar a Threads para realizar publicaciones y seguir a usuarios.*
 
-![Network Image]('network/network.png')
+![Network Image](network/network.png)
+
+![Network Image 2](/static/network/network.png)
+
+![div](/images/image1.png)
 
 ## Tips: :bulb:
 
