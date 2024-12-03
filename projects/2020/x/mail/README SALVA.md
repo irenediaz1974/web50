@@ -13,7 +13,7 @@ To Do
 a. - Ejecutar para correr migrations:
 
 ```python
-   python manage.py makemigrations project4 
+   python manage.py makemigrations network
    python manage.py migrate
 ```
 
