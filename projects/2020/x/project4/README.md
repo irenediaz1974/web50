@@ -32,22 +32,72 @@ c. Cree usuarios en el sitio network: foo, uno y dos
 d: Modelado de datos: Neceito ademas de Users algo que me almacene posts, likes y followers, tal como pide la tarea, en esto le pedí ayuda a la IA CS50, esta fue su respuesta:
 *Para representar posts, likes y followers en un modelo de datos, puedes pensar en las siguientes entidades y sus relaciones
 
-Post: Representa una publicación.
+Tabla1: Post. (Atributos: id, contenido, fecha, usuario_id (autor))
+Tabla 2: ReactionPost: (Atributos: id, usuario_id, post_id, id_emoji)
+Tabla3: ReactionsCategory: (Atributos: id_emoji, emoji)
+Tabla4: Follower:( Atributos: id, id_seguidor, id_seguido)*
 
-- Atributos: id, contenido, fecha, usuario_id
+```python
+CREATE TABLE ReactionsCategory (
+    id_ReactionsCategory INTEGER PRIMARY KEY,
+    imagen TEXT
+)
+```
 
-Like: Representa un "me gusta" en una publicación.
+e: Creando el modelo de datos. Literalmente me lo construyo la IA.
 
-- Atributos: id, usuario_id, post_id
+***
 
-Follower: Representa la relación de seguimiento entre usuarios.
+f: ##### Preparando el backend para usar API
 
-- Atributos: id, seguidor_id, seguido_id*
+- Instalar DRF
 
-e: Creando el modelo de datos.
+```python
+pip install djangorestframework
+```
 
+- Crear en models.py la clase serialize:
 
-d. Crear cuenta de superuser que permite acceder a la interface admin de Django
+```python
+from rest_framework import serializers
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = '__all__'
+```
+
+- Crear en views.py
+
+```python
+from rest_framework import generics
+from .models import Post
+from .models import PostSerializer
+
+class PostListCreate(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+class PostDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+```
+
+- Crear en urls.py
+
+```python
+from django.urls import path
+from .views import PostListCreate, PostDetail
+
+urlpatterns = [
+    path('posts/', PostListCreate.as_view(), name='post-list-create'),
+    path('posts/<int:pk>/', PostDetail.as_view(), name='post-detail'),
+]
+```
+
+***
+
+f. Crear cuenta de superuser que permite acceder a la interface admin de Django
 
  ```python
 python manage.py createsuperuser
@@ -60,10 +110,6 @@ Password: rootAdmin
 Password (again): rootAdmin
 Superuser created successfully.
 ```
-
-c.
-
-d.
 
 ### :point_right: Tarea 2
 
