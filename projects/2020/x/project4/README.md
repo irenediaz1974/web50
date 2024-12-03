@@ -17,8 +17,7 @@ a. - Ejecutar para correr migrations:
    python manage.py migrate
 ```
 
-
-a. Añadí a admin.py los modelos proporcionados por el ejercicio:
+b. Añadí a admin.py los modelos proporcionados por el ejercicio:
 
 ```python
 from django.contrib import admin
@@ -28,7 +27,27 @@ from .models import User
 admin.site.register(User)
 ```
 
-b. Crear cuenta de superuser que permite acceder a la interface admin de Django
+c. Cree usuarios en el sitio network: foo, uno y dos
+
+d: Modelado de datos: Neceito ademas de Users algo que me almacene posts, likes y followers, tal como pide la tarea, en esto le pedí ayuda a la IA CS50, esta fue su respuesta:
+*Para representar posts, likes y followers en un modelo de datos, puedes pensar en las siguientes entidades y sus relaciones
+
+Post: Representa una publicación.
+
+- Atributos: id, contenido, fecha, usuario_id
+
+Like: Representa un "me gusta" en una publicación.
+
+- Atributos: id, usuario_id, post_id
+
+Follower: Representa la relación de seguimiento entre usuarios.
+
+- Atributos: id, seguidor_id, seguido_id*
+
+e: Creando el modelo de datos.
+
+
+d. Crear cuenta de superuser que permite acceder a la interface admin de Django
 
  ```python
 python manage.py createsuperuser
