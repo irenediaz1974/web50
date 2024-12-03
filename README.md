@@ -4,6 +4,29 @@
 
 ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
 
+### Proyecto 4
+
+:white_check_mark: - Tarea: Project4. Readme del proyecto [Project 4](/../../../../irenediaz1974/web50/blob/main/projects/2020/x/project4/README.md) (Framework Django)
+
+#### *Diseñar un sitio web de red social similar a Threads para realizar publicaciones y seguir a usuarios.*
+
+Ejecución del proyecto:
+
+1. Obtener fichero network.zip con la estructura del proyecto:
+
+  ```console
+  <https://cdn.cs50.net/web/2020/spring/projects/4/network.zip>
+  ```
+
+2.Primeros pasos (En mi PC):
+
+- En projects\2020\x --> Descompactar: project4.zip
+- cd into the project4
+- Crear fichero README.md.
+
+3.Realizar submit50
+
+
 ### Proyecto 3
 
 :white_check_mark: - Tarea: Mail. Readme del proyecto [Mail](/../../../../irenediaz1974/web50/blob/main/projects/2020/x/mail/README.md) (Framework Django)
