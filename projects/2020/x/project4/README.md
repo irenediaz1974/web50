@@ -46,8 +46,17 @@ CREATE TABLE ReactionsCategory (
 
 e: Creando el modelo de datos. Literalmente me lo construyo la IA.
 -Creando el modelo de forma visual(For more information, visit [Wiki](https://github.com/irenediaz1974/web50/wiki/COMMERCE-project#c%C3%B3mo-gener%C3%A9-esta-imagen).):
+Luego de seguir los pasos de actualizar settings.py y app.py
 
+Ejecutar:
 
+```python
+python manage.py graph_models network -a --color-code-deletions --arrow-shape normal  -o network.png
+```
+
+Esto genera esta imagen del DER del ejercicio:
+
+<img src="network.png" alt="Modelo de Datos" style="border: 2px solid black;">
 
 ***
 
