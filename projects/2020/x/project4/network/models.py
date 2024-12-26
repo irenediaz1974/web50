@@ -11,8 +11,6 @@ class Post(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
-
-
 class ReactionsCategory(models.Model):
     emoji = models.CharField(max_length=10)
 
@@ -24,8 +22,6 @@ class ReactionPost(models.Model):
 class Follower(models.Model):
     seguidor = models.ForeignKey(User, related_name='seguidos', on_delete=models.CASCADE)
     seguido = models.ForeignKey(User, related_name='seguidores', on_delete=models.CASCADE)
-
-
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:

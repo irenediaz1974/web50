@@ -45,6 +45,9 @@ CREATE TABLE ReactionsCategory (
 ```
 
 e: Creando el modelo de datos. Literalmente me lo construyo la IA.
+-Creando el modelo de forma visual(For more information, visit [Wiki](https://github.com/irenediaz1974/web50/wiki/COMMERCE-project#c%C3%B3mo-gener%C3%A9-esta-imagen).):
+
+
 
 ***
 

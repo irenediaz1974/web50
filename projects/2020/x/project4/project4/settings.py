@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'network',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'rest_framework',
     'django.contrib.staticfiles',
+    'django_extensions', # para usar el generador de imagen de DER
+    'network.apps.NetworkConfig',  # Para declarar como usar el defaultAutofield
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_extensions',
 ]
 
 ROOT_URLCONF = 'project4.urls'
@@ -121,3 +123,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+GRAPH_MODELS = {
+    'app_labels': ["network"],
+    'include_models': ["User", "Post", "ReactionsCategory", "ReactionPost", "Follower"],
+    'group_models': True,
+}
